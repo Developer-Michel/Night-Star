@@ -1,6 +1,6 @@
 import { Navbar, Container } from "react-bootstrap";
 import "./Header.scss";
-import lotusImage from "public/assets/lotus.png";
+import lotusImage from "/assets/lotus.png";
 import { useDataContext } from "@context/DataContext";
 import { useEffect } from "react";
 
@@ -22,9 +22,7 @@ const UserPicture = () => {
   return (
     <div className={`header-user-img ms-auto ${selectedUser ? "visible" : ""}`}>
       <Navbar.Brand href="#profile">
-        {selectedUser && (
-          <img src={`public/assets/${selectedUser.UserName.toString()}.jpg`} alt={selectedUser.toString()} />
-        )}
+        {selectedUser && <img src={`/assets/${selectedUser.UserName.toString()}.jpg`} alt={selectedUser.toString()} />}
       </Navbar.Brand>
     </div>
   );
