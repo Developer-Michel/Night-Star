@@ -1,0 +1,42 @@
+/* Container styles */
+.container {
+}
+
+/* Title styling */
+.title {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+/* Zen button styling */
+.zen-button {
+  background-color: #4f6457; /* Soft pastel blue */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  margin: 10px 0;
+  font-size: 16px;
+  width: 33.333%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.zen-button:disabled {
+  opacity: 0.5;
+  cursor: auto;
+}
+
+.zen-button:hover:not(:disabled) {
+  background-color: #81a1c1; /* Darker shade on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+/* Date text styling */
+.date {
+  margin: 5px 0;
+  color: #4c566a; /* Soft gray text for calmness */
+}

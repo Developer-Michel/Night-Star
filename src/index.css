@@ -1,0 +1,70 @@
+html,
+body,
+#root {
+  height: 100%;
+  font-family: "sherif font";
+}
+body {
+  background-color: #f8f4e3 !important;
+}
+/* Container for the toasts */
+.Toastify__toast-container {
+  width: 350px; /* Adjust width of toast */
+}
+
+/* Individual toast */
+.Toastify__toast {
+  background-color: rgba(245, 245, 245, 0.7) !important; /* Soft light gray background */
+  color: #333 !important; /* Dark gray text for contrast */
+  border-radius: 12px !important; /* Rounded corners for a smooth, friendly look */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important; /* Soft shadow for a floating effect */
+  padding: 16px !important; /* Add padding for space inside the toast */
+  font-family: "Roboto", sans-serif !important ; /* Simple, modern font */
+  font-size: 16px !important; /* Comfortable font size */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation for show/hide */
+}
+
+/* Toast body */
+.Toastify__toast-body {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-weight: normal !important;
+}
+.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: #4f6457; /* Change success icon color */
+}
+/* Progress bar styling */
+.Toastify__progress-bar {
+  background-color: #4f6457 !important; /* Soft pastel color for progress */
+}
+
+/* Custom enter and exit animations */
+.Toastify__toast--enter {
+  transform: scale(1.05) !important; /* Slightly bigger on enter */
+}
+
+.Toastify__toast--exit {
+  transform: scale(0.95) !important; /* Shrink slightly on exit */
+  opacity: 0 !important; /* Fade out on exit */
+}
+
+/* Dismiss button (close button) styling */
+.Toastify__close-button {
+  color: #888 !important; /* Subtle close button color */
+  opacity: 0.7 !important;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1 !important; /* Fully visible on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .Toastify__toast-container {
+    width: 100% !important; /* Full width on smaller screens */
+  }
+
+  .Toastify__toast {
+    font-size: 14px !important; /* Smaller font for mobile */
+  }
+}

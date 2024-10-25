@@ -1,0 +1,45 @@
+.date-navigator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+  border-radius: 10px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(-3em);
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+.date-navigator button {
+  background-color: transparent;
+  color: #4f6457;
+  border: none;
+
+  height: 100%;
+
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+.date-navigator .date-navigator-indicator {
+  font-size: larger;
+  color: #4f6457;
+}
+.date-navigator button:hover {
+}
+
+.date-navigator button:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.date-navigator .date {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  color: #333;
+}
+
+.date-navigator.visible {
+  opacity: 1;
+  transform: translateY(0em);
+}

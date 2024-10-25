@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@component/*": ["src/component/*"],
+      "@recoil/*": ["src/recoil/*"],
+      "@tool/*": ["src/tool/*"],
+      "types/*": ["src/types/*"],
+      "@context/*": ["src/context/*"],
+      "@adapter/*": ["src/adapter/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "src/*": ["src/*"]
+
+    },
+  },
+  "include": ["src"]
+}

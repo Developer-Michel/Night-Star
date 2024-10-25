@@ -1,0 +1,45 @@
+.header {
+  height: 3.5em;
+  position: absolute !important;
+  top: 0;
+  width: 100%;
+  background-color: rgba(212, 175, 55, 0.5);
+  z-index: 1000;
+  font-weight: 900;
+  font-family: "Serif Fonts";
+  // border-bottom-left-radius: 1em;
+  // border-bottom-right-radius: 1em;
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: 0.1em;
+  .header-user-img {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(20px);
+
+    transition: opacity 1s ease, transform 1s ease;
+    img {
+      border-radius: 100%;
+      height: 100%;
+      height: 2em;
+      float: right;
+      aspect-ratio: 1/1;
+    }
+    &.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    /* Animated state */
+  }
+
+  .header-logo {
+    height: 1.5em;
+    aspect-ratio: 1/1;
+  }
+}
+
+#userPicture {
+}
+.dropdown::after {
+  content: none;
+}
