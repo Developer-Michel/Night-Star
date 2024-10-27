@@ -17,10 +17,10 @@ import {
   Radar,
   RadarChart,
   Area,
-  Bar,
   ComposedChart,
   AreaChart
 } from "recharts";
+import { format, parse } from "date-fns";
 export const Stats = () => {
   const [datas, setDatas] = useState<TrackingData[]>([]);
   const { api } = useComm();
@@ -60,7 +60,20 @@ export const Stats = () => {
       </Row>
       <Row>
         <Col>
-          <SentenceGroup data={datas} />
+          <SentenceGroup
+            data={datas
+              .filter((x) => x.HappySentence != null && x.HappySentence != "")
+              .map((x) => ({ name: x.HappySentence, date: x.Date }))}
+          />{" "}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <SentenceGroup
+            data={datas
+              .filter((x) => x.RealisationSentence != null && x.RealisationSentence != "")
+              .map((x) => ({ name: x.RealisationSentence ?? "", date: x.Date }))}
+          />{" "}
         </Col>
       </Row>
     </Container>
@@ -77,9 +90,9 @@ const SleepGraph = ({ data }: { data: TrackingData[] }) => {
           <Tooltip />
           <Legend />
           <CartesianGrid stroke="#f5f5f5" />
-          <Area type="monotone" dataKey="SleepQuality" fill="#8884d8" stroke="#8884d8" />
-          <Bar dataKey="AnxietyLevel" barSize={20} fill="#413ea0" />
-          <Line type="monotone" dataKey="StressLevel" stroke="#ff7300" />
+          <Area type="monotone" dataKey="SleepQuality" fill="#4CAF50" stroke="#4CAF50" />
+          <Line type="monotone" dataKey="AnxietyLevel" fill="#5D6D7E" />
+          <Line type="monotone" dataKey="StressLevel" stroke="#C0392B" />
         </ComposedChart>
       </ResponsiveContainer>
     </div>
@@ -99,26 +112,36 @@ const BalanceGraph = ({ data }: { data: TrackingData[] }) => {
               <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
               <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
             </linearGradient>
+            <linearGradient id="colorSv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#E9D8A6" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#E9D8A6" stopOpacity={0} />
+            </linearGradient>
           </defs>
           <XAxis dataKey="name" />
           <YAxis />
+          <Legend />
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
-          <Area type="monotone" dataKey="MeditationTime" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-          <Area type="monotone" dataKey="ExerciseTime" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+          <Area type="monotone" dataKey="MeditationTime" stroke="#C3B1E1" fillOpacity={1} fill="url(#colorUv)" />
+          <Area type="monotone" dataKey="ExerciseTime" stroke="#B5D8B5" fillOpacity={1} fill="url(#colorPv)" />
+          <Area type="monotone" dataKey="OutsideWalkTime" stroke="#E9D8A6" fillOpacity={1} fill="url(#colorSv)" />
         </AreaChart>
       </ResponsiveContainer>
     </div>
   );
 };
-const SentenceGroup = ({ data }: { data: TrackingData[] }) => {
-  const sentences = data.map((x) => x.HappySentence).filter((x) => x != null || x != " ");
+const SentenceGroup = ({ data }: { data: { name: string; date: string }[] }) => {
   return (
-    <div className="sentence-group">
-      {sentences.map((x) => (
-        <div key={x}>{x}</div>
+    <Container fluid className="sentence-group">
+      {data.map((x) => (
+        <Row key={x.name}>
+          <Col xs={10}>{x.name}</Col>
+          <Col xs={2}>
+            <div className="sentence-group-date">{format(parse(x.date, "yyyy-MM-dd", new Date()), "d MMMM")}</div>
+          </Col>
+        </Row>
       ))}
-    </div>
+    </Container>
   );
 };
 const RadarGraph = ({ data }: { data: TrackingData[] }) => {

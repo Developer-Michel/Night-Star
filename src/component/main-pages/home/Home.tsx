@@ -128,6 +128,7 @@ const HomeContent = ({
       <ZenSlider
         max={14}
         uom="H"
+        multiple={0.5}
         defaultValue={data.SleepTime}
         placeholder="Hours of sleep"
         submit={(value) => {
@@ -154,13 +155,23 @@ const HomeContent = ({
         }}
       />
       <ZenSlider
-        max={360}
+        max={180}
         uom="min"
-        multiple={15}
+        multiple={5}
         placeholder="Exercise time"
         defaultValue={data.ExerciseTime}
         submit={(value) => {
           updateData({ ...data, ExerciseTime: value });
+        }}
+      />
+      <ZenSlider
+        max={180}
+        uom="min"
+        multiple={5}
+        placeholder="Outside walk time"
+        defaultValue={data.OutsideWalkTime}
+        submit={(value) => {
+          updateData({ ...data, OutsideWalkTime: value });
         }}
       />
       <ZenSlider
@@ -191,10 +202,17 @@ const HomeContent = ({
         }}
       />
       <ZenInput
-        placeholder={"Something that made you happy today..."}
+        placeholder={"Something that made you happy today...😊"}
         defaultValue={data.HappySentence}
         onSubmit={(value) => {
           updateData({ ...data, HappySentence: value });
+        }}
+      />
+      <ZenInput
+        placeholder={"Something that you realized today...🧠"}
+        defaultValue={data.RealisationSentence ?? ""}
+        onSubmit={(value) => {
+          updateData({ ...data, RealisationSentence: value });
         }}
       />
       <Row>

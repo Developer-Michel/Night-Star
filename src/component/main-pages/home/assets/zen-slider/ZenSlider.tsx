@@ -25,7 +25,7 @@ export const ZenSlider = ({
     }, 100);
   }, []);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(parseInt(e.target.value)));
+    setValue(Number(parseFloat(e.target.value)));
   };
 
   return (
