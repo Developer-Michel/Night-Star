@@ -94,11 +94,13 @@ const SleepGraph = ({ data }: { data: TrackingData[] }) => {
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data}>
           <XAxis dataKey="name" />
-          <YAxis />
+          <YAxis domain={[0, 10]} />
           <Tooltip />
           <Legend />
           <CartesianGrid stroke="#f5f5f5" />
+          <Area type="monotone" dataKey="SleepTime" fill="#8884d8" stroke="#8884d8" />
           <Area type="monotone" dataKey="SleepQuality" fill="#4CAF50" stroke="#4CAF50" />
+
           <Line type="monotone" dataKey="AnxietyLevel" fill="#5D6D7E" />
           <Line type="monotone" dataKey="StressLevel" stroke="#C0392B" />
         </ComposedChart>

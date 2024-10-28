@@ -145,7 +145,7 @@ const HomeContent = ({
         }}
       />
       <ZenSlider
-        max={180}
+        max={480}
         uom="min"
         multiple={5}
         placeholder="Meditation time"
