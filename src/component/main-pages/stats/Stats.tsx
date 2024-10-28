@@ -43,33 +43,40 @@ export const Stats = () => {
           <DateRangeButtons setDateRange={setDateRange} />
         </Col>
       </Row>
+
       <Row>
         <Col>
           <SleepGraph data={datas} />
         </Col>
       </Row>
+      <hr></hr>
       <Row>
         <Col>
           <BalanceGraph data={datas} />
         </Col>
       </Row>
+      <hr></hr>
       <Row>
         <Col>
           <RadarGraph data={datas} />
         </Col>
       </Row>
+      <hr></hr>
       <Row>
         <Col>
           <SentenceGroup
+            name={"Things that made me happy"}
             data={datas
               .filter((x) => x.HappySentence != null && x.HappySentence != "")
               .map((x) => ({ name: x.HappySentence, date: x.Date }))}
           />{" "}
         </Col>
       </Row>
+      <hr></hr>
       <Row>
         <Col>
           <SentenceGroup
+            name={"Realisation"}
             data={datas
               .filter((x) => x.RealisationSentence != null && x.RealisationSentence != "")
               .map((x) => ({ name: x.RealisationSentence ?? "", date: x.Date }))}
@@ -83,6 +90,7 @@ export const Stats = () => {
 const SleepGraph = ({ data }: { data: TrackingData[] }) => {
   return (
     <div style={{ width: "100%", height: "20em" }}>
+      <div className="stats-title">Sleep tracker</div>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data}>
           <XAxis dataKey="name" />
@@ -101,6 +109,7 @@ const SleepGraph = ({ data }: { data: TrackingData[] }) => {
 const BalanceGraph = ({ data }: { data: TrackingData[] }) => {
   return (
     <div style={{ width: "100%", height: "20em" }}>
+      <div className="stats-title">Healthy habit graph</div>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
           <defs>
@@ -130,18 +139,21 @@ const BalanceGraph = ({ data }: { data: TrackingData[] }) => {
     </div>
   );
 };
-const SentenceGroup = ({ data }: { data: { name: string; date: string }[] }) => {
+const SentenceGroup = ({ data, name }: { data: { name: string; date: string }[]; name: string }) => {
   return (
-    <Container fluid className="sentence-group">
-      {data.map((x) => (
-        <Row key={x.name}>
-          <Col xs={10}>{x.name}</Col>
-          <Col xs={2}>
-            <div className="sentence-group-date">{format(parse(x.date, "yyyy-MM-dd", new Date()), "d MMMM")}</div>
-          </Col>
-        </Row>
-      ))}
-    </Container>
+    <>
+      <div className="stats-title">{name}</div>
+      <Container fluid className="sentence-group">
+        {data.map((x) => (
+          <Row className="sentence-group-row" key={x.name}>
+            <Col xs={10}>{x.name}</Col>
+            <Col xs={2}>
+              <div className="sentence-group-date">{format(parse(x.date, "yyyy-MM-dd", new Date()), "d MMMM")}</div>
+            </Col>
+          </Row>
+        ))}
+      </Container>
+    </>
   );
 };
 const RadarGraph = ({ data }: { data: TrackingData[] }) => {
@@ -159,6 +171,7 @@ const RadarGraph = ({ data }: { data: TrackingData[] }) => {
 
   return (
     <div style={{ width: "100%", height: "20em" }}>
+      <div className="stats-title">Health radar</div>
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart data={radarData}>
           <PolarGrid />

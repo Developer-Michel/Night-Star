@@ -2,15 +2,22 @@
   padding-top: 3.5em;
   padding-bottom: 10em;
 }
+.stats-title {
+  font-family: "Lora", serif;
+  font-size: 1.5rem;
+  color: #4f6457;
+  margin-top: 15px;
+}
 .sentence-group {
   max-height: 30em;
   overflow: auto;
 
   max-height: 10em;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  div {
+  .sentence-group-row {
     box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
     background-color: rgba($color: #ffffff, $alpha: 0.5);
+    margin-bottom: 0.1em;
   }
   & .sentence-group-date {
     text-align: end;

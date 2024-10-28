@@ -1,4 +1,4 @@
-import { TrackingData, UserDto } from "types/Types";
+import { Goal, TrackingData, UserDto } from "types/Types";
 import {
   RequestObj,
   HttpHeaderObj,
@@ -78,6 +78,37 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
               `Login/Login?userId=${requestData.dto.userId}&&nip=${requestData.dto.nip}`,
               "Loading information for you"
             )
+          })
+        );
+      }
+    },
+    goal: {
+      getAllGoals(requestData: AddRequestInterface<{ userId: number }, Goal[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(
+              RequestType.GET,
+              `Goal/GetAllGoals?userId=${requestData.dto.userId}`,
+              `Loading information for you`,
+              requestData.dto
+            )
+          })
+        );
+      },
+      addGoal(requestData: AddRequestInterfaceWithoutSender<Goal>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Goal/AddGoal`, "Update...")
+          })
+        );
+      },
+      updateGoal(requestData: AddRequestInterface<{ userId: number; nip: string }, TrackingData[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Goal/UpdateGoal`, "Update...")
           })
         );
       }

@@ -3,6 +3,7 @@ import { useDataContext } from "../../context/DataContext";
 import "./Content.scss";
 import { Home } from "@component/main-pages/home/Home";
 import { Stats } from "@component/main-pages/stats/Stats";
+import { Goal } from "@component/goal/Goal";
 export const Content = () => {
   const { selectedUser, selectedPage } = useDataContext();
   if (!selectedUser) return <Login />;
@@ -12,6 +13,8 @@ export const Content = () => {
         return <Home />;
       case "STATS":
         return <Stats />;
+      // case "GOAL":
+      //   return <Goal />;
       case "PROFILE":
         return <h1>Profile Page</h1>;
       case "SETTINGS":

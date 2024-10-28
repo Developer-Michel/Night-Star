@@ -17,7 +17,7 @@ export interface UserDto {
   UserName: string;
   Name: string;
   BirthDate: string;
-  Descrition: string;
+  Description: string;
   HasNip: boolean;
 }
 export interface Goal {

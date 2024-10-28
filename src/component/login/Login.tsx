@@ -44,11 +44,15 @@ const LoginCell = ({ user, delay }: { user: UserDto; delay: number }) => {
     <Row>
       <Col>
         <button onClick={onClick} className={`login-cell ${isVisible ? " visible" : ""}`}>
-          <img src={`/assets/${user.UserName.toString()}.jpg`} alt={user.toString()} className="login-img-col" />
+          <img
+            src={`/assets/${user.UserName.toString()}.jpg`}
+            alt={user.UserName.toString()}
+            className="login-img-col"
+          />
           <div className="login-name-cell">
             {user.UserName}
             <br></br>
-            <p>{user.Descrition}</p>
+            <p>{user.Description}</p>
           </div>
         </button>
       </Col>
