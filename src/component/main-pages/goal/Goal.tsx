@@ -30,12 +30,25 @@ export const Goal = () => {
     <Container className="goal">
       <Row>
         <Col>
+          <h2>GOALS</h2>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <p>
+            "Enter your goals, big or small, here. Whenever you achieve one, simply click the check mark to mark it as
+            complete, keep up the great work you!"
+          </p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
           <Button
             disabled={addClick}
             onClick={() => {
               setAddClick(true);
             }}
-            className="Goal-add-button">
+            className="input-add-button">
             <FontAwesomeIcon icon={faPlusCircle} />
           </Button>
         </Col>

@@ -26,3 +26,9 @@ export interface GoalType {
   Name: string;
   Succeeded: boolean;
 }
+export interface FeedbackType {
+  Id: number;
+  Name: string;
+  Succeeded: boolean;
+  Date: string;
+}

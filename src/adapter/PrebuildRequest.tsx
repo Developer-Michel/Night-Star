@@ -1,4 +1,4 @@
-import { GoalType, TrackingData, UserDto } from "types/Types";
+import { FeedbackType, GoalType, TrackingData, UserDto } from "types/Types";
 import {
   RequestObj,
   HttpHeaderObj,
@@ -117,6 +117,45 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
           new RequestObj({
             ...requestData,
             HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Goal/UpdateGoal`, "Update...", requestData.dto)
+          })
+        );
+      }
+    },
+    feedback: {
+      getAllFeedbacks(requestData: AddRequestInterfaceWithoutSender<FeedbackType[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.GET, `Feedback/GetAllFeedbacks`, `Loading information for you`)
+          })
+        );
+      },
+      addFeedback(requestData: AddRequestInterfaceWithoutReciever<FeedbackType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Feedback/AddFeedback`, "Update...", requestData.dto)
+          })
+        );
+      },
+      deleteFeedback(requestData: AddRequestInterfaceWithoutReciever<FeedbackType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(
+              RequestType.DELETE,
+              `Feedback/DeleteFeedback`,
+              "Update...",
+              requestData.dto
+            )
+          })
+        );
+      },
+      updateFeedback(requestData: AddRequestInterfaceWithoutReciever<FeedbackType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Feedback/UpdateFeedback`, "Update...", requestData.dto)
           })
         );
       }
