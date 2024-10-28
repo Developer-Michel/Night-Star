@@ -147,7 +147,7 @@ const HomeContent = ({
       <ZenSlider
         max={180}
         uom="min"
-        multiple={10}
+        multiple={5}
         placeholder="Meditation time"
         defaultValue={data.MeditationTime}
         submit={(value) => {

@@ -1,6 +1,6 @@
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { ReactNode, createContext, useContext, useState } from "react";
-import { faHouse, faChartLine, faUser, faGear, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faChartLine, faUser, faGear, faTrophy, faCommentDots } from "@fortawesome/free-solid-svg-icons";
 import { UserDto } from "types/Types";
 interface DataContextData {
   selectedUser: UserDto | undefined;
@@ -36,6 +36,7 @@ export enum PageType {
   stats = "STATS",
   goal = "GOAL",
   profile = "PROFILE",
+  feedback = "FEEDBACK",
   settings = "SETTINGS"
 }
 export const PageIconMap: { [key in PageType]: IconDefinition } = {
@@ -43,5 +44,6 @@ export const PageIconMap: { [key in PageType]: IconDefinition } = {
   [PageType.goal]: faTrophy,
   [PageType.stats]: faChartLine,
   [PageType.profile]: faUser,
+  [PageType.feedback]: faCommentDots,
   [PageType.settings]: faGear
 };

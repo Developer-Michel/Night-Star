@@ -13,10 +13,10 @@ export const Content = () => {
         return <Home />;
       case "STATS":
         return <Stats />;
-      // case "GOAL":
-      //   return <Goal />;
-      case "PROFILE":
-        return <h1>Profile Page</h1>;
+      case "GOAL":
+        return <Goal />;
+      case "FEEDBACK":
+        return <h1>Feedback</h1>;
       case "SETTINGS":
         return <h1>Settings Page</h1>;
       default:

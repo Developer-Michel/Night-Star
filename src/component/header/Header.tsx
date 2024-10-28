@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export const Header = () => {
   return (
-    <Navbar expand="lg" className="header">
+    <Navbar expand="lg" className={`header`}>
       <Container fluid>
         <Navbar.Brand href="#home">
           <img className="header-logo" src={lotusImage} />

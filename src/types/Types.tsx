@@ -20,9 +20,9 @@ export interface UserDto {
   Description: string;
   HasNip: boolean;
 }
-export interface Goal {
+export interface GoalType {
   Id: number;
   UserId: number;
   Name: string;
-  Succeeded: string;
+  Succeeded: boolean;
 }

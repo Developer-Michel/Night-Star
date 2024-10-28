@@ -13,12 +13,25 @@
   transform: translateX(0); /* Transition into view */
 }
 /* Zen-styled input box */
+.ANGELINA .zen-input {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 204, 0.8),
+    rgba(255, 94, 126, 0.8),
+    rgba(233, 30, 99, 0.8),
+    rgba(212, 20, 90, 0.8)
+  );
+}
+.MICHEL .zen-input {
+  background: linear-gradient(135deg, rgba(144, 224, 239, 0.8), rgba(0, 119, 182, 0.8), rgba(13, 59, 102, 0.8));
+}
+
 .zen-input {
   width: 100%;
   padding: 12px 20px;
   font-size: 1.1rem;
   font-family: "Lora", serif; /* Use a clean, simple font */
-  color: #333;
+  color: black;
   background: linear-gradient(90deg, #c9e4de, #4f6457); /* Calm gradient */
   border: none; /* Remove the default border */
   border-radius: 25px; /* Rounded corners for a soft appearance */
@@ -29,11 +42,12 @@
 
 /* Focus state for the input box */
 .zen-input:focus {
-  background: #c9e4de; /* Calm gradient */
+  background: linear-gradient(90deg, #c9e4de, #c9e4de); /* Calm gradient */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow on focus */
 }
 
 /* Placeholder text styling */
 .zen-input::placeholder {
   font-size: 1rem; /* Slightly smaller placeholder text */
+  color: rgba(0, 0, 0, 0.7);
 }

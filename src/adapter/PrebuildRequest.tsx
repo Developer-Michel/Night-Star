@@ -1,4 +1,4 @@
-import { Goal, TrackingData, UserDto } from "types/Types";
+import { GoalType, TrackingData, UserDto } from "types/Types";
 import {
   RequestObj,
   HttpHeaderObj,
@@ -83,7 +83,7 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
       }
     },
     goal: {
-      getAllGoals(requestData: AddRequestInterface<{ userId: number }, Goal[]>) {
+      getAllGoals(requestData: AddRequestInterface<{ userId: number }, GoalType[]>) {
         addRequest(
           new RequestObj({
             ...requestData,
@@ -96,19 +96,27 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
           })
         );
       },
-      addGoal(requestData: AddRequestInterfaceWithoutSender<Goal>) {
+      addGoal(requestData: AddRequestInterfaceWithoutReciever<GoalType>) {
         addRequest(
           new RequestObj({
             ...requestData,
-            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Goal/AddGoal`, "Update...")
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Goal/AddGoal`, "Update...", requestData.dto)
           })
         );
       },
-      updateGoal(requestData: AddRequestInterface<{ userId: number; nip: string }, TrackingData[]>) {
+      deleteGoal(requestData: AddRequestInterfaceWithoutReciever<GoalType>) {
         addRequest(
           new RequestObj({
             ...requestData,
-            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Goal/UpdateGoal`, "Update...")
+            HttpHeaderObj: new HttpHeaderObj(RequestType.DELETE, `Goal/DeleteGoal`, "Update...", requestData.dto)
+          })
+        );
+      },
+      updateGoal(requestData: AddRequestInterfaceWithoutReciever<GoalType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Goal/UpdateGoal`, "Update...", requestData.dto)
           })
         );
       }

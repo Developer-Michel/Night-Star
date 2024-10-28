@@ -43,7 +43,7 @@ const LoginCell = ({ user, delay }: { user: UserDto; delay: number }) => {
   return (
     <Row>
       <Col>
-        <button onClick={onClick} className={`login-cell ${isVisible ? " visible" : ""}`}>
+        <button onClick={onClick} className={`login-cell ${isVisible ? " visible" : ""} ${user.UserName}`}>
           <img
             src={`/assets/${user.UserName.toString()}.jpg`}
             alt={user.UserName.toString()}

@@ -10,9 +10,11 @@ export const Footer = () => {
     <div className="footer">
       <Container fluid>
         <Row>
-          {allPages.map((page) => (
-            <PageButton key={page} page={page} />
-          ))}
+          {allPages
+            .filter((x) => x != "PROFILE")
+            .map((page) => (
+              <PageButton key={page} page={page} />
+            ))}
         </Row>
       </Container>
     </div>
