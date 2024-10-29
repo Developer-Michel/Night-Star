@@ -206,7 +206,8 @@ const AddBookContainer = ({ refresh }: { refresh: () => void }) => {
     NumberOfWeekObjective: 0,
     Started: null,
     CreatorId: selectedUser?.Id ?? 0,
-    CreatorName: selectedUser?.UserName ?? "0"
+    CreatorName: selectedUser?.UserName ?? "0",
+    Finished: false
   });
   const disabled =
     data.Author.length == 0 || data.Name.length == 0 || data.PageQuantity == 0 || data.NumberOfWeekObjective == 0;

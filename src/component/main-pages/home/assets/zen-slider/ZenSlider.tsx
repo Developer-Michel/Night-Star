@@ -19,6 +19,14 @@ export const ZenSlider = ({
   const [value, setValue] = useState(defaultValue);
 
   const [isVisible, setIsVisible] = useState(false);
+  const [isTouching, setIsTouching] = useState(false);
+  useEffect(() => {
+    if (isTouching) {
+      document.body.style.overflow = "hidden"; // Disable scroll when touching slider
+    } else {
+      document.body.style.overflow = "auto"; // Re-enable scroll after touch
+    }
+  }, [isTouching]);
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(true);
@@ -44,8 +52,12 @@ export const ZenSlider = ({
           max={max}
           step={multiple}
           onChange={handleChange}
-          onMouseUp={() => submit(value)} // Triggered when mouse button is released
-          onTouchEnd={() => submit(value)}
+          onMouseUp={() => submit(value)}
+          onTouchStart={() => setIsTouching(true)}
+          onTouchEnd={() => {
+            setIsTouching(false);
+            submit(value);
+          }}
         />
       </Col>
     </Row>
