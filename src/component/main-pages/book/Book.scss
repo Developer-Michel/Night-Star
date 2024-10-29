@@ -1,0 +1,108 @@
+.book {
+  padding-top: 4em;
+}
+.ANGELINA .book-container {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 204, 0.8),
+    rgba(255, 94, 126, 0.8),
+    rgba(233, 30, 99, 0.8),
+    rgba(212, 20, 90, 0.8)
+  );
+}
+.MICHEL .book-container {
+  background: linear-gradient(135deg, rgba(144, 224, 239, 0.8), rgba(0, 119, 182, 0.8), rgba(13, 59, 102, 0.8));
+}
+.book-container {
+  position: relative;
+  background-color: whitesmoke;
+  padding: 0.2em;
+  border: solid black;
+  width: 100%;
+  .creator-buble {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    border-radius: 1em;
+    height: 2em;
+    width: 2em;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+  .progress-container {
+    width: 100%;
+    margin: 20px 0;
+    margin-top: 3em;
+    position: relative;
+  }
+
+  .user-marker {
+    position: absolute;
+    top: -30px; /* Adjusts bubble position above progress bar */
+    transform: translateX(-50%);
+    cursor: pointer;
+    transition: left 1s ease-in-out;
+    will-change: left;
+  }
+  .bubble {
+    position: relative;
+    display: inline-block;
+    background-color: transparent;
+    color: white;
+    background-color: black;
+    width: 2em;
+    border-radius: 15px;
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+    img {
+      border-radius: 1em;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  /* Triangle pointing downwards */
+  .bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -5px; /* Positions triangle below the bubble */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid black; /* Same color as bubble */
+  }
+}
+
+.book-container-img {
+  position: relative;
+  border: solid black 1px;
+  height: 10em;
+  width: 7em;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+.book-container-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.book-container-input {
+  input {
+    border: none;
+    border-bottom: 1px solid;
+  }
+}
+.book-container-button {
+  height: 100%;
+  button {
+    height: 100%;
+  }
+}

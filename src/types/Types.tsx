@@ -4,6 +4,7 @@ export interface TrackingData {
   SleepTime: number;
   SleepQuality: number;
   MeditationTime: number;
+  YogaTime: number;
   ExerciseTime: number;
   OutsideWalkTime: number;
   HapinessLevel: number;
@@ -31,4 +32,24 @@ export interface FeedbackType {
   Name: string;
   Succeeded: boolean;
   Date: string;
+}
+
+export interface BookType {
+  Name: string;
+  Author: string;
+  PageQuantity: number;
+  NumberOfWeekObjective: number;
+  Started: string | null;
+  Created: string;
+  CreatorId: number;
+  CreatorName: string;
+}
+export interface BookUser {
+  UserId: number;
+  BookName: string;
+  PageRead: number;
+}
+export interface BookDto {
+  Book: BookType;
+  Users: BookUser[];
 }

@@ -3,14 +3,10 @@ import "./Login.scss";
 import { useEffect, useState } from "react";
 import { useDataContext } from "@context/DataContext";
 import { UserDto } from "types/Types";
-import { useComm } from "@hooks/useComm";
 import { LoadingSpinner } from "@component/loading-indicator/LoadingSpinner";
 export const Login = () => {
-  const [userList, setUserList] = useState<UserDto[]>();
-  const { api } = useComm();
-  useEffect(() => {
-    api.login.getAllUser({ Success: setUserList });
-  }, []);
+  const { userList } = useDataContext();
+
   if (userList == null) return <LoadingSpinner />;
   return (
     <Container className={`login`}>
@@ -22,7 +18,7 @@ export const Login = () => {
         </Col>
       </Row>
       {userList.map((x, i) => (
-        <LoginCell user={x} delay={i * 100} />
+        <LoginCell key={x.UserName} user={x} delay={i * 100} />
       ))}
     </Container>
   );

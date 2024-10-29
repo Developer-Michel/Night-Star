@@ -1,4 +1,4 @@
-import { FeedbackType, GoalType, TrackingData, UserDto } from "types/Types";
+import { BookType, BookDto, BookUser, FeedbackType, GoalType, TrackingData, UserDto } from "types/Types";
 import {
   RequestObj,
   HttpHeaderObj,
@@ -156,6 +156,40 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
           new RequestObj({
             ...requestData,
             HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Feedback/UpdateFeedback`, "Update...", requestData.dto)
+          })
+        );
+      }
+    },
+    book: {
+      getAllBooks(requestData: AddRequestInterfaceWithoutSender<BookDto[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.GET, `Book/GetAllBooks`, `Loading information for you`)
+          })
+        );
+      },
+      addBook(requestData: AddRequestInterfaceWithoutReciever<BookType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Book/AddBook`, "Update...", requestData.dto)
+          })
+        );
+      },
+      updateBook(requestData: AddRequestInterfaceWithoutReciever<BookType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Book/UpdateBook`, "Update...", requestData.dto)
+          })
+        );
+      },
+      updateBookUser(requestData: AddRequestInterfaceWithoutReciever<BookUser>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Book/UpdateBookUser`, "Update...", requestData.dto)
           })
         );
       }

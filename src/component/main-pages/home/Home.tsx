@@ -130,7 +130,7 @@ const HomeContent = ({
         uom="H"
         multiple={0.5}
         defaultValue={data.SleepTime}
-        placeholder="Hours of sleep"
+        placeholder="💤Hours of sleep"
         submit={(value) => {
           updateData({ ...data, SleepTime: value });
         }}
@@ -139,7 +139,7 @@ const HomeContent = ({
         max={10}
         uom="/10"
         defaultValue={data.SleepQuality}
-        placeholder="Sleep quality"
+        placeholder="⏰Sleep quality"
         submit={(value) => {
           updateData({ ...data, SleepQuality: value });
         }}
@@ -148,17 +148,27 @@ const HomeContent = ({
         max={480}
         uom="min"
         multiple={5}
-        placeholder="Meditation time"
+        placeholder="🧘‍♀️Meditation time"
         defaultValue={data.MeditationTime}
         submit={(value) => {
           updateData({ ...data, MeditationTime: value });
         }}
       />
       <ZenSlider
+        max={480}
+        uom="min"
+        multiple={5}
+        placeholder="🪷Yoga time"
+        defaultValue={data.YogaTime}
+        submit={(value) => {
+          updateData({ ...data, YogaTime: value });
+        }}
+      />
+      <ZenSlider
         max={180}
         uom="min"
         multiple={5}
-        placeholder="Exercise time"
+        placeholder="🏋️Exercise time"
         defaultValue={data.ExerciseTime}
         submit={(value) => {
           updateData({ ...data, ExerciseTime: value });
@@ -168,7 +178,7 @@ const HomeContent = ({
         max={180}
         uom="min"
         multiple={5}
-        placeholder="Outside walk time"
+        placeholder="🚶‍♀️Outside walk time"
         defaultValue={data.OutsideWalkTime}
         submit={(value) => {
           updateData({ ...data, OutsideWalkTime: value });
@@ -177,7 +187,7 @@ const HomeContent = ({
       <ZenSlider
         max={10}
         uom="/10"
-        placeholder="Happiness level"
+        placeholder="☺️Happiness level"
         defaultValue={data.HapinessLevel}
         submit={(value) => {
           updateData({ ...data, HapinessLevel: value });
@@ -186,7 +196,7 @@ const HomeContent = ({
       <ZenSlider
         max={10}
         uom="/10"
-        placeholder="Stress level"
+        placeholder="🎚️Stress level"
         defaultValue={data.StressLevel}
         submit={(value) => {
           updateData({ ...data, StressLevel: value });
@@ -195,7 +205,7 @@ const HomeContent = ({
       <ZenSlider
         max={10}
         uom="/10"
-        placeholder="Anxiety level"
+        placeholder="💭Anxiety level"
         defaultValue={data.AnxietyLevel}
         submit={(value) => {
           updateData({ ...data, AnxietyLevel: value });
