@@ -12,6 +12,8 @@ export interface TrackingData {
   AnxietyLevel: number;
   HappySentence: string;
   RealisationSentence?: string;
+  WaterIntake: number;
+  MusicTime: number;
 }
 export interface UserDto {
   Id: number;
@@ -43,6 +45,7 @@ export interface BookType {
   Created: string;
   CreatorId: number;
   CreatorName: string;
+  Finished: boolean;
 }
 export interface BookUser {
   UserId: number;

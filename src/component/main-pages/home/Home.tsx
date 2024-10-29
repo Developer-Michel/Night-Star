@@ -185,6 +185,26 @@ const HomeContent = ({
         }}
       />
       <ZenSlider
+        max={4000}
+        uom="ml"
+        multiple={100}
+        placeholder="💧Water intake"
+        defaultValue={data.WaterIntake}
+        submit={(value) => {
+          updateData({ ...data, WaterIntake: value });
+        }}
+      />
+      <ZenSlider
+        max={360}
+        uom="min"
+        multiple={5}
+        placeholder="🎵Music time played"
+        defaultValue={data.MusicTime}
+        submit={(value) => {
+          updateData({ ...data, MusicTime: value });
+        }}
+      />
+      <ZenSlider
         max={10}
         uom="/10"
         placeholder="☺️Happiness level"
