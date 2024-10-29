@@ -19,21 +19,30 @@ export const ZenSlider = ({
   const [value, setValue] = useState(defaultValue);
 
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouching, setIsTouching] = useState(false);
-  useEffect(() => {
-    if (isTouching) {
-      document.body.style.overflow = "hidden"; // Disable scroll when touching slider
-    } else {
-      document.body.style.overflow = "auto"; // Re-enable scroll after touch
-    }
-  }, [isTouching]);
+  const [isDragging, setIsDragging] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(true);
     }, 100);
   }, []);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(parseFloat(e.target.value)));
+  const handleTouchStart = (e: React.TouchEvent<HTMLInputElement>) => {
+    // Check if touch target is the handle
+    if (e.target === e.currentTarget) {
+      setIsDragging(true);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLInputElement>) => {
+    if (isDragging) {
+      setValue(Number(parseFloat(e.currentTarget.value)));
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (isDragging) {
+      submit(value);
+      setIsDragging(false);
+    }
   };
 
   return (
@@ -51,13 +60,11 @@ export const ZenSlider = ({
           defaultValue={defaultValue}
           max={max}
           step={multiple}
-          onChange={handleChange}
+          onChange={(e) => setValue(Number(parseFloat(e.target.value)))}
           onMouseUp={() => submit(value)}
-          onTouchStart={() => setIsTouching(true)}
-          onTouchEnd={() => {
-            setIsTouching(false);
-            submit(value);
-          }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         />
       </Col>
     </Row>
