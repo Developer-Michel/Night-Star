@@ -130,7 +130,7 @@ const HomeContent = ({
         uom="H"
         tooltip="Most adults aged 20-30 need 7–9 hours of sleep each night for optimal health, mood, and cognitive performance. Quality, uninterrupted sleep is key to reaping full benefits."
         multiple={10}
-        defaultValue={data.SleepTime * 60}
+        defaultValue={Math.round(data.SleepTime * 60)}
         placeholder="💤Hours of sleep"
         submit={(value) => {
           updateData({ ...data, SleepTime: value / 60 });
