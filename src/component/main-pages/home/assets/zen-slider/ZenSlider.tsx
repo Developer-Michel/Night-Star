@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import "./ZenSlider.scss";
+import CustomTooltip from "@component/assets/custom-tooltip/CustomToolTip";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 export const ZenSlider = ({
   placeholder,
   defaultValue,
+  tooltip,
   submit,
   uom,
   multiple = 1,
   max
 }: {
   placeholder: string;
+  tooltip?: string;
   defaultValue: number;
   submit: (value: number) => void;
   uom: string;
@@ -50,7 +55,15 @@ export const ZenSlider = ({
       <Col>
         <div className="zen-value">
           {placeholder}: {value}
-          {uom}
+          {uom}&nbsp;
+          {tooltip && (
+            <div style={{ float: "right" }}>
+              {" "}
+              <CustomTooltip tooltipText={tooltip}>
+                <FontAwesomeIcon icon={faInfoCircle} />
+              </CustomTooltip>
+            </div>
+          )}
         </div>
 
         <input
