@@ -126,14 +126,14 @@ const HomeContent = ({
       </Row>
 
       <ZenSlider
-        max={14}
+        max={720}
         uom="H"
         tooltip="Most adults aged 20-30 need 7–9 hours of sleep each night for optimal health, mood, and cognitive performance. Quality, uninterrupted sleep is key to reaping full benefits."
-        multiple={0.5}
-        defaultValue={data.SleepTime}
+        multiple={10}
+        defaultValue={data.SleepTime * 60}
         placeholder="💤Hours of sleep"
         submit={(value) => {
-          updateData({ ...data, SleepTime: value });
+          updateData({ ...data, SleepTime: value / 60 });
         }}
       />
       <ZenSlider
@@ -147,10 +147,10 @@ const HomeContent = ({
         }}
       />
       <ZenSlider
-        max={480}
+        max={120}
         uom="min"
         tooltip="Meditation benefits include reduced stress, improved focus, and enhanced emotional resilience. Start with 5-10 minutes daily, gradually increasing to 20-30 minutes. Practices like mindfulness, body scanning, or loving-kindness meditation can improve concentration and promote a sense of calm."
-        multiple={5}
+        multiple={1}
         placeholder="🧘‍♀️Meditation time"
         defaultValue={data.MeditationTime}
         submit={(value) => {
@@ -158,9 +158,9 @@ const HomeContent = ({
         }}
       />
       <ZenSlider
-        max={480}
+        max={120}
         uom="min"
-        multiple={5}
+        multiple={1}
         tooltip="Yoga enhances flexibility, strengthens muscles, and reduces stress. Practicing for 15-30 minutes daily can improve posture, boost energy, and promote a sense of calm. Try different styles like Hatha for balance, Vinyasa for flow, or Yin for deep stretching."
         placeholder="🪷Yoga time"
         defaultValue={data.YogaTime}

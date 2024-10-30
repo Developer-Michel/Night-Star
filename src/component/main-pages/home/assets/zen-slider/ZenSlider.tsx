@@ -22,9 +22,9 @@ export const ZenSlider = ({
   max: number;
 }) => {
   const [value, setValue] = useState(defaultValue);
-
   const [isVisible, setIsVisible] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(true);
@@ -54,11 +54,11 @@ export const ZenSlider = ({
     <Row className={`zen-slider-container ${isVisible ? "visible" : ""}`}>
       <Col>
         <div className="zen-value">
-          {placeholder}: {value}
-          {uom}&nbsp;
+          {placeholder}:{" "}
+          {uom != "H" ? `${value}${uom}` : `${Math.floor(value / 60)}${uom}${(value % 60).toString().padStart(2, "0")}`}
+          &nbsp;
           {tooltip && (
-            <div style={{ float: "right" }}>
-              {" "}
+            <div style={{ float: "right", opacity: 0.5 }}>
               <CustomTooltip tooltipText={tooltip}>
                 <FontAwesomeIcon icon={faInfoCircle} />
               </CustomTooltip>
