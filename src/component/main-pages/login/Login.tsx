@@ -3,7 +3,7 @@ import "./Login.scss";
 import { useEffect, useState } from "react";
 import { useDataContext } from "@context/DataContext";
 import { UserDto } from "types/Types";
-import { LoadingSpinner } from "@component/loading-indicator/LoadingSpinner";
+import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinner";
 export const Login = () => {
   const { userList } = useDataContext();
 

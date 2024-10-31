@@ -1,0 +1,27 @@
+.profile {
+  padding-top: 4em;
+  display: flex;
+  flex-direction: column; /* Stacks items vertically */
+  align-items: center; /* Centers items horizontally */
+  justify-content: center; /* Centers items vertically if you want */
+  img {
+    border-radius: 50%;
+    border: black solid 5px;
+    width: 10em;
+  }
+
+  .disconnect-button {
+    width: calc(100% - 2em);
+    color: black;
+    background-color: transparent;
+    border: none;
+    margin: 1em;
+    border-bottom: 2px solid black;
+  }
+}
+.ANGELINA .profile img {
+  border-color: rgba(212, 20, 90, 0.8);
+}
+.MICHEL .profile img {
+  border-color: rgba(13, 59, 102, 1);
+}

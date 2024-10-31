@@ -1,7 +1,7 @@
 import { Navbar, Container, NavbarBrand } from "react-bootstrap";
 import "./Header.scss";
 import lotusImage from "/assets/lotus.png";
-import { useDataContext } from "@context/DataContext";
+import { PageType, useDataContext } from "@context/DataContext";
 import { useEffect, useState } from "react";
 import { useComm } from "@hooks/useComm";
 
@@ -24,7 +24,7 @@ export const Header = () => {
 };
 
 const UserPicture = () => {
-  const { selectedUser, dataUpdatedToday } = useDataContext();
+  const { selectedUser, dataUpdatedToday, setSelectedPage } = useDataContext();
   const [streakCount, setStreakCount] = useState(0);
   const { api } = useComm();
 
@@ -36,7 +36,11 @@ const UserPicture = () => {
       <NavbarBrand>
         {selectedUser && (
           <>
-            <img src={`/assets/${selectedUser.UserName.toString()}.jpg`} alt={selectedUser.toString()} />
+            <img
+              onClick={() => setSelectedPage(PageType.profile)}
+              src={`/assets/${selectedUser.UserName.toString()}.jpg`}
+              alt={selectedUser.toString()}
+            />
 
             <div className={`streak-img ms-auto ${selectedUser ? "visible" : ""}`}>
               <img src={`/assets/Fire.png`} />

@@ -1,0 +1,24 @@
+// Define the spin animation
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Apply the animation to a class
+.spinning-icon {
+  animation: spin 2s linear infinite;
+  img {
+    width: 4em;
+  }
+}
+.loading-message {
+  font-weight: 900;
+}
+.spinning-icon-container {
+  width: 4em;
+  height: 4em;
+}

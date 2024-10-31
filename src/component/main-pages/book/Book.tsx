@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Container, Row, Col, Button, ProgressBar } from "react-bootstrap";
 import "./Book.scss";
 import { BookType, BookDto } from "types/Types";
-import { LoadingSpinner } from "@component/loading-indicator/LoadingSpinner";
+import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinner";
 import { useComm } from "@hooks/useComm";
 import { format } from "date-fns";
 import { useDataContext } from "@context/DataContext";

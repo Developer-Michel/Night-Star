@@ -2,6 +2,7 @@
   height: 100%;
   position: absolute;
   top: 0;
+  overflow: hidden;
   width: 100%;
   z-index: 1005;
   background-color: #f8f4e3;
@@ -13,5 +14,15 @@
     img {
       width: 100%;
     }
+  }
+  .server-connection-welcome {
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
+  }
+  .bottom-right-content {
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 }

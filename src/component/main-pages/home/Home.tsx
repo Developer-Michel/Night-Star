@@ -7,7 +7,7 @@ import ZenInput from "./assets/zen-input/ZenInput";
 import DateNavigator from "./assets/date-navigator/DateNavigator";
 import { subDays, addDays, format } from "date-fns";
 import { TrackingData } from "types/Types";
-import { LoadingSpinner } from "@component/loading-indicator/LoadingSpinner";
+import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinner";
 import { useComm } from "@hooks/useComm";
 import { useDataContext } from "@context/DataContext";
 import { toast } from "react-toastify";
