@@ -27,10 +27,10 @@ const UserPicture = () => {
   const { selectedUser, dataUpdatedToday, setSelectedPage } = useDataContext();
   const [streakCount, setStreakCount] = useState(0);
   const { api } = useComm();
-
+  const count = dataUpdatedToday.updated ? streakCount : streakCount - 1;
   useEffect(() => {
     if (selectedUser) api.tracker.getStreakCount({ dto: { userId: selectedUser.Id }, Success: setStreakCount });
-  }, [selectedUser, dataUpdatedToday]);
+  }, [selectedUser]);
   return (
     <div className={`header-user-img ms-auto ${selectedUser ? "visible" : ""}`}>
       <NavbarBrand>
@@ -43,8 +43,8 @@ const UserPicture = () => {
             />
 
             <div className={`streak-img ms-auto ${selectedUser ? "visible" : ""}`}>
-              <img src={`/assets/Fire.png`} />
-              <div className="streak-count">{streakCount}</div>
+              <img src={`/assets/Fire${dataUpdatedToday.updated ? "" : "Weak"}.png`} />
+              <div className="streak-count">{count}</div>
             </div>
           </>
         )}

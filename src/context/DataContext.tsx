@@ -28,6 +28,7 @@ export const DataContextProvider = ({ children }: { children: ReactNode }) => {
   }, []);
   useEffect(() => {
     localStorage.setItem("selectedUser", JSON.stringify(selectedUser));
+    setDataUpdatedToday({ incr: dataUpdatedToday.incr + 1, updated: false });
   }, [selectedUser]);
   return (
     <DataContext.Provider

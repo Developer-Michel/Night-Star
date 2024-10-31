@@ -86,7 +86,7 @@ const HomeContent = ({
   const [data, setData] = useState<TrackingData | undefined>();
   const isDayAlreadyCompleted = useRef(false);
   const { api } = useComm();
-  const { selectedUser } = useDataContext();
+  const { selectedUser, dataUpdatedToday, setDataUpdatedToday } = useDataContext();
   useEffect(() => {
     if (selectedUser)
       api.tracker.get({
@@ -101,6 +101,9 @@ const HomeContent = ({
       if (isDayAlreadyCompleted.current || className != "current") return;
       isDayAlreadyCompleted.current = isObjectValid(data);
       if (isDayAlreadyCompleted.current) toast.success("Day is done, Well done " + selectedUser?.Name);
+    }
+    if (!dataUpdatedToday.updated && format(date, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd")) {
+      if (data && data?.SleepQuality > 0) setDataUpdatedToday({ incr: dataUpdatedToday.incr + 1, updated: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
