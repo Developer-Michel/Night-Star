@@ -27,7 +27,7 @@ export const Feedback = () => {
       });
   };
   return (
-    <Container className="goal">
+    <Container className="feedback">
       <Row>
         <Col>
           <h2>FEEDBACKS</h2>

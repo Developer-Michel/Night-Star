@@ -4,23 +4,31 @@ import { faHouse, faChartLine, faUser, faTrophy, faCommentDots, faBook } from "@
 import { UserDto } from "types/Types";
 import { useComm } from "@hooks/useComm";
 interface DataContextData {
-  selectedUser: UserDto | undefined;
-  setSelectedUser: React.Dispatch<React.SetStateAction<UserDto | undefined>>;
+  selectedUser: UserDto | null;
+  setSelectedUser: React.Dispatch<React.SetStateAction<UserDto | null>>;
   selectedPage: PageType;
   setSelectedPage: React.Dispatch<React.SetStateAction<PageType>>;
   userList: UserDto[];
+  dataUpdatedToday: { incr: number; updated: boolean };
+  setDataUpdatedToday: React.Dispatch<React.SetStateAction<{ incr: number; updated: boolean }>>;
 }
 
 export const DataContext = createContext<DataContextData>({} as DataContextData);
 export const DataContextConsumer = DataContext.Consumer;
 export const DataContextProvider = ({ children }: { children: ReactNode }) => {
   const [userList, setUserList] = useState<UserDto[]>([]);
-  const [selectedUser, setSelectedUser] = useState<UserDto>();
+  const [selectedUser, setSelectedUser] = useState<UserDto | null>(
+    JSON.parse(localStorage.getItem("selectedUser") ?? "null")
+  );
   const [selectedPage, setSelectedPage] = useState<PageType>(PageType.home);
+  const [dataUpdatedToday, setDataUpdatedToday] = useState({ incr: 0, updated: false });
   const { api } = useComm();
   useEffect(() => {
     api.login.getAllUser({ Success: setUserList });
   }, []);
+  useEffect(() => {
+    localStorage.setItem("selectedUser", JSON.stringify(selectedUser));
+  }, [selectedUser]);
   return (
     <DataContext.Provider
       value={{
@@ -28,7 +36,9 @@ export const DataContextProvider = ({ children }: { children: ReactNode }) => {
         setSelectedUser,
         selectedPage,
         setSelectedPage,
-        userList
+        userList,
+        dataUpdatedToday,
+        setDataUpdatedToday
       }}>
       {children}
     </DataContext.Provider>

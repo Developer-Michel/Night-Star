@@ -16,6 +16,16 @@ import { format } from "date-fns";
  */
 export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
   return {
+    server: {
+      ping(requestData: AddRequestInterfaceWithoutSender<string>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.GET, `Server/Ping`, "Waking up the server")
+          })
+        );
+      }
+    },
     tracker: {
       put(requestData: AddRequestInterfaceWithoutReciever<TrackingData>) {
         addRequest(
@@ -32,6 +42,18 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
             HttpHeaderObj: new HttpHeaderObj(
               RequestType.GET,
               `Tracker/?userId=${requestData.dto.userId}&&date=${format(requestData.dto.date, "yyyy-MM-dd")}`,
+              "Loading information for you"
+            )
+          })
+        );
+      },
+      getStreakCount(requestData: AddRequestInterface<{ userId: number }, number>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(
+              RequestType.GET,
+              `Tracker/GetStreakCount?userId=${requestData.dto.userId}`,
               "Loading information for you"
             )
           })

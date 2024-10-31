@@ -116,7 +116,13 @@ const HomeContent = ({
       }
     });
   };
-  if (data == null) return <LoadingSpinner />;
+
+  if (data == null)
+    return (
+      <div style={{ height: "100%", width: "33%", position: "relative" }}>
+        <LoadingSpinner />
+      </div>
+    );
   return (
     <div className={"home-content " + className}>
       <Row>

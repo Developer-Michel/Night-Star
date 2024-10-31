@@ -18,7 +18,8 @@ import {
   RadarChart,
   Area,
   ComposedChart,
-  AreaChart
+  AreaChart,
+  Bar
 } from "recharts";
 import { format, parse } from "date-fns";
 export const Stats = () => {
@@ -43,18 +44,19 @@ export const Stats = () => {
           <DateRangeButtons setDateRange={setDateRange} />
         </Col>
       </Row>
-
       <Row>
         <Col>
           <SleepGraph data={datas} />
         </Col>
       </Row>
+      <br></br> <br></br> <br></br>
       <hr></hr>
       <Row>
         <Col>
           <BalanceGraph data={datas} />
         </Col>
       </Row>
+      <br></br> <br></br> <br></br>
       <hr></hr>
       <Row>
         <Col>
@@ -62,6 +64,11 @@ export const Stats = () => {
         </Col>
       </Row>
       <hr></hr>
+      <Row>
+        <Col>
+          <WaterGraph data={datas} />
+        </Col>
+      </Row>
       <Row>
         <Col>
           <SentenceGroup
@@ -89,7 +96,7 @@ export const Stats = () => {
 
 const SleepGraph = ({ data }: { data: TrackingData[] }) => {
   return (
-    <div style={{ width: "100%", height: "20em" }}>
+    <div style={{ width: "100%", height: "30em" }}>
       <div className="stats-title">Sleep tracker</div>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={data}>
@@ -99,7 +106,7 @@ const SleepGraph = ({ data }: { data: TrackingData[] }) => {
           <Legend />
           <CartesianGrid stroke="#f5f5f5" />
           <Area type="monotone" dataKey="SleepTime" fill="#8884d8" stroke="#8884d8" />
-          <Area type="monotone" dataKey="SleepQuality" fill="#4CAF50" stroke="#4CAF50" />
+          <Bar barSize={10} type="monotone" dataKey="SleepQuality" fill="#4CAF50" stroke="#4CAF50" />
 
           <Line type="monotone" dataKey="AnxietyLevel" fill="#5D6D7E" />
           <Line type="monotone" dataKey="StressLevel" stroke="#C0392B" />
@@ -127,6 +134,14 @@ const BalanceGraph = ({ data }: { data: TrackingData[] }) => {
               <stop offset="5%" stopColor="#E9D8A6" stopOpacity={0.8} />
               <stop offset="95%" stopColor="#E9D8A6" stopOpacity={0} />
             </linearGradient>
+            <linearGradient id="colorYv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#E1AFAF" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#E1AFAF" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="colorMv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#A6C8E9" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#A6C8E9" stopOpacity={0} />
+            </linearGradient>
           </defs>
           <XAxis dataKey="name" />
           <YAxis />
@@ -136,6 +151,8 @@ const BalanceGraph = ({ data }: { data: TrackingData[] }) => {
           <Area type="monotone" dataKey="MeditationTime" stroke="#C3B1E1" fillOpacity={1} fill="url(#colorUv)" />
           <Area type="monotone" dataKey="ExerciseTime" stroke="#B5D8B5" fillOpacity={1} fill="url(#colorPv)" />
           <Area type="monotone" dataKey="OutsideWalkTime" stroke="#E9D8A6" fillOpacity={1} fill="url(#colorSv)" />
+          <Area type="monotone" dataKey="YogaTime" stroke="#E1AFAF" fillOpacity={1} fill="url(#colorYv)" />
+          <Area type="monotone" dataKey="MusicTime" stroke="#A6C8E9" fillOpacity={1} fill="url(#colorMv)" />
         </AreaChart>
       </ResponsiveContainer>
     </div>
@@ -156,6 +173,23 @@ const SentenceGroup = ({ data, name }: { data: { name: string; date: string }[];
         ))}
       </Container>
     </>
+  );
+};
+const WaterGraph = ({ data }: { data: TrackingData[] }) => {
+  return (
+    <div style={{ width: "100%", height: "30em" }}>
+      <div className="stats-title">Water tracker</div>
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart data={data}>
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <CartesianGrid stroke="#f5f5f5" />
+          <Area type="monotone" dataKey="WaterIntake" fill="#4FC3F7 " stroke="#4FC3F7 " />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 const RadarGraph = ({ data }: { data: TrackingData[] }) => {

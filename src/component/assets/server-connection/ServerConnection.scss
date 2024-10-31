@@ -1,0 +1,17 @@
+.server-connection-loader {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1005;
+  background-color: #f8f4e3;
+  .center-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    img {
+      width: 100%;
+    }
+  }
+}

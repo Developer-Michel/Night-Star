@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import quotes from "public/MotivationalQuote.json"; // Import the JSON file
+import quotes from "src/MotivationalQuote.json"; // Import the JSON file
 import "./Quote.scss";
 const RandomQuote: React.FC = () => {
   // Set up state to hold the randomly selected quote

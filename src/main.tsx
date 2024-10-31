@@ -8,12 +8,14 @@ import { CommProvider } from "@adapter/CommProvider.tsx";
 import { DataContextProvider } from "@context/DataContext.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ServerConnection } from "@component/assets/server-connection/ServerConnection.tsx";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RecoilRoot>
       <ToastContainer />
       <CommProvider>
         <DataContextProvider>
+          <ServerConnection />
           <App />
         </DataContextProvider>
       </CommProvider>

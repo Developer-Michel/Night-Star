@@ -25,7 +25,30 @@
   flex-shrink: 0;
   overflow: hidden;
   padding: 0.1em;
+  .header-background {
+    position: absolute;
+    left: -25%;
 
+    opacity: 0.3;
+    z-index: -1;
+  }
+  .streak-img {
+    transition: opacity 1s ease, transform 1s ease;
+    height: 2em;
+    float: right;
+    position: relative;
+    img {
+      height: 100%;
+    }
+    .streak-count {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 0.9em;
+      font-weight: bolder;
+      transform: translate(-50%, -30%);
+    }
+  }
   .header-user-img {
     overflow: hidden;
     opacity: 0;
