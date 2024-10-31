@@ -1,10 +1,10 @@
 import "./LoadingIcon.scss";
-
+import loadingIcon from "public/assets/LoadingIcon.png";
 const SpinningIcon = () => {
   return (
     <div className="spinning-icon-container">
       <div className="spinning-icon">
-        <img src="public/assets/LoadingIcon.png" />
+        <img src={loadingIcon} />
       </div>
     </div>
   );
