@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import RandomQuote from "./assets/quote/Quote";
 import { ZenSlider } from "./assets/zen-slider/ZenSlider";
 import "./Home.scss";
-import ZenInput from "./assets/zen-input/ZenInput";
+import ZenInput from "../../assets/zen-input/ZenInput";
 import DateNavigator from "./assets/date-navigator/DateNavigator";
 import { subDays, addDays, format } from "date-fns";
 import { TrackingData } from "types/Types";

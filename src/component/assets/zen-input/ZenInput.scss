@@ -30,6 +30,9 @@
   width: 100%;
   padding: 12px 20px;
   font-size: 1.1rem;
+  overflow: hidden;
+  max-height: 2.8em;
+  resize: none;
   font-family: "Lora", serif; /* Use a clean, simple font */
   color: black;
   background: linear-gradient(90deg, #c9e4de, #4f6457); /* Calm gradient */
@@ -37,7 +40,11 @@
   border-radius: 25px; /* Rounded corners for a soft appearance */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
   outline: none; /* Remove the default focus outline */
-  transition: box-shadow 0.3s ease, background-color 0.4s ease;
+  transition: box-shadow 0.3s ease, background-color 0.4s ease, max-height 0.5s ease 0s;
+}
+.zen-input:focus {
+  max-height: 10em;
+  overflow: auto;
 }
 
 /* Focus state for the input box */

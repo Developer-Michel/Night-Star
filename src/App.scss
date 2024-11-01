@@ -28,12 +28,20 @@
   background-color: #4f6457 !important;
   border: none !important;
 }
+.input-container-row.success {
+  background: linear-gradient(90deg, #c9e4de, #4f6457);
+}
+.input-container-row.info {
+  background: linear-gradient(90deg, #fff9e6, #b3d4fc);
+}
 .input-container-row {
   background-color: rgba(245, 245, 245, 0.8);
   margin-bottom: 0.5em;
+
   border-radius: 1em;
   flex-direction: row;
   display: flex;
+  resize: none;
   flex-wrap: nowrap;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -61,9 +69,6 @@
   &:focus-within {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
-  .input-container-row-input {
-    border-bottom: 1px solid black;
-  }
 }
 .input-container-row-input {
   height: 100%;
@@ -82,7 +87,8 @@
   border-bottom-left-radius: none;
   float: right;
   width: 2.5em;
-  height: 2.5em;
+  background-color: transparent !important;
+  height: 100%;
   border: none !important;
 }
 .input-container-row-success-indicator {

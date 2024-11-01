@@ -1,13 +1,14 @@
 import { useDataContext } from "@context/DataContext";
-import { faPlusCircle, faTrash, faSave, faCheck, faEdit, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useComm } from "@hooks/useComm";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { FeedbackType } from "types/Types";
 import "./Feedback.scss";
 import { format } from "date-fns";
+import { EditableRow } from "@component/assets/editable-row/EditableRow";
 
 export const Feedback = () => {
   const [addClick, setAddClick] = useState(false);
@@ -59,157 +60,69 @@ export const Feedback = () => {
         </Col>
       </Row>
       {datas.map((x) => {
-        return <NormalRow key={x.Id} data={x} refresh={refresh} />;
+        return (
+          <EditableRow
+            key={x.Id}
+            initialValue={x.Name}
+            onSave={(newValue: string) => {
+              api.feedback.updateFeedback({
+                dto: { ...x, Name: newValue },
+                Success: () => {
+                  refresh();
+                }
+              });
+            }}
+            succeeded={x.Succeeded}
+            editable={true}
+            onDelete={() => {
+              if (confirm("Are you sure you want to delete this goal? " + x.Name))
+                api.feedback.deleteFeedback({
+                  dto: x,
+                  Success: () => {
+                    toast.error("Feedback deleted");
+                    refresh();
+                  }
+                });
+            }}
+            onSuccess={
+              selectedUser?.UserName == "MICHEL"
+                ? () => {
+                    if (confirm("Please confirm that you completed this goal? " + x.Name))
+                      api.feedback.updateFeedback({
+                        dto: { ...x, Succeeded: true },
+                        Success: () => {
+                          toast.success("Well done, I'm proud of you!!:)");
+                          refresh();
+                        }
+                      });
+                  }
+                : undefined
+            }
+          />
+        );
       })}
-      {addClick && <AddRow setAddClick={setAddClick} refresh={refresh} />}
-    </Container>
-  );
-};
-
-const NormalRow = ({ data, refresh }: { data: FeedbackType; refresh: () => void }) => {
-  const [state, setState] = useState<FeedbackType>(data);
-  const ref = useRef<HTMLInputElement | null>(null);
-  const { selectedUser } = useDataContext();
-  const [inEdit, setInEdit] = useState(false);
-  const { api } = useComm();
-  const onSaveClick = () => {
-    api.feedback.updateFeedback({
-      dto: state,
-      Success: () => {
-        setInEdit(false);
-        refresh();
-      }
-    });
-  };
-  const onDoneClick = () => {
-    if (confirm("Please confirm that you completed this goal? " + data.Name))
-      api.feedback.updateFeedback({
-        dto: { ...state, Succeeded: true },
-        Success: () => {
-          toast.success("Well done, I'm proud of you!!:)");
-          refresh();
-        }
-      });
-  };
-  const onDeleteClick = () => {
-    if (confirm("Are you sure you want to delete this goal? " + data.Name))
-      api.feedback.deleteFeedback({
-        dto: state,
-        Success: () => {
-          toast.error("Goal deleted");
-          refresh();
-        }
-      });
-  };
-  return (
-    <Row>
-      <Col className={`input-container-row ${inEdit && "in-edit"}`}>
-        {inEdit ? (
-          <>
-            <input
-              type="text"
-              disabled={!inEdit}
-              onChange={(e) => setState({ ...state, Name: e.target.value })}
-              ref={ref}
-              defaultValue={state.Name}
-              className="input-container-row-input"
-            />
-            <Button
-              onClick={() => {
-                onDeleteClick();
-              }}
-              style={{ backgroundColor: "#BF0000" }}
-              className="input-container-row-button">
-              <FontAwesomeIcon icon={faTrash} />
-            </Button>
-            <Button onClick={onSaveClick} style={{ backgroundColor: "#4f6457" }} className="input-container-row-button">
-              <FontAwesomeIcon icon={faSave} />
-            </Button>
-          </>
-        ) : (
-          <>
-            <div className="input-container-row-input">{data.Name}</div>
-
-            {data.Succeeded ? (
-              <div className="input-container-row-success-indicator">
-                <FontAwesomeIcon icon={faCheck} />
-              </div>
-            ) : (
-              <>
-                <div className="input-container-row-button">{data.Date}</div>
-                <Button
-                  onClick={() => {
-                    setInEdit(true);
-                  }}
-                  style={{ backgroundColor: "	#D397F8" }}
-                  className="input-container-row-button">
-                  <FontAwesomeIcon icon={faEdit} />
-                </Button>
-                {selectedUser?.UserName == "MICHEL" && (
-                  <Button
-                    style={{ backgroundColor: "#4f6457" }}
-                    onClick={onDoneClick}
-                    className="input-container-row-button">
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  </Button>
-                )}
-              </>
-            )}
-          </>
-        )}
-        <hr></hr>
-      </Col>
-    </Row>
-  );
-};
-
-const AddRow = ({
-  setAddClick,
-  refresh
-}: {
-  setAddClick: React.Dispatch<React.SetStateAction<boolean>>;
-  refresh: () => void;
-}) => {
-  const ref = useRef<HTMLInputElement | null>(null);
-  const [inputValue, setInputValue] = useState("");
-  const { api } = useComm();
-  const onSavePress = () => {
-    const dto: FeedbackType = { Name: inputValue, Succeeded: false, Id: 0, Date: format(new Date(), "yyyy-MM-dd") };
-    api.feedback.addFeedback({
-      dto: dto,
-      Success: () => {
-        refresh();
-      }
-    });
-  };
-  useEffect(() => {
-    setTimeout(() => {
-      ref.current?.focus();
-    }, 100);
-  }, []);
-  return (
-    <Row>
-      <Col className="input-container-row in-edit ">
-        <input
-          onChange={(e) => {
-            setInputValue(e.target.value);
+      {addClick && (
+        <EditableRow
+          onSave={(newValue) => {
+            const dto: FeedbackType = {
+              Name: newValue,
+              Succeeded: false,
+              Id: 0,
+              Date: format(new Date(), "yyyy-MM-dd")
+            };
+            api.feedback.addFeedback({
+              dto: dto,
+              Success: () => {
+                refresh();
+              }
+            });
           }}
-          ref={ref}
-          placeholder="Enter a Feedback here...."
-          className="input-container-row-input"
+          initialValue={""}
+          succeeded={false}
+          addOnly={true}
+          onDelete={() => setAddClick(false)}
         />
-        <Button
-          onClick={() => {
-            setAddClick(false);
-          }}
-          style={{ backgroundColor: "#BF0000" }}
-          className="input-container-row-button">
-          <FontAwesomeIcon icon={faTrash} />
-        </Button>
-        <Button onClick={onSavePress} style={{ backgroundColor: "#4f6457" }} className="input-container-row-button">
-          <FontAwesomeIcon icon={faPlusCircle} />
-        </Button>
-      </Col>
-    </Row>
+      )}
+    </Container>
   );
 };

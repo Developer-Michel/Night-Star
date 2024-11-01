@@ -62,7 +62,7 @@ export const Book = () => {
         </Col>
       </Row>
       {data.map((x) => (
-        <Row>
+        <Row key={x.Book.Name}>
           <Col>
             <BookContainer data={x} refresh={refresh} />
           </Col>
