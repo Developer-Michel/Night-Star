@@ -56,3 +56,19 @@ export interface BookDto {
   Book: BookType;
   Users: BookUser[];
 }
+
+export interface Notification {
+  Id: number;
+  Type: string;
+  Description: string;
+  Date: string;
+}
+export interface NotificationUser {
+  NotificationId: number;
+  UserId: number;
+}
+
+export interface NotificationDTO {
+  Notification: Notification;
+  Seen: boolean;
+}

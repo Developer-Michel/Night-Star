@@ -1,4 +1,14 @@
-import { BookType, BookDto, BookUser, FeedbackType, GoalType, TrackingData, UserDto } from "types/Types";
+import {
+  BookType,
+  BookDto,
+  BookUser,
+  FeedbackType,
+  GoalType,
+  TrackingData,
+  UserDto,
+  NotificationDTO,
+  NotificationUser
+} from "types/Types";
 import {
   RequestObj,
   HttpHeaderObj,
@@ -212,6 +222,54 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
           new RequestObj({
             ...requestData,
             HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Book/UpdateBookUser`, "Update...", requestData.dto)
+          })
+        );
+      }
+    },
+    notification: {
+      getAll(requestData: AddRequestInterfaceWithoutSender<NotificationDTO[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.GET, `Notification/GetAll`, `Loading information for you`)
+          })
+        );
+      },
+
+      add(requestData: AddRequestInterfaceWithoutReciever<Notification>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Notification/Add`, "Update...", requestData.dto)
+          })
+        );
+      },
+      AddNoticeNotifications(requestData: AddRequestInterfaceWithoutReciever<NotificationUser[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(
+              RequestType.POST,
+              `Notification/AddNoticeNotifications`,
+              "Update...",
+              requestData.dto
+            )
+          })
+        );
+      },
+      delete(requestData: AddRequestInterfaceWithoutReciever<Notification>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.DELETE, `Notification/Delete`, "Update...", requestData.dto)
+          })
+        );
+      },
+      update(requestData: AddRequestInterfaceWithoutReciever<Notification>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Notification/Update`, "Update...", requestData.dto)
           })
         );
       }
