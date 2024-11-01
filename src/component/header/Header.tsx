@@ -25,12 +25,12 @@ export const Header = () => {
 
 const UserPicture = () => {
   const { selectedUser, dataUpdatedToday, setSelectedPage } = useDataContext();
-  const [streakCount, setStreakCount] = useState(0);
+  const [streakCount, setStreakCount] = useState(1);
   const { api } = useComm();
-  const count = dataUpdatedToday.updated ? streakCount : streakCount - 1;
+  const count = dataUpdatedToday.updated ? streakCount : streakCount;
   useEffect(() => {
     if (selectedUser) api.tracker.getStreakCount({ dto: { userId: selectedUser.Id }, Success: setStreakCount });
-  }, [selectedUser]);
+  }, [selectedUser, dataUpdatedToday]);
   return (
     <div className={`header-user-img ms-auto ${selectedUser ? "visible" : ""}`}>
       <NavbarBrand>

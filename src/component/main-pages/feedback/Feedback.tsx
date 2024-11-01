@@ -14,20 +14,25 @@ export const Feedback = () => {
   const { selectedUser } = useDataContext();
   const [datas, setDatas] = useState<FeedbackType[]>([]);
   const { api } = useComm();
+  const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     refresh();
+    setTimeout(() => {
+      setVisible(true);
+    }, 300);
   }, []);
   const refresh = () => {
     if (selectedUser)
       api.feedback.getAllFeedbacks({
         Success: (data) => {
-          setDatas(data);
+          setDatas(data.sort((a, b) => Number(a.Succeeded) - Number(b.Succeeded)));
           setAddClick(false);
         }
       });
   };
   return (
-    <Container className="feedback">
+    <Container className={`feedback transition-enter ${visible && "visible"}`}>
       <Row>
         <Col>
           <h2>FEEDBACKS</h2>
@@ -126,7 +131,7 @@ const NormalRow = ({ data, refresh }: { data: FeedbackType; refresh: () => void 
             <div className="input-container-row-input">{data.Name}</div>
 
             {data.Succeeded ? (
-              <div className="input-container-row-button">
+              <div className="input-container-row-success-indicator">
                 <FontAwesomeIcon icon={faCheck} />
               </div>
             ) : (

@@ -7,7 +7,7 @@ export const Layout = () => {
   const { selectedUser } = useDataContext();
   return (
     <div className={`layout ${selectedUser?.UserName}`}>
-      <div className="background">
+      <div id="background" className="background">
         <img src={`/assets/YingYang.png`} />
       </div>
       <Header></Header>

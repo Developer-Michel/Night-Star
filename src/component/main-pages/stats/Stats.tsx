@@ -30,6 +30,12 @@ export const Stats = () => {
     startDate: "",
     endDate: ""
   });
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setVisible(true);
+    }, 300);
+  }, []);
   useEffect(() => {
     if (selectedUser && dateRange.startDate)
       api.tracker.getDatas({
@@ -38,7 +44,7 @@ export const Stats = () => {
       });
   }, [dateRange]);
   return (
-    <Container fluid className="stats">
+    <Container fluid className={`stats transition-enter ${visible && "visible"}`}>
       <Row>
         <Col>
           <DateRangeButtons setDateRange={setDateRange} />

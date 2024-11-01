@@ -13,8 +13,13 @@ export const Goal = () => {
   const { selectedUser } = useDataContext();
   const [goals, setGoals] = useState<GoalType[]>([]);
   const { api } = useComm();
+  const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     refresh();
+    setTimeout(() => {
+      setVisible(true);
+    }, 300);
   }, []);
   const refresh = () => {
     if (selectedUser)
@@ -27,7 +32,7 @@ export const Goal = () => {
       });
   };
   return (
-    <Container className="goal">
+    <Container className={`goal transition-enter ${visible && "visible"}`}>
       <Row>
         <Col>
           <h2>GOALS</h2>
@@ -66,6 +71,7 @@ const NormalRow = ({ data, refresh }: { data: GoalType; refresh: () => void }) =
   const ref = useRef<HTMLInputElement | null>(null);
   const [inEdit, setInEdit] = useState(false);
   const { api } = useComm();
+
   const onSaveClick = () => {
     api.goal.updateGoal({
       dto: state,
@@ -124,7 +130,7 @@ const NormalRow = ({ data, refresh }: { data: GoalType; refresh: () => void }) =
           <>
             <div className="input-container-row-input">{data.Name}</div>
             {data.Succeeded ? (
-              <div className="input-container-row-button">
+              <div className="input-container-row-success-indicator">
                 <FontAwesomeIcon icon={faCheck} />
               </div>
             ) : (

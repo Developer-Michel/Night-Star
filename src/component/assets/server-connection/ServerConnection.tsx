@@ -7,13 +7,19 @@ import { UserDto } from "types/Types";
 import { toast } from "react-toastify";
 import lotus from "public/assets/lotus.png";
 export const ServerConnection = () => {
-  const [serverConnected, setServerConnected] = useState(false);
   const user: UserDto | null = JSON.parse(localStorage.getItem("selectedUser") ?? "null");
   const { api } = useComm();
+  const [visible, setVisible] = useState(true);
+  const [show, setShow] = useState(true);
   useEffect(() => {
     api.server.ping({
       Success: () => {
-        setServerConnected(true);
+        setTimeout(() => {
+          setVisible(false);
+        }, 100);
+        setTimeout(() => {
+          setShow(false);
+        }, 2100);
       },
       Error: (e) => {
         toast.error("Error no connection to the server: " + e);
@@ -21,25 +27,23 @@ export const ServerConnection = () => {
       NotifyError: false
     });
   }, []);
-  if (!serverConnected)
+  if (show)
     return (
-      <>
-        <div className="server-connection-loader">
-          <div className="center-content">
-            <img src={lotus} />
-            <div className="server-connection-welcome">WELCOME {user?.UserName ?? "USER"}</div>
+      <div className={`server-connection-loader ${visible && "visible"}`}>
+        <div className="center-content">
+          <img src={lotus} />
+          <div className="server-connection-welcome">WELCOME {user?.UserName ?? "USER"}</div>
+        </div>
+        <div className="bottom-right-content">
+          <div style={{ float: "right" }}>
+            <SpinningIcon />
           </div>
-          <div className="bottom-right-content">
-            <div style={{ float: "right" }}>
-              <SpinningIcon />
-            </div>
-            <br></br>
-            <div style={{ float: "right" }}>
-              <LoadingQuote />
-            </div>
+          <br></br>
+          <div style={{ float: "right" }}>
+            <LoadingQuote />
           </div>
         </div>
-      </>
+      </div>
     );
   return <></>;
 };

@@ -6,6 +6,12 @@
   width: 100%;
   z-index: 1005;
   background-color: #f8f4e3;
+  opacity: 0;
+  will-change: opacity;
+  transition: 2s opacity ease-in;
+  &.visible {
+    opacity: 1;
+  }
   .center-content {
     position: absolute;
     top: 40%;

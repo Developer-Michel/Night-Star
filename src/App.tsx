@@ -1,5 +1,5 @@
 import { Layout } from "@component/layout/Layout";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (

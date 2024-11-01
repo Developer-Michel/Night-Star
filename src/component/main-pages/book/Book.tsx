@@ -20,8 +20,13 @@ export const Book = () => {
   const [addClick, setAddClick] = useState(false);
   const [data, setData] = useState<BookDto[]>([]);
   const { api } = useComm();
+  const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     refresh();
+    setTimeout(() => {
+      setVisible(true);
+    }, 300);
   }, []);
   const refresh = () => {
     api.book.getAllBooks({
@@ -33,7 +38,7 @@ export const Book = () => {
   };
   if (data == null) return <LoadingSpinner />;
   return (
-    <Container className="book">
+    <Container fluid className={`book transition-enter ${visible && "visible"}`}>
       <Row>
         <Col>
           <h2>BOOKS</h2>
@@ -41,10 +46,7 @@ export const Book = () => {
       </Row>
       <Row>
         <Col>
-          <p>
-            "You can add books to the list and set weekly goals. Others can join you in your reading journey!" (ps I'll
-            work on the look later on)
-          </p>
+          <p>"You can add books to the list and set weekly goals. Others can join you in your reading journey!"</p>
         </Col>
       </Row>
       <Row>
@@ -60,7 +62,11 @@ export const Book = () => {
         </Col>
       </Row>
       {data.map((x) => (
-        <BookContainer data={x} refresh={refresh} />
+        <Row>
+          <Col>
+            <BookContainer data={x} refresh={refresh} />
+          </Col>
+        </Row>
       ))}
       {addClick && (
         <Row>
@@ -121,7 +127,7 @@ const BookContainer = ({ refresh, data }: { refresh: () => void; data: BookDto }
         </div>
         <div className="book-container-information">
           <h2>
-            {book.Name} - {book.Author}
+            {book.Name} <br></br> {book.Author}
           </h2>
           <p>
             NB pages: {book.PageQuantity}
