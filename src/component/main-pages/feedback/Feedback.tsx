@@ -1,4 +1,4 @@
-import { faInfoCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useComm } from "@hooks/useComm";
 import { useState, useEffect } from "react";
@@ -38,7 +38,7 @@ export const Feedback = () => {
       <Row>
         <Col>
           <h2>
-            FEEDBACKS{" "}
+            FEEDBACKS
             <div style={{ float: "right", opacity: 0.5 }}>
               <CustomTooltip
                 tooltipText={
@@ -50,19 +50,41 @@ export const Feedback = () => {
           </h2>
         </Col>
       </Row>
-
-      <Row>
-        <Col>
-          <Button
-            disabled={addClick}
-            onClick={() => {
-              setAddClick(true);
-            }}
-            className="input-add-button">
-            <FontAwesomeIcon icon={faPlusCircle} />
-          </Button>
-        </Col>
-      </Row>
+      {addClick ? (
+        <EditableRow
+          onSave={(newValue) => {
+            const dto: FeedbackType = {
+              Name: newValue,
+              Succeeded: false,
+              Id: 0,
+              Date: format(new Date(), "yyyy-MM-dd")
+            };
+            api.feedback.addFeedback({
+              dto: dto,
+              Success: () => {
+                refresh();
+              }
+            });
+          }}
+          initialValue={""}
+          succeeded={false}
+          addOnly={true}
+          onDelete={() => setAddClick(false)}
+        />
+      ) : (
+        <Row>
+          <Col>
+            <Button
+              disabled={addClick}
+              onClick={() => {
+                setAddClick(true);
+              }}
+              className="input-add-button">
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
+          </Col>
+        </Row>
+      )}
       {datas.map((x) => {
         return (
           <EditableRow
@@ -105,28 +127,6 @@ export const Feedback = () => {
           />
         );
       })}
-      {addClick && (
-        <EditableRow
-          onSave={(newValue) => {
-            const dto: FeedbackType = {
-              Name: newValue,
-              Succeeded: false,
-              Id: 0,
-              Date: format(new Date(), "yyyy-MM-dd")
-            };
-            api.feedback.addFeedback({
-              dto: dto,
-              Success: () => {
-                refresh();
-              }
-            });
-          }}
-          initialValue={""}
-          succeeded={false}
-          addOnly={true}
-          onDelete={() => setAddClick(false)}
-        />
-      )}
     </Container>
   );
 };

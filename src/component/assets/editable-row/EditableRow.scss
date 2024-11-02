@@ -1,29 +1,33 @@
-.ANGELINA .input-add-button {
-  background: rgba(233, 30, 99, 0.8);
-}
-.MICHEL .input-add-button {
-  margin-bottom: 1em;
-  background: rgba(0, 119, 182, 0.8);
-}
-.ANGELINA .input-container-row.in-edit {
-  background: rgba(233, 30, 99, 0.8);
-}
-.MICHEL .input-container-row.in-edit {
-  background: rgba(0, 119, 182, 0.8);
-}
+// .ANGELINA .input-add-button {
+//   background: rgba(233, 30, 99, 0.8);
+// }
+// .MICHEL .input-add-button {
+//
+//   background: rgba(0, 119, 182, 0.8);
+// }
+
 .input-add-button {
   width: 100%;
-
+  border-radius: 0.8em;
+  height: 4em;
+  margin-bottom: 0.5em;
+  background-color: rgba($color: #ffffff, $alpha: 0.8);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  color: black;
   border: none !important;
+  &:hover {
+    background-color: rgba($color: #ffffff, $alpha: 0.6);
+    color: black;
+  }
 }
 .input-container-row.success {
 }
 .input-container-row.info {
 }
 .input-container-row {
-  margin-left: 0.4em;
-  margin-right: 0.4em;
-  background-color: rgba($color: #ffffff, $alpha: 0.3);
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+  background-color: rgba($color: #ffffff, $alpha: 0.8);
   margin-bottom: 0.5em;
   color: black;
   border-radius: 1em;
@@ -33,7 +37,7 @@
   flex-wrap: nowrap;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   transition: box-shadow 0.5s ease;
-  padding: 0.4em;
+  padding: 0.5em;
 }
 
 .input-container-row.in-edit {

@@ -1,7 +1,7 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "./Goal.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useComm } from "@hooks/useComm";
 
@@ -56,18 +56,38 @@ export const Goal = () => {
           <p></p>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <Button
-            disabled={addClick}
-            onClick={() => {
-              setAddClick(true);
-            }}
-            className="input-add-button">
-            <FontAwesomeIcon icon={faPlusCircle} />
-          </Button>
-        </Col>
-      </Row>
+      {addClick ? (
+        <EditableRow
+          onSave={(newValue) => {
+            if (selectedUser)
+              api.goal.addGoal({
+                dto: { Name: newValue, UserId: selectedUser.Id, Succeeded: false, Id: -1 },
+                Success: () => {
+                  refresh();
+                  setAddClick(false);
+                }
+              });
+          }}
+          initialValue={""}
+          succeeded={false}
+          addOnly={true}
+          onDelete={() => setAddClick(false)}
+        />
+      ) : (
+        <Row>
+          <Col>
+            <Button
+              disabled={addClick}
+              onClick={() => {
+                setAddClick(true);
+              }}
+              className="input-add-button">
+              <FontAwesomeIcon icon={faPlus} />
+            </Button>
+          </Col>
+        </Row>
+      )}
+
       {goals.map((x) => {
         return (
           <EditableRow
@@ -106,24 +126,6 @@ export const Goal = () => {
           />
         );
       })}
-      {addClick && (
-        <EditableRow
-          onSave={(newValue) => {
-            if (selectedUser)
-              api.goal.addGoal({
-                dto: { Name: newValue, UserId: selectedUser.Id, Succeeded: false, Id: -1 },
-                Success: () => {
-                  refresh();
-                  setAddClick(false);
-                }
-              });
-          }}
-          initialValue={""}
-          succeeded={false}
-          addOnly={true}
-          onDelete={() => setAddClick(false)}
-        />
-      )}
     </Container>
   );
 };
