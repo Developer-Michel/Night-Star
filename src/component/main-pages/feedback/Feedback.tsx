@@ -1,5 +1,4 @@
-import { useDataContext } from "@context/DataContext";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useComm } from "@hooks/useComm";
 import { useState, useEffect } from "react";
@@ -9,10 +8,12 @@ import { FeedbackType } from "types/Types";
 import "./Feedback.scss";
 import { format } from "date-fns";
 import { EditableRow } from "@component/assets/editable-row/EditableRow";
+import { useUserData } from "@hooks/useUserData";
+import CustomTooltip from "@component/assets/custom-tooltip/CustomToolTip";
 
 export const Feedback = () => {
   const [addClick, setAddClick] = useState(false);
-  const { selectedUser } = useDataContext();
+  const { selectedUser } = useUserData();
   const [datas, setDatas] = useState<FeedbackType[]>([]);
   const { api } = useComm();
   const [visible, setVisible] = useState(false);
@@ -36,17 +37,20 @@ export const Feedback = () => {
     <Container className={`feedback transition-enter ${visible && "visible"}`}>
       <Row>
         <Col>
-          <h2>FEEDBACKS</h2>
+          <h2>
+            FEEDBACKS{" "}
+            <div style={{ float: "right", opacity: 0.5 }}>
+              <CustomTooltip
+                tooltipText={
+                  "You can enter suggestions or report any bugs found here, and the lead developer of this app will reviewyour requests as quickly as possible!"
+                }>
+                <FontAwesomeIcon icon={faInfoCircle} />
+              </CustomTooltip>
+            </div>
+          </h2>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <p>
-            "You can enter suggestions or report any bugs found here, and the lead developer of this app will review
-            your requests as quickly as possible!"
-          </p>
-        </Col>
-      </Row>
+
       <Row>
         <Col>
           <Button

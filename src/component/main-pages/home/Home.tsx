@@ -9,8 +9,8 @@ import { subDays, addDays, format } from "date-fns";
 import { TrackingData } from "types/Types";
 import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinner";
 import { useComm } from "@hooks/useComm";
-import { useDataContext } from "@context/DataContext";
 import { toast } from "react-toastify";
+import { useUserData } from "@hooks/useUserData";
 
 export const Home = () => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
@@ -86,7 +86,8 @@ const HomeContent = ({
   const [data, setData] = useState<TrackingData | undefined>();
   const isDayAlreadyCompleted = useRef(false);
   const { api } = useComm();
-  const { selectedUser, dataUpdatedToday, setDataUpdatedToday } = useDataContext();
+  const { dataUpdatedToday, setDataUpdatedToday } = useUserData();
+  const { selectedUser } = useUserData();
   useEffect(() => {
     if (selectedUser)
       api.tracker.get({

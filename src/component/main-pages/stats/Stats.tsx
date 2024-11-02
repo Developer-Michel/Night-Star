@@ -4,7 +4,6 @@ import "./Stats.scss";
 import { useEffect, useState } from "react";
 import { TrackingData } from "types/Types";
 import { useComm } from "@hooks/useComm";
-import { useDataContext } from "@context/DataContext";
 import {
   Line,
   CartesianGrid,
@@ -22,10 +21,11 @@ import {
   Bar
 } from "recharts";
 import { format, parse } from "date-fns";
+import { useUserData } from "@hooks/useUserData";
 export const Stats = () => {
   const [datas, setDatas] = useState<TrackingData[]>([]);
   const { api } = useComm();
-  const { selectedUser } = useDataContext();
+  const { selectedUser } = useUserData();
   const [dateRange, setDateRange] = useState<{ startDate: string; endDate: string }>({
     startDate: "",
     endDate: ""

@@ -1,4 +1,4 @@
-import { faPaperPlane, faPlusCircle, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faPaperPlane, faPlusCircle, faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Container, Row, Col, Button, ProgressBar } from "react-bootstrap";
@@ -7,7 +7,9 @@ import { BookType, BookDto } from "types/Types";
 import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinner";
 import { useComm } from "@hooks/useComm";
 import { format } from "date-fns";
-import { useDataContext } from "@context/DataContext";
+import { useData } from "@hooks/useData";
+import { useUserData } from "@hooks/useUserData";
+import CustomTooltip from "@component/assets/custom-tooltip/CustomToolTip";
 
 const fetchBookCover = async (title: string, author: string) => {
   const response = await fetch(`https://openlibrary.org/search.json?title=${title}&author=${author}`);
@@ -41,12 +43,17 @@ export const Book = () => {
     <Container fluid className={`book transition-enter ${visible && "visible"}`}>
       <Row>
         <Col>
-          <h2>BOOKS</h2>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>"You can add books to the list and set weekly goals. Others can join you in your reading journey!"</p>
+          <h2>
+            BOOKS
+            <div style={{ float: "right", opacity: 0.5 }}>
+              <CustomTooltip
+                tooltipText={
+                  "You can add books to the list and set weekly goals. Others can join you in your reading journey!"
+                }>
+                <FontAwesomeIcon icon={faInfoCircle} />
+              </CustomTooltip>
+            </div>
+          </h2>
         </Col>
       </Row>
       <Row>
@@ -82,7 +89,8 @@ const BookContainer = ({ refresh, data }: { refresh: () => void; data: BookDto }
   const book = data.Book;
   const users = data.Users;
 
-  const { selectedUser, userList } = useDataContext();
+  const { userList } = useData();
+  const { selectedUser } = useUserData();
   const currentWeek = data.Book.Started ? getCurrentWeek(data.Book.Started) + 1 : 0;
   const currentObjective = currentWeek * Math.floor(data.Book.PageQuantity / data.Book.NumberOfWeekObjective);
   const myUser = users.find((x) => selectedUser?.Id == x.UserId);
@@ -201,7 +209,7 @@ function getCurrentWeek(createDate: string): number {
 const AddBookContainer = ({ refresh }: { refresh: () => void }) => {
   const [coverUrl, setCoverUrl] = useState<string | null>(null);
   const [submited, setSubmited] = useState(false);
-  const { selectedUser } = useDataContext();
+  const { selectedUser } = useUserData();
   const ref = useRef<HTMLInputElement>(null);
   const { api } = useComm();
   const [data, setData] = useState<BookType>({

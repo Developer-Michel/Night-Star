@@ -1,24 +1,36 @@
 import { Navbar, Container, NavbarBrand } from "react-bootstrap";
 import "./Header.scss";
-import lotusImage from "/assets/lotus.png";
-import { PageType, useDataContext } from "@context/DataContext";
 import { useEffect, useState } from "react";
 import { useComm } from "@hooks/useComm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { useUserData } from "@hooks/useUserData";
+import { useLayout } from "@hooks/useLayout";
+import { PageType } from "@component/side-bar/Types";
+import { useSideBar } from "@hooks/useSideBar";
 
 export const Header = () => {
-  const { selectedUser } = useDataContext();
+  const { selectedUser } = useUserData();
+  const { showSideBar, setShowSideBar, sidebarIcon } = useSideBar();
   return (
-    <Navbar expand="lg" className={`header`}>
+    <Navbar expand="lg" className={`header ${showSideBar ? "sidebar-toggled" : ""}`}>
       <Container fluid>
         {selectedUser && (
           <img className="header-background" src={`/assets/${selectedUser.UserName.toString()}_FLOWER.png`} />
         )}
-        <Navbar.Brand href="#home">
+        {/* <Navbar.Brand href="#home">
           <img className="header-logo" src={lotusImage} />
+        </Navbar.Brand> */}
+        <Navbar.Brand>
+          <span
+            className="open-close-button "
+            aria-hidden="true"
+            onClick={() => {
+              setShowSideBar(!showSideBar);
+            }}>
+            <FontAwesomeIcon icon={sidebarIcon} />
+          </span>
         </Navbar.Brand>
-
         <UserPicture />
       </Container>
     </Navbar>
@@ -26,7 +38,8 @@ export const Header = () => {
 };
 
 const UserPicture = () => {
-  const { selectedUser, dataUpdatedToday, setSelectedPage, notifications } = useDataContext();
+  const { dataUpdatedToday, notifications, selectedUser } = useUserData();
+  const { setSelectedPage } = useLayout();
   const [streakCount, setStreakCount] = useState(1);
   const unseenQuantity = notifications.filter((x) => !x.Seen).length;
   const { api } = useComm();

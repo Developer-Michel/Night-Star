@@ -1,15 +1,12 @@
-import { EditableRow } from "@component/assets/editable-row/EditableRow";
-import { useDataContext } from "@context/DataContext";
 import { useComm } from "@hooks/useComm";
-import { format } from "path";
 import { useState, useEffect, useRef } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { toast } from "react-toastify";
-import { FeedbackType, NotificationUser } from "types/Types";
+import { Container, Row, Col } from "react-bootstrap";
+import { NotificationUser } from "types/Types";
 import "./notification.scss";
-export const Notification = () => {
-  const [addClick, setAddClick] = useState(false);
-  const { selectedUser, notifications, setNotifications } = useDataContext();
+import { useUserData } from "@hooks/useUserData";
+export const NotificationPage = () => {
+  // const [addClick, setAddClick] = useState(false);
+  const { notifications, setNotifications, selectedUser } = useUserData();
   const { api } = useComm();
   const [visible, setVisible] = useState(false);
   const notificationStateSaved = useRef(notifications);

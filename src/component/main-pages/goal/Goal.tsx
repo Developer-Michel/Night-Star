@@ -1,17 +1,19 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import "./Goal.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useComm } from "@hooks/useComm";
-import { useDataContext } from "@context/DataContext";
+
 import { GoalType } from "types/Types";
 import { toast } from "react-toastify";
 import { EditableRow } from "@component/assets/editable-row/EditableRow";
+import { useUserData } from "@hooks/useUserData";
+import CustomTooltip from "@component/assets/custom-tooltip/CustomToolTip";
 
 export const Goal = () => {
   const [addClick, setAddClick] = useState(false);
-  const { selectedUser } = useDataContext();
+  const { selectedUser } = useUserData();
   const [goals, setGoals] = useState<GoalType[]>([]);
   const { api } = useComm();
   const [visible, setVisible] = useState(false);
@@ -36,15 +38,22 @@ export const Goal = () => {
     <Container className={`goal transition-enter ${visible && "visible"}`}>
       <Row>
         <Col>
-          <h2>GOALS</h2>
+          <h2>
+            GOALS
+            <div style={{ float: "right", opacity: 0.5 }}>
+              <CustomTooltip
+                tooltipText={
+                  "Enter your goals, big or small, here. Whenever you achieve one, simply click the check mark to mark it as complete, keep up the great work you!"
+                }>
+                <FontAwesomeIcon icon={faInfoCircle} />
+              </CustomTooltip>
+            </div>
+          </h2>
         </Col>
       </Row>
       <Row>
         <Col>
-          <p>
-            "Enter your goals, big or small, here. Whenever you achieve one, simply click the check mark to mark it as
-            complete, keep up the great work you!"
-          </p>
+          <p></p>
         </Col>
       </Row>
       <Row>
