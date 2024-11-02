@@ -227,11 +227,15 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
       }
     },
     notification: {
-      getAll(requestData: AddRequestInterfaceWithoutSender<NotificationDTO[]>) {
+      getAll(requestData: AddRequestInterface<{ userId: number }, NotificationDTO[]>) {
         addRequest(
           new RequestObj({
             ...requestData,
-            HttpHeaderObj: new HttpHeaderObj(RequestType.GET, `Notification/GetAll`, `Loading information for you`)
+            HttpHeaderObj: new HttpHeaderObj(
+              RequestType.GET,
+              `Notification/GetAll?userId=${requestData.dto.userId}`,
+              `Loading information for you`
+            )
           })
         );
       },

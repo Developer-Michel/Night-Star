@@ -26,8 +26,15 @@
     text-align: center;
     font-weight: 900;
   }
+  .bottom-left-content {
+    position: absolute;
+    bottom: 0;
+    font-size: xx-small;
+    left: 0;
+  }
   .bottom-right-content {
     position: absolute;
+
     bottom: 0;
     right: 0;
   }

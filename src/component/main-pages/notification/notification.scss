@@ -1,0 +1,22 @@
+.notification {
+  padding-top: 4em;
+  padding-bottom: 4em;
+  position: relative;
+  .notification-row {
+    background-color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    padding: 1em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    border-radius: 2em;
+  }
+  .notification-row-new-indicator {
+    position: absolute;
+    top: 1em;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    right: 1em;
+    padding: 0.4em;
+    background-color: rgba($color: #d30d0d, $alpha: 0.9);
+    border-radius: 1em;
+  }
+}

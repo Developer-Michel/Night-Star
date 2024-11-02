@@ -29,10 +29,13 @@ export const ServerConnection = () => {
   }, []);
   if (show)
     return (
-      <div className={`server-connection-loader ${visible && "visible"}`}>
+      <div className={`server-connection-loader ${visible && "visible"} `}>
         <div className="center-content">
           <img src={lotus} />
           <div className="server-connection-welcome">WELCOME {user?.UserName ?? "USER"}</div>
+        </div>
+        <div className="bottom-left-content">
+          <div>V{import.meta.env.APP_VERSION}</div>
         </div>
         <div className="bottom-right-content">
           <div style={{ float: "right" }}>
@@ -52,10 +55,10 @@ const LoadingQuote = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % messages.length);
-    }, 5000); // Change message every 3 seconds
+      setIndex(Math.floor(Math.random() * messages.length)); // Set random index
+    }, 5000); // Change message every 5 seconds
 
     return () => clearInterval(interval); // Clean up on component unmount
-  }, []);
+  }, [messages.length]);
   return <div className="loading-message">{messages[index]}</div>;
 };
