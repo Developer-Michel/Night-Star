@@ -11,7 +11,7 @@ export const Footer = () => {
       <Container fluid>
         <Row>
           {allPages
-            .filter((x) => x != "PROFILE")
+            .filter((x) => x != "PROFILE" && x != "NOTIFICATION")
             .map((page) => (
               <PageButton key={page} page={page} />
             ))}

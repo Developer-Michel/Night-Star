@@ -1,0 +1,89 @@
+.ANGELINA .input-add-button {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 204, 0.8),
+    rgba(255, 94, 126, 0.8),
+    rgba(233, 30, 99, 0.8),
+    rgba(212, 20, 90, 0.8)
+  );
+}
+.MICHEL .input-add-button {
+  margin-bottom: 1em;
+  background: linear-gradient(135deg, rgba(144, 224, 239, 0.8), rgba(0, 119, 182, 0.8), rgba(13, 59, 102, 0.8));
+}
+.ANGELINA .input-container-row.in-edit {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 153, 204, 0.8),
+    rgba(255, 94, 126, 0.8),
+    rgba(233, 30, 99, 0.8),
+    rgba(212, 20, 90, 0.8)
+  );
+}
+.MICHEL .input-container-row.in-edit {
+  background: linear-gradient(135deg, rgba(144, 224, 239, 0.8), rgba(0, 119, 182, 0.8), rgba(13, 59, 102, 0.8));
+}
+.input-add-button {
+  width: 100%;
+  background-color: #4f6457 !important;
+  border: none !important;
+}
+.input-container-row.success {
+  background: linear-gradient(90deg, #c9e4de, #4f6457);
+}
+.input-container-row.info {
+  background: linear-gradient(90deg, #fff9e6, #b3d4fc);
+}
+.input-container-row {
+  background-color: rgba(245, 245, 245, 0.8);
+  margin-bottom: 0.5em;
+
+  border-radius: 1em;
+  flex-direction: row;
+  display: flex;
+  resize: none;
+  flex-wrap: nowrap;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  transition: box-shadow 0.5s ease;
+  padding: 0.4em;
+}
+
+.input-container-row.in-edit {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  &:focus-within {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+}
+.input-container-row-input {
+  height: 100%;
+
+  border: none;
+
+  background-color: transparent;
+  flex-grow: 1;
+}
+.input-container-row-input:focus {
+  outline: none;
+}
+
+.input-container-row-button {
+  margin-left: 0.2em;
+  border-bottom-left-radius: none;
+  float: right;
+  width: 2.5em;
+  background-color: transparent !important;
+  height: 100%;
+  border: none !important;
+}
+.input-container-row-success-indicator {
+  position: relative;
+  width: 2.5em;
+  svg {
+    position: absolute;
+
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+  }
+}

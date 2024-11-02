@@ -4,6 +4,8 @@ import lotusImage from "/assets/lotus.png";
 import { PageType, useDataContext } from "@context/DataContext";
 import { useEffect, useState } from "react";
 import { useComm } from "@hooks/useComm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 export const Header = () => {
   const { selectedUser } = useDataContext();
@@ -24,8 +26,9 @@ export const Header = () => {
 };
 
 const UserPicture = () => {
-  const { selectedUser, dataUpdatedToday, setSelectedPage } = useDataContext();
+  const { selectedUser, dataUpdatedToday, setSelectedPage, notifications } = useDataContext();
   const [streakCount, setStreakCount] = useState(1);
+  const unseenQuantity = notifications.filter((x) => !x.Seen).length;
   const { api } = useComm();
   const count = dataUpdatedToday.updated ? streakCount : streakCount;
   useEffect(() => {
@@ -45,6 +48,10 @@ const UserPicture = () => {
             <div className={`streak-img ms-auto ${selectedUser ? "visible" : ""}`}>
               <img src={`/assets/Fire${dataUpdatedToday.updated ? "" : "Weak"}.png`} />
               <div className="streak-count">{count}</div>
+            </div>
+            <div className="notif" onClick={() => setSelectedPage(PageType.notification)}>
+              <FontAwesomeIcon size="lg" className={`notif-icon ${unseenQuantity > 0 && "blink"}`} icon={faBell} />
+              {unseenQuantity > 0 && <div className="notif-counter">{unseenQuantity}</div>}
             </div>
           </>
         )}

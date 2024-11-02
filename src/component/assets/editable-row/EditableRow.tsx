@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useState, useRef, useEffect, ChangeEvent } from "react";
 import { Row, Col, Button } from "react-bootstrap";
-
+import "./EditableRow.scss";
 export const EditableRow = ({
   initialValue,
   onSave,
@@ -45,7 +45,7 @@ export const EditableRow = ({
   };
   return (
     <Row>
-      <Col className={`input-container-row ${succeeded ? "success" : "info"} ${inEdit || (addOnly && "in-edit")}`}>
+      <Col className={`input-container-row ${succeeded ? "success" : "info"} ${(inEdit || addOnly) && "in-edit"}`}>
         <textarea
           disabled={!inEdit && !addOnly}
           onChange={handleInputChange}
