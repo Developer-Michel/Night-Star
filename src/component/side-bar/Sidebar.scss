@@ -102,7 +102,7 @@
   justify-content: center;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-  opacity: 0;
+
   div {
     position: relative;
     display: flex;
@@ -118,9 +118,10 @@
   }
   @for $i from 0 through 10 {
     &:nth-child(#{$i + 1}) {
-      transform: translateY(calc((-100% * $i) - 4em));
-      $exitDelay: #{(0.05 * (11 - $i))}s; // Exit delay (reverse)
-      transition: transform 0.4s ease $exitDelay, opacity 0.2s ease $exitDelay;
+      // transform: translateY(calc((-100% * $i) - 4em));
+      transform: translateX(-100%);
+      $exitDelay: #{(0.1 * (8 - $i))}s; // Exit delay (reverse)
+      transition: transform 0.6s ease $exitDelay;
     }
   }
 }
@@ -128,18 +129,14 @@
   .sidebar-icon {
     @for $i from 1 through 10 {
       &:nth-child(#{$i}) {
-        $wait: #{(0.05 * $i)}s; // Reduced delay between each element
-
-        // Initial styles (before appearing)
-        transform: translateY(10px); // Start slightly below final position
-        opacity: 0;
+        $wait: #{(0.1 * $i)}s; // Reduced delay between each element
 
         // Transition effect
-        transition: transform 0.4s ease $wait, opacity 0.2s ease $wait;
+        transition: transform 0.6s ease $wait;
 
         // Final styles
         opacity: 1;
-        transform: translateY(0); // Moves to original position
+        transform: translateX(0); // Moves to original position
       }
     }
     &.selected {
