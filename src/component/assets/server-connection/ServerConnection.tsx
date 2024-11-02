@@ -51,7 +51,7 @@ export const ServerConnection = () => {
   return <></>;
 };
 const LoadingQuote = () => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(Math.floor(Math.random() * messages.length));
 
   useEffect(() => {
     const interval = setInterval(() => {
