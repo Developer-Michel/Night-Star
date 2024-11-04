@@ -1,4 +1,4 @@
-import { faTrash, faSave, faCheck, faEdit, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faSave, faCheck, faCheckCircle, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { useState, useRef, useEffect, ChangeEvent } from "react";
@@ -46,15 +46,15 @@ export const EditableRow = ({
   return (
     <Row>
       <Col className={`input-container-row ${succeeded ? "success" : "info"} ${(inEdit || addOnly) && "in-edit"}`}>
-        <textarea
-          disabled={!inEdit && !addOnly}
-          onChange={handleInputChange}
-          ref={textareaRef}
-          defaultValue={initialValue}
-          className="input-container-row-input"
-        />
         {inEdit || addOnly ? (
           <>
+            <textarea
+              disabled={!inEdit && !addOnly}
+              onChange={handleInputChange}
+              ref={textareaRef}
+              defaultValue={initialValue}
+              className="input-container-row-input"
+            />
             {onDelete && (
               <Button
                 onClick={() => {
@@ -79,6 +79,7 @@ export const EditableRow = ({
           </>
         ) : (
           <>
+            <div className="input-container-row-input ">{state}</div>
             {succeeded ? (
               <div className="input-container-row-success-indicator">
                 <FontAwesomeIcon icon={faCheck} />
@@ -95,7 +96,7 @@ export const EditableRow = ({
                     }}
                     style={{ color: "	#D397F8" }}
                     className="input-container-row-button">
-                    <FontAwesomeIcon icon={faEdit} />
+                    <FontAwesomeIcon icon={faPen} />
                   </Button>
                 )}
 

@@ -34,6 +34,8 @@ export const Goal = () => {
         }
       });
   };
+  const succeededList = goals.filter((x) => x.Succeeded);
+  const toDoList = goals.filter((x) => !x.Succeeded);
   return (
     <Container className={`goal transition-enter ${visible && "visible"}`}>
       <Row>
@@ -88,7 +90,7 @@ export const Goal = () => {
         </Row>
       )}
 
-      {goals.map((x) => {
+      {toDoList.map((x) => {
         return (
           <EditableRow
             key={x.Id}
@@ -125,6 +127,10 @@ export const Goal = () => {
             }}
           />
         );
+      })}
+      <hr></hr>
+      {succeededList.map((x) => {
+        return <EditableRow key={x.Id} initialValue={x.Name} succeeded={true} />;
       })}
     </Container>
   );

@@ -1,10 +1,11 @@
 .date-navigator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 0.5em;
   padding: 0.5em;
   border-radius: 10px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
   opacity: 0;
   transform: translateY(-3em);
   transition: transform 1s ease-in-out, opacity 1s ease-in-out;
@@ -14,10 +15,24 @@
   background-color: transparent;
   /* color: #4f6457; */
   border: none;
+  margin: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 
-  height: 100%;
+  width: 2em;
+  &:nth-child(1) {
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+  }
+  &:nth-child(2) {
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+  }
+  &:nth-child(4) {
+    width: 5em;
+    border-radius: 0.5em;
+  }
 
-  padding: 10px 15px;
   cursor: pointer;
   font-size: 18px;
   transition: background-color 0.3s ease;
@@ -38,6 +53,10 @@
 }
 .date-navigator .date-navigator-indicator {
   font-size: larger;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
   /* color: #4f6457; */
 }
 .date-navigator button:hover {
@@ -54,7 +73,7 @@
   color: #333;
 }
 
-.date-navigator.visible {
+.visible .date-navigator {
   opacity: 1;
   transform: translateY(0em);
 }

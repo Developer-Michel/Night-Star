@@ -1,4 +1,5 @@
 import { Book } from "@component/main-pages/book/Book";
+import { Calendar } from "@component/main-pages/calendar/calendar";
 import { Feedback } from "@component/main-pages/feedback/Feedback";
 import { Goal } from "@component/main-pages/goal/Goal";
 import { Home } from "@component/main-pages/home/Home";
@@ -25,6 +26,8 @@ export const Router = () => {
         return <Profile />;
       case "NOTIFICATION":
         return <NotificationPage />;
+      case "CALENDAR":
+        return <Calendar />;
       default:
         return <h1>Page Not Found</h1>;
     }

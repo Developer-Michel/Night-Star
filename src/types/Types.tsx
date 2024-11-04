@@ -72,3 +72,27 @@ export interface NotificationDTO {
   Notification: NotificationType;
   Seen: boolean;
 }
+
+export interface ToDoTask {
+  Id: number;
+  UserId: number;
+  Name: string;
+  Description: string;
+  Date: string;
+  Priority: number;
+  Succeeded: boolean;
+  Color: string;
+}
+export interface TaskDto {
+  Id: number;
+  OriginalDate: string;
+  UserId: number;
+  Name: string;
+  Description: string;
+  Priority: number;
+  Color: string;
+  OccurrenceType: string;
+  OccurrenceJson: string;
+  Date: string;
+  Status: string;
+}

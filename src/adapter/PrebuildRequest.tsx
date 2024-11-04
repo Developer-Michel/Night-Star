@@ -7,7 +7,8 @@ import {
   TrackingData,
   UserDto,
   NotificationDTO,
-  NotificationUser
+  NotificationUser,
+  TaskDto
 } from "types/Types";
 import {
   RequestObj,
@@ -69,15 +70,16 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
           })
         );
       },
-      getDatas(
-        requestData: AddRequestInterface<{ userId: number; startDate: string; endDate: string }, TrackingData[]>
-      ) {
+      getDatas(requestData: AddRequestInterface<{ userId: number; startDate: Date; endDate: Date }, TrackingData[]>) {
         addRequest(
           new RequestObj({
             ...requestData,
             HttpHeaderObj: new HttpHeaderObj(
               RequestType.GET,
-              `Tracker/GetDatas?userId=${requestData.dto.userId}&&startdate=${requestData.dto.startDate}&&endDate=${requestData.dto.endDate}`,
+              `Tracker/GetDatas?userId=${requestData.dto.userId}&&startdate=${format(
+                requestData.dto.startDate,
+                "yyyy-MM-dd"
+              )}&&endDate=${format(requestData.dto.endDate, "yyyy-MM-dd")}`,
               "Loading information for you"
             )
           })
@@ -274,6 +276,77 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
           new RequestObj({
             ...requestData,
             HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Notification/Update`, "Update...", requestData.dto)
+          })
+        );
+      }
+    },
+    toDoTask: {
+      getAll(requestData: AddRequestInterface<{ userId: number }, TaskDto[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(
+              RequestType.GET,
+              `ToDoTask/GetAll?userId=${requestData.dto.userId}`,
+              `Loading information for you`
+            )
+          })
+        );
+      },
+      get(requestData: AddRequestInterface<{ taskId: number }, TaskDto>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(
+              RequestType.GET,
+              `ToDoTask/Get?taskId=${requestData.dto.taskId}`,
+              `Loading information for you`
+            )
+          })
+        );
+      },
+      add(requestData: AddRequestInterface<TaskDto, TaskDto>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `ToDoTask/Add`, "Update...", requestData.dto)
+          })
+        );
+      },
+      delete(requestData: AddRequestInterfaceWithoutReciever<TaskDto>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.DELETE, `ToDoTask/Delete`, "Update...", requestData.dto)
+          })
+        );
+      },
+      DeleteAndRecreate(requestData: AddRequestInterfaceWithoutReciever<TaskDto>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(
+              RequestType.DELETE,
+              `ToDoTask/DeleteAndRecreate`,
+              "Update...",
+              requestData.dto
+            )
+          })
+        );
+      },
+      update(requestData: AddRequestInterfaceWithoutReciever<TaskDto>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `ToDoTask/Update`, "Update...", requestData.dto)
+          })
+        );
+      },
+      CompleteTask(requestData: AddRequestInterfaceWithoutReciever<TaskDto>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `ToDoTask/CompleteTask`, "Update...", requestData.dto)
           })
         );
       }

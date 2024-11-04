@@ -35,8 +35,11 @@
   }
   &.sidebar-toggled .open-close-button {
     box-shadow: none;
-    svg {
-      transform: rotateZ(360deg);
+    .header-logo {
+      scale: 0.7;
+      transform: rotateZ(-180deg);
+      aspect-ratio: 1/1;
+      pointer-events: none;
     }
   }
   .open-close-button {
@@ -46,13 +49,17 @@
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
       rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     border-radius: 0.25rem;
-    padding: 0.25rem 0.75rem;
+    padding: 0.2rem 0.2rem;
     transition: box-shadow 1s ease-in-out;
-    svg {
-      transition: transform 1s ease-in-out;
+    .header-logo {
+      will-change: transform, scale;
+      transition: transform 1s ease-in-out, scale 1s ease-in-out;
       pointer-events: none;
     }
-    path {
+
+    .header-logo {
+      height: 1.5em;
+      aspect-ratio: 1/1;
       pointer-events: none;
     }
   }
@@ -113,11 +120,6 @@
       transform: translateX(0);
     }
     /* Animated state */
-  }
-
-  .header-logo {
-    height: 1.5em;
-    aspect-ratio: 1/1;
   }
 }
 .dropdown::after {

@@ -1,0 +1,125 @@
+.calendar {
+  width: 100%;
+  padding-top: 3em;
+}
+
+.calendar-days,
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Ensures 7 columns per row */
+}
+
+.day-name {
+  font-weight: bold;
+  padding: 8px 0;
+  text-align: center;
+  background-color: #f9f9f9;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  opacity: 0;
+  will-change: opacity, transform;
+  transform: translateY(1em);
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+.visible {
+  .day-name {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .calendar-cell {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .legend {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.calendar-row {
+  display: contents; /* Ensures rows work within the grid structure */
+}
+
+.calendar-cell {
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+  height: 4em;
+  padding-left: 0.3em;
+  opacity: 0;
+  transform: translateY(1em);
+
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  padding-right: 0.3em;
+  padding-top: 0.1em;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  &.empty {
+    background: repeating-linear-gradient(
+      45deg,
+      /* Angle des rayures */ #f9f9f9,
+      /* Couleur blanche (ou légèrement teintée) */ #f9f9f9 5px,
+      /* Largeur de la bande blanche */ #e0e0e0 5px,
+      /* Début de la bande grise très claire */ #e0e0e0 10px /* Largeur de la bande grise claire */
+    );
+  }
+  .calendar-cell-indicator {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+  }
+}
+
+.calendar-cell.disabled {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.calendar-cell.today {
+  font-weight: bold;
+  background-color: lightblue;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.gradient-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.legend {
+  transition: transform 1s ease-in-out 2s, opacity 1s ease-in-out 2s;
+  opacity: 0;
+  transform: translateY(1em);
+  .empty-legend {
+    width: 1em;
+    border: 1px solid #e0e0e0;
+    display: inline-block;
+    height: 1em;
+    background: repeating-linear-gradient(
+      45deg,
+      /* Angle des rayures */ #f9f9f9,
+      /* Couleur blanche (ou légèrement teintée) */ #f9f9f9 5px,
+      /* Largeur de la bande blanche */ #e0e0e0 5px,
+      /* Début de la bande grise très claire */ #e0e0e0 10px /* Largeur de la bande grise claire */
+    );
+    opacity: 0.7; /* Légère transparence pour plus de subtilité */
+  }
+}
+.legend-label {
+  font-size: 12px;
+  color: #3c3c3c; /* Soft gray text for a zen look */
+}
+
+.legend-gradient-bar {
+  flex-grow: 1;
+  height: 16px;
+  background: linear-gradient(
+    to right,
+    #f2f8f2,
+    /* Very light green (low happiness) */ #ccf2cc,
+    #bfe6bf,
+    #99bf99,
+    #80a680 /* Soft sage green (high happiness) */
+  );
+  border-radius: 8px;
+  border: 1px solid #e0e0e0; /* Subtle border for definition */
+}

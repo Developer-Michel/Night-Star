@@ -1,0 +1,30 @@
+.day-view {
+  max-width: 100%;
+  position: relative;
+  transition: all 1s ease-in-out;
+
+  .home-shadow {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    background-color: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity 1s ease-in-out;
+    &.visible {
+      opacity: 1;
+    }
+  }
+  & .day-content {
+    padding-top: 3em;
+    padding-bottom: 3em;
+    will-change: transform, opacity, height, scale;
+    display: inline-block;
+    @for $i from 1 through 10 {
+      .row:nth-child(#{$i}) {
+        transition-delay: #{($i - 1) * 50}ms; // Increment delay for each child
+      }
+    }
+  }
+}

@@ -33,6 +33,8 @@ export const Feedback = () => {
         }
       });
   };
+  const succeededList = datas.filter((x) => x.Succeeded);
+  const toDoList = datas.filter((x) => !x.Succeeded);
   return (
     <Container className={`feedback transition-enter ${visible && "visible"}`}>
       <Row>
@@ -85,7 +87,7 @@ export const Feedback = () => {
           </Col>
         </Row>
       )}
-      {datas.map((x) => {
+      {toDoList.map((x) => {
         return (
           <EditableRow
             key={x.Id}
@@ -126,6 +128,10 @@ export const Feedback = () => {
             }
           />
         );
+      })}
+      <hr></hr>
+      {succeededList.map((x) => {
+        return <EditableRow key={x.Id} initialValue={x.Name} succeeded={true} />;
       })}
     </Container>
   );

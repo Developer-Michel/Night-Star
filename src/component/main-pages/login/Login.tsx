@@ -21,7 +21,7 @@ export const Login = ({ setSelectedUser }: { setSelectedUser: (user: UserDto) =>
         </Col>
       </Row>
       {userList.map((x, i) => (
-        <LoginCell key={x.UserName} user={x} delay={i * 100} setSelectedUser={setSelectedUser} />
+        <LoginCell key={x.Name} user={x} delay={i * 100} setSelectedUser={setSelectedUser} />
       ))}
     </Container>
   );
@@ -57,7 +57,7 @@ const LoginCell = ({
             className="login-img-col"
           />
           <div className="login-name-cell">
-            {user.UserName}
+            {user.Name}
             <br></br>
             <p>{user.Description}</p>
           </div>

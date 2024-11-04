@@ -1,11 +1,10 @@
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import loadingIcon from "public/assets/LoadingIcon.png";
+import "./LoadingSpinner.scss";
 export function LoadingSpinner() {
   return (
     <div style={{ width: "100%", position: "absolute", height: "100%" }}>
-      <div style={{ top: "50%", position: "absolute", left: "50%" }}>
-        <FontAwesomeIcon icon={faCircleNotch} spin />
+      <div className="loading-icon" style={{ top: "50%", position: "absolute", left: "50%" }}>
+        <img src={loadingIcon} />
       </div>
     </div>
   );

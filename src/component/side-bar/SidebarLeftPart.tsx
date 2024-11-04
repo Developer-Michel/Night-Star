@@ -11,22 +11,24 @@ export function SidebarLeftPart() {
     <div className="sidebar-left">
       <div className="sidebar-nav">
         <ul className="reduced-scroller">
-          {Object.values(PageType).map((x, i) => {
-            return (
-              <li
-                data-tooltip-id="default-tool-tip"
-                data-tooltip-content={x}
-                key={i}
-                className={`sidebar-icon action-hover ${selectedPage === x && "selected"}`}
-                onClick={() => {
-                  if (selectedPage !== x) changeIcon(x);
-                }}>
-                <div>
-                  <FontAwesomeIcon icon={PageIconMap[x]} size="xl" />
-                </div>
-              </li>
-            );
-          })}
+          {Object.values(PageType)
+            .filter((x) => x != "NOTIFICATION" && x != "PROFILE")
+            .map((x, i) => {
+              return (
+                <li
+                  data-tooltip-id="default-tool-tip"
+                  data-tooltip-content={x}
+                  key={i}
+                  className={`sidebar-icon action-hover ${selectedPage === x && "selected"}`}
+                  onClick={() => {
+                    if (selectedPage !== x) changeIcon(x);
+                  }}>
+                  <div>
+                    <FontAwesomeIcon icon={PageIconMap[x]} size="xl" />
+                  </div>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </div>

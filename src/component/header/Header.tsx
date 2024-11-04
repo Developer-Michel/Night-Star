@@ -8,19 +8,18 @@ import { useUserData } from "@hooks/useUserData";
 import { useLayout } from "@hooks/useLayout";
 import { PageType } from "@component/side-bar/Types";
 import { useSideBar } from "@hooks/useSideBar";
+import lotusImage from "public/assets/lotus.png";
 
 export const Header = () => {
   const { selectedUser } = useUserData();
-  const { showSideBar, setShowSideBar, sidebarIcon } = useSideBar();
+  const { showSideBar, setShowSideBar } = useSideBar();
   return (
     <Navbar expand="lg" className={`header ${showSideBar ? "sidebar-toggled" : ""}`}>
       <Container fluid>
         {selectedUser && (
           <img className="header-background" src={`/assets/${selectedUser.UserName.toString()}_FLOWER.png`} />
         )}
-        {/* <Navbar.Brand href="#home">
-          <img className="header-logo" src={lotusImage} />
-        </Navbar.Brand> */}
+
         <Navbar.Brand>
           <span
             className="open-close-button "
@@ -28,7 +27,8 @@ export const Header = () => {
             onClick={() => {
               setShowSideBar(!showSideBar);
             }}>
-            <FontAwesomeIcon icon={sidebarIcon} />
+            {" "}
+            <img className="header-logo" src={lotusImage} />
           </span>
         </Navbar.Brand>
         <UserPicture />
