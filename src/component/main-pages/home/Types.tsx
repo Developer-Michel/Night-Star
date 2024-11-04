@@ -1,11 +1,8 @@
+import { calendarViewType } from "../calendar/types";
+
 export interface HomeContextData {
-  setView: React.Dispatch<React.SetStateAction<homeViewType>>;
-  view: homeViewType;
+  setView: React.Dispatch<React.SetStateAction<calendarViewType>>;
+  view: calendarViewType;
   selectedDay: Date;
   setSelectedDay: React.Dispatch<React.SetStateAction<Date>>;
-}
-export enum homeViewType {
-  month = "MONTH",
-  year = "YEAR",
-  day = "DAY"
 }

@@ -1,9 +1,9 @@
 import "./Home.scss";
-import { DailyView } from "./assets/day-view/DayView";
+import { DailyView } from "./assets/day-view/DayViewHome";
 import { HomeContextProvider } from "./context/HomeProvider";
 import { HomeContextConsumer } from "./context/HomeContext";
-import { homeViewType } from "./Types";
-import { MonthView } from "./assets/month-view/MonthView";
+import { MonthViewHome } from "./assets/month-view/MonthViewHome";
+import { calendarViewType } from "../calendar/types";
 
 export const Home = () => {
   return (
@@ -11,10 +11,10 @@ export const Home = () => {
       <HomeContextConsumer>
         {(data) => {
           switch (data.view) {
-            case homeViewType.day:
+            case calendarViewType.day:
               return <DailyView />;
-            case homeViewType.month:
-              return <MonthView />;
+            case calendarViewType.month:
+              return <MonthViewHome />;
           }
         }}
       </HomeContextConsumer>

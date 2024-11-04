@@ -17,12 +17,11 @@ import {
 import { useState, useEffect } from "react";
 import { TrackingData } from "types/Types";
 import { useHomeContext } from "../../context/UseHomeContext";
-import { homeViewType } from "../../Types";
 import DateNavigator from "../date-navigator/DateNavigator";
-import "./MonthView.scss";
-export const MonthView = () => {
+import { calendarViewType } from "@component/main-pages/calendar/types";
+export const MonthViewHome = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const { setView, setSelectedDay } = useHomeContext();
+  const { setSelectedDay, setView, view } = useHomeContext();
   const [data, setData] = useState<TrackingData[]>([]);
   const { selectedUser } = useUserData();
   const { api } = useComm();
@@ -78,7 +77,7 @@ export const MonthView = () => {
           <div
             onClick={() => {
               setSelectedDay(savedday);
-              setView(homeViewType.day);
+              setView(calendarViewType.day);
             }}
             className={`calendar-cell ${!isSameMonth(day, monthStart) ? "disabled" : ""} ${!found && "empty"}
                 ${isSameDay(day, new Date()) ? "today" : ""}`}
@@ -110,6 +109,9 @@ export const MonthView = () => {
         currentDate={currentMonth}
         onPreviousDayPressed={handlePreviousMonth}
         onNextDayPressed={handleNextMonth}
+        setView={setView}
+        view={view}
+        setSelectedDay={setSelectedDay}
       />
       {renderDays()}
       {renderCells()}

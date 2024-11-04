@@ -11,7 +11,6 @@ import ZenInput from "@component/assets/zen-input/ZenInput";
 import DateNavigator from "../date-navigator/DateNavigator";
 import RandomQuote from "../quote/Quote";
 import { ZenSlider } from "../zen-slider/ZenSlider";
-import "./DayView.scss";
 import { useHomeContext } from "../../context/UseHomeContext";
 
 export const DailyView = () => {
@@ -111,6 +110,7 @@ const DayContent = ({
   const { api } = useComm();
   const { dataUpdatedToday, setDataUpdatedToday } = useUserData();
   const { selectedUser } = useUserData();
+  const { setSelectedDay, setView, view } = useHomeContext();
   useEffect(() => {
     if (selectedUser)
       api.tracker.get({
@@ -155,6 +155,9 @@ const DayContent = ({
             currentDate={date}
             onNextDayPressed={onNextDayPressed}
             onPreviousDayPressed={onPreviousDayPressed}
+            setView={setView}
+            view={view}
+            setSelectedDay={setSelectedDay}
           />
         </Col>
       </Row>
@@ -225,14 +228,14 @@ const DayContent = ({
         }}
       />
       <ZenSlider
-        max={4000}
-        uom="ml"
+        max={16}
+        uom=" glass of water"
         tooltip="Adequate water intake supports energy, digestion, and skin health. Aim for 8 glasses (about 2 liters) daily, adjusting for activity level, climate, and individual needs. Drink water consistently throughout the day, and prioritize hydration before, during, and after exercise for optimal benefits."
-        multiple={100}
+        multiple={1}
         placeholder="💧Water intake"
-        defaultValue={data.WaterIntake}
+        defaultValue={data.WaterIntake / 250}
         submit={(value) => {
-          updateData({ ...data, WaterIntake: value });
+          updateData({ ...data, WaterIntake: value * 250 });
         }}
       />
       <ZenSlider

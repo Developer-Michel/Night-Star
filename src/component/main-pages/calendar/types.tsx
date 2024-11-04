@@ -1,13 +1,15 @@
-import { ToDoTask } from "types/Types";
+import { TaskDto } from "types/Types";
 
 export interface CalendarContextData {
-  data: ToDoTask[];
-  setView: React.Dispatch<React.SetStateAction<viewType>>;
-  view: viewType;
-  updateToDoTask: (toDoTask: ToDoTask) => void;
-  addToDoTask: (toDoTask: ToDoTask) => void;
+  data: TaskDto[];
+  setView: React.Dispatch<React.SetStateAction<calendarViewType>>;
+  view: calendarViewType;
+  updateToDoTask: (toDoTask: TaskDto) => void;
+  addToDoTask: (toDoTask: TaskDto) => void;
+  selectedDay: Date;
+  setSelectedDay: React.Dispatch<React.SetStateAction<Date>>;
 }
-export enum viewType {
+export enum calendarViewType {
   day = "DAY",
   week = "WEEK",
   month = "MONTH"

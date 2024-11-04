@@ -2,19 +2,22 @@ import { format, isToday } from "date-fns";
 import "./DateNavigator.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
-import { homeViewType } from "../../Types";
-import { useHomeContext } from "../../context/UseHomeContext";
+import { calendarViewType } from "@component/main-pages/calendar/types";
 const DateNavigator = ({
   currentDate,
   onNextDayPressed,
-  onPreviousDayPressed
+  onPreviousDayPressed,
+  setView,
+  view,
+  setSelectedDay
 }: {
   currentDate: Date;
   onNextDayPressed: () => void;
   onPreviousDayPressed: () => void;
+  setView: React.Dispatch<React.SetStateAction<calendarViewType>>;
+  view: calendarViewType;
+  setSelectedDay: React.Dispatch<React.SetStateAction<Date>>;
 }) => {
-  const { setView, view, setSelectedDay } = useHomeContext();
-
   return (
     <div className={`date-navigator`}>
       {/* Previous Date Button */}
@@ -32,12 +35,12 @@ const DateNavigator = ({
         &nbsp;
         {format(currentDate, "yyyy-MM-dd")}
       </span>
-      {view === homeViewType.day && <button onClick={() => setView(homeViewType.month)}>MONTH</button>}
-      {view === homeViewType.month && (
+      {view === calendarViewType.day && <button onClick={() => setView(calendarViewType.month)}>MONTH</button>}
+      {view === calendarViewType.month && (
         <button
           onClick={() => {
             setSelectedDay(new Date());
-            setView(homeViewType.day);
+            setView(calendarViewType.day);
           }}>
           TODAY
         </button>

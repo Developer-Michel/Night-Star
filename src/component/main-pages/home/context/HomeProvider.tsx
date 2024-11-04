@@ -1,9 +1,10 @@
 import { ReactNode, useState } from "react";
-import { homeViewType } from "@component/main-pages/home/Types";
+
 import { HomeContext } from "@component/main-pages/home/context/HomeContext";
+import { calendarViewType } from "@component/main-pages/calendar/types";
 
 export const HomeContextProvider = ({ children }: { children: ReactNode }) => {
-  const [view, setView] = useState<homeViewType>(homeViewType.day);
+  const [view, setView] = useState<calendarViewType>(calendarViewType.day);
   const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   return (
     <HomeContext.Provider

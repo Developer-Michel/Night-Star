@@ -12,6 +12,8 @@ import "./App.scss";
 import { LayoutContextProvider } from "@context/LayoutProvider.tsx";
 import { UserDataContextProvider } from "@context/UserDataProvider.tsx";
 import { Router } from "@component/router/router";
+import "./DayView.scss";
+import "./MonthView.scss";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RecoilRoot>

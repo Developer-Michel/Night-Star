@@ -1,16 +1,17 @@
 import { ReactNode, useEffect, useState } from "react";
-import { viewType } from "../types";
+import { calendarViewType } from "../types";
 import { useComm } from "@hooks/useComm";
-import { ToDoTask } from "types/Types";
+import { TaskDto } from "types/Types";
 import { useUserData } from "@hooks/useUserData";
 import { CalendarContext } from "./CalendarContext";
 
 export const CalendarContextProvider = ({ children }: { children: ReactNode }) => {
-  const [data, setData] = useState<ToDoTask[]>([]);
-  const [view, setView] = useState<viewType>(viewType.day);
+  const [data, setData] = useState<TaskDto[]>([]);
+  const [view, setView] = useState<calendarViewType>(calendarViewType.day);
+  const [selectedDay, setSelectedDay] = useState<Date>(new Date());
   const { selectedUser } = useUserData();
   const { api } = useComm();
-  const updateToDoTask = (toDoTask: ToDoTask) => {
+  const updateToDoTask = (toDoTask: TaskDto) => {
     api.toDoTask.update({
       dto: toDoTask,
       Success: () => {
@@ -18,10 +19,10 @@ export const CalendarContextProvider = ({ children }: { children: ReactNode }) =
       }
     });
   };
-  const addToDoTask = (toDoTask: ToDoTask) => {
+  const addToDoTask = (toDoTask: TaskDto) => {
     api.toDoTask.add({
       dto: toDoTask,
-      Success: (dto: ToDoTask) => {
+      Success: (dto: TaskDto) => {
         setData([...data, dto]);
       }
     });
@@ -35,6 +36,8 @@ export const CalendarContextProvider = ({ children }: { children: ReactNode }) =
         data,
         updateToDoTask,
         addToDoTask,
+        selectedDay,
+        setSelectedDay,
         view,
         setView
       }}>
