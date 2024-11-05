@@ -258,6 +258,7 @@ const DayContent = ({
               <Form.Check // prettier-ignore
                 type="switch"
                 id="custom-switch"
+                defaultChecked={isAfterNoon}
                 label={isAfterNoon ? "🌙" : "☀️"}
                 onChange={(e) => setIsAfterNoon(e.target.checked)}
               />
