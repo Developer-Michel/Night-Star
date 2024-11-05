@@ -126,6 +126,7 @@ const DayContent = ({
             onPreviousDayPressed={onPreviousDayPressed}
             setView={setView}
             view={view}
+            allowFutur={true}
             setSelectedDay={setSelectedDay}
           />
         </Col>

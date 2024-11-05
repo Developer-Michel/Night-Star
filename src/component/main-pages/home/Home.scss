@@ -1,0 +1,18 @@
+.day-box-view-switchable {
+  border-radius: 1em;
+  &.afternoon {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 8px 16px rgba(0, 0, 0, 0.25); /* Stronger inner shadow */
+  }
+  .custom-switch-form {
+    margin-left: 1em;
+    margin-top: 0.2em;
+  }
+  #custom-switch {
+    background-color: yellow;
+    &:checked {
+      background-color: black;
+
+      border: black;
+    }
+  }
+}

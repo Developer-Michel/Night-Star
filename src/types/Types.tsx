@@ -12,6 +12,9 @@ export interface TrackingData {
   HapinessLevel: number;
   StressLevel: number;
   AnxietyLevel: number;
+  HapinessLevelNight: number;
+  StressLevelNight: number;
+  AnxietyLevelNight: number;
   HappySentence: string;
   RealisationSentence?: string;
   WaterIntake: number;

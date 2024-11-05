@@ -27,7 +27,7 @@ const DateNavigator = ({
         <FontAwesomeIcon icon={faCaretLeft} />
       </button>
       {/* Next Date Button (disabled if the current date is today) */}
-      <button onClick={onNextDayPressed} disabled={allowFutur && isToday(currentDate)}>
+      <button onClick={onNextDayPressed} disabled={!allowFutur && isToday(currentDate)}>
         <FontAwesomeIcon icon={faCaretRight} />
       </button>
 

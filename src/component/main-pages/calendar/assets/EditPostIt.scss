@@ -34,9 +34,19 @@
   background-color: whitesmoke;
   padding: 0.6em;
   position: relative;
+  .postit-input-container-header-name {
+    flex-grow: 1;
+    display: grid;
+    align-items: end; /* Aligns items to the bottom */
+  }
   .postit-input-container-header {
     width: 100%;
-
+    .postit-input-container-buttons {
+      button {
+        padding: 0em;
+        padding-left: 1em;
+      }
+    }
     input {
       border: none;
       font-weight: 900;
@@ -50,13 +60,14 @@
     border-bottom: solid 1px gray;
   }
   .postit-input-container-indicator {
-    position: absolute;
     display: flex;
-
+    margin-left: auto;
+    justify-content: right;
+    width: 100%;
     gap: 5px;
-    top: 0.4em;
-    right: 0.4em;
+
     svg {
+      float: right;
       color: #333;
     }
   }
@@ -75,7 +86,7 @@
     display: flex;
 
     justify-content: flex-end;
-    gap: 8px; /* Optional: space between buttons */
+
     button {
       border: none;
       background-color: transparent;

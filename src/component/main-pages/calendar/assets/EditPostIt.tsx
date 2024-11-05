@@ -69,29 +69,47 @@ export const EditPostIt = ({
       }`}
       style={{ backgroundColor: state.Status === taskStatusType.completed ? "lightgray" : state.Color }}>
       <div className="postit-input-container-header">
-        <input
-          disabled={!inEdit}
-          placeholder={"Name of the task...."}
-          defaultValue={state.Name}
-          onChange={(e) => {
-            setState({ ...state, Name: e.target.value });
-          }}
-        />
+        {!inEdit ? (
+          <div className="postit-input-container-buttons">
+            <div className="postit-input-container-header-name">{state.Name}</div>
+            {state.Status !== taskStatusType.completed ? (
+              <>
+                <Button onClick={() => setInEdit(true)}>
+                  <FontAwesomeIcon icon={faPen} />
+                </Button>
+                {onSuccessClick && (
+                  <Button
+                    onClick={() => {
+                      onSuccessClick(state);
+                      setState({ ...state, Status: taskStatusType.completed });
+                    }}
+                    variant="success">
+                    {" "}
+                    <FontAwesomeIcon icon={faCheckCircle} />
+                  </Button>
+                )}
+              </>
+            ) : (
+              <Button
+                onClick={() => {
+                  onCancelClick(state);
+                }}
+                variant="success">
+                <FontAwesomeIcon icon={faTrash} />
+              </Button>
+            )}
+          </div>
+        ) : (
+          <input
+            disabled={!inEdit}
+            placeholder={"Name of the task...."}
+            defaultValue={state.Name}
+            onChange={(e) => {
+              setState({ ...state, Name: e.target.value });
+            }}
+          />
+        )}
       </div>
-      {state.Status === taskStatusType.completed ? (
-        <div className="postit-input-container-indicator">
-          {" "}
-          <FontAwesomeIcon size="xs" icon={faCheckCircle} />{" "}
-        </div>
-      ) : (
-        <div className="postit-input-container-indicator">
-          {state.Priority > 0 && (
-            <FontAwesomeIcon size="xs" icon={faExclamationCircle} color={priorityColors[state.Priority]} />
-          )}
-          {state.OccurenceType !== taskOccurenceType.onetime && <FontAwesomeIcon size="xs" icon={faRefresh} />}
-          {state.Status === taskStatusType.overdue && <FontAwesomeIcon size="xs" icon={faClock} color="red" />}
-        </div>
-      )}
 
       <div className="postit-input-container-description">
         {!inEdit ? (
@@ -108,24 +126,7 @@ export const EditPostIt = ({
           />
         )}
       </div>
-      {!inEdit && state.Status !== taskStatusType.completed && (
-        <div className="postit-input-container-buttons">
-          <Button onClick={() => setInEdit(true)}>
-            <FontAwesomeIcon icon={faPen} />
-          </Button>
-          {onSuccessClick && (
-            <Button
-              onClick={() => {
-                onSuccessClick(state);
-                setState({ ...state, Status: taskStatusType.completed });
-              }}
-              variant="success">
-              {" "}
-              <FontAwesomeIcon icon={faCheckCircle} />
-            </Button>
-          )}
-        </div>
-      )}
+
       {inEdit && (
         <>
           <OccurrenceTypeSelector state={state} setState={setState} />
@@ -159,6 +160,20 @@ export const EditPostIt = ({
             </Button>
           </div>
         </>
+      )}
+      {state.Status === taskStatusType.completed ? (
+        <div className="postit-input-container-indicator">
+          {" "}
+          <FontAwesomeIcon size="xs" icon={faCheckCircle} />{" "}
+        </div>
+      ) : (
+        <div className="postit-input-container-indicator">
+          {state.Priority > 0 && (
+            <FontAwesomeIcon size="xs" icon={faExclamationCircle} color={priorityColors[state.Priority]} />
+          )}
+          {state.OccurenceType !== taskOccurenceType.onetime && <FontAwesomeIcon size="xs" icon={faRefresh} />}
+          {state.Status === taskStatusType.overdue && <FontAwesomeIcon size="xs" icon={faClock} color="red" />}
+        </div>
       )}
     </div>
   );

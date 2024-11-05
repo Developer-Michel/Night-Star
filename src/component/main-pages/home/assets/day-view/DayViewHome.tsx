@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 
 import { subDays, addDays, format } from "date-fns";
 import { TrackingData } from "types/Types";
@@ -111,6 +111,7 @@ const DayContent = ({
   const { dataUpdatedToday, setDataUpdatedToday } = useUserData();
   const { selectedUser } = useUserData();
   const { setSelectedDay, setView, view } = useHomeContext();
+  const [isAfterNoon, setIsAfterNoon] = useState(new Date().getHours() > 12);
   useEffect(() => {
     if (selectedUser)
       api.tracker.get({
@@ -227,9 +228,10 @@ const DayContent = ({
           updateData({ ...data, OutsideWalkTime: value });
         }}
       />
+
       <ZenSlider
         max={16}
-        uom="Glass(es)"
+        uom=" glass(es)"
         tooltip="Adequate water intake supports energy, digestion, and skin health. Aim for 8 glasses (about 2 liters) daily, adjusting for activity level, climate, and individual needs. Drink water consistently throughout the day, and prioritize hydration before, during, and after exercise for optimal benefits."
         multiple={1}
         placeholder="🫗Water intake"
@@ -249,36 +251,89 @@ const DayContent = ({
           updateData({ ...data, MusicTime: value });
         }}
       />
-      <ZenSlider
-        max={10}
-        uom="/10"
-        tooltip="Boost happiness by practicing gratitude, building social connections, exercising regularly, and engaging in mindfulness. Pursue personal goals, give back to others, limit social media, and practice self-compassion to foster resilience and positivity."
-        placeholder="☺️Happiness level"
-        defaultValue={data.HapinessLevel}
-        submit={(value) => {
-          updateData({ ...data, HapinessLevel: value });
-        }}
-      />
-      <ZenSlider
-        max={10}
-        uom="/10"
-        tooltip="Reduce stress by practicing deep breathing, engaging in regular exercise, and getting enough sleep. Try mindfulness techniques like meditation, take breaks for relaxation, and connect with friends or loved ones for support."
-        placeholder="🎚️Stress level"
-        defaultValue={data.StressLevel}
-        submit={(value) => {
-          updateData({ ...data, StressLevel: value });
-        }}
-      />
-      <ZenSlider
-        max={10}
-        uom="/10"
-        tooltip="To reduce anxiety, try deep breathing exercises, practice mindfulness, and engage in regular physical activity. Set aside time for relaxation, limit caffeine, and focus on positive self-talk to help manage anxious thoughts."
-        placeholder="💭Anxiety level"
-        defaultValue={data.AnxietyLevel}
-        submit={(value) => {
-          updateData({ ...data, AnxietyLevel: value });
-        }}
-      />
+      <div className={`day-box-view-switchable ${isAfterNoon && "afternoon"}`}>
+        <Row>
+          <Col>
+            <Form className="custom-switch-form">
+              <Form.Check // prettier-ignore
+                type="switch"
+                id="custom-switch"
+                label={isAfterNoon ? "🌙" : "☀️"}
+                onChange={(e) => setIsAfterNoon(e.target.checked)}
+              />
+            </Form>
+          </Col>
+        </Row>
+
+        {!isAfterNoon ? (
+          <div key={"day"}>
+            <ZenSlider
+              max={10}
+              uom="/10"
+              tooltip="Boost happiness by practicing gratitude, building social connections, exercising regularly, and engaging in mindfulness. Pursue personal goals, give back to others, limit social media, and practice self-compassion to foster resilience and positivity."
+              placeholder="☺️Happiness level☀️"
+              defaultValue={data.HapinessLevel}
+              submit={(value) => {
+                updateData({ ...data, HapinessLevel: value });
+              }}
+            />
+            <ZenSlider
+              max={10}
+              uom="/10"
+              tooltip="Reduce stress by practicing deep breathing, engaging in regular exercise, and getting enough sleep. Try mindfulness techniques like meditation, take breaks for relaxation, and connect with friends or loved ones for support."
+              placeholder="🎚️Stress level☀️"
+              defaultValue={data.StressLevel}
+              submit={(value) => {
+                updateData({ ...data, StressLevel: value });
+              }}
+            />
+            <ZenSlider
+              max={10}
+              uom="/10"
+              tooltip="To reduce anxiety, try deep breathing exercises, practice mindfulness, and engage in regular physical activity. Set aside time for relaxation, limit caffeine, and focus on positive self-talk to help manage anxious thoughts."
+              placeholder="💭Anxiety level☀️"
+              defaultValue={data.AnxietyLevel}
+              submit={(value) => {
+                updateData({ ...data, AnxietyLevel: value });
+              }}
+            />
+          </div>
+        ) : (
+          <div key={"afternoon"}>
+            <ZenSlider
+              max={10}
+              uom="/10"
+              tooltip="Boost happiness by practicing gratitude, building social connections, exercising regularly, and engaging in mindfulness. Pursue personal goals, give back to others, limit social media, and practice self-compassion to foster resilience and positivity."
+              placeholder="☺️Happiness level🌙"
+              defaultValue={data.HapinessLevelNight}
+              submit={(value) => {
+                updateData({ ...data, HapinessLevelNight: value });
+              }}
+            />
+            <ZenSlider
+              max={10}
+              uom="/10"
+              tooltip="Reduce stress by practicing deep breathing, engaging in regular exercise, and getting enough sleep. Try mindfulness techniques like meditation, take breaks for relaxation, and connect with friends or loved ones for support."
+              placeholder="🎚️Stress level🌙"
+              defaultValue={data.StressLevelNight}
+              submit={(value) => {
+                updateData({ ...data, StressLevelNight: value });
+              }}
+            />
+            <ZenSlider
+              max={10}
+              uom="/10"
+              tooltip="To reduce anxiety, try deep breathing exercises, practice mindfulness, and engage in regular physical activity. Set aside time for relaxation, limit caffeine, and focus on positive self-talk to help manage anxious thoughts."
+              placeholder="💭Anxiety level🌙"
+              defaultValue={data.AnxietyLevelNight}
+              submit={(value) => {
+                updateData({ ...data, AnxietyLevelNight: value });
+              }}
+            />
+          </div>
+        )}
+      </div>
+
       <ZenInput
         placeholder={"Something that made you happy today...😊"}
         defaultValue={data.HappySentence}
