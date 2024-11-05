@@ -1,0 +1,90 @@
+.visible .postit-input-container {
+  transform: translateY(0) rotate(-3deg);
+  opacity: 1;
+}
+.visible .postit-input-add-button {
+  transform: translateY(0) rotate(-3deg);
+  opacity: 1;
+}
+.postit-input-add-button {
+  border-radius: 4px;
+  margin: 10px;
+  width: calc(100% - 20px);
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+  opacity: 0;
+  background-color: whitesmoke;
+  transform: translateY(40px) rotate(0deg);
+  color: #333;
+  border: none;
+  margin-bottom: 0.4em;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+}
+.postit-input-container {
+  border-radius: 4px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* Shadow for 3D effect */
+  font-size: 16px;
+  color: #333;
+  position: relative;
+  margin: 10px;
+  transform: translateY(40px) rotate(0deg);
+  margin-bottom: 0.4em;
+  will-change: transform, opacity;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+  opacity: 0;
+  background-color: whitesmoke;
+  padding: 0.6em;
+  position: relative;
+  .postit-input-container-header {
+    width: 100%;
+
+    input {
+      border: none;
+      font-weight: 900;
+      background-color: transparent;
+      width: 90%;
+      &:focus {
+        outline: none;
+      }
+    }
+
+    border-bottom: solid 1px gray;
+  }
+  .postit-input-container-indicator {
+    position: absolute;
+    display: flex;
+
+    gap: 5px;
+    top: 0.4em;
+    right: 0.4em;
+    svg {
+      color: #333;
+    }
+  }
+  .postit-input-container-description {
+    margin-top: 0.4em;
+    textarea {
+      width: 100%;
+      border: none;
+      background-color: transparent;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .postit-input-container-buttons {
+    display: flex;
+
+    justify-content: flex-end;
+    gap: 8px; /* Optional: space between buttons */
+    button {
+      border: none;
+      background-color: transparent;
+      color: #333;
+    }
+  }
+  .postit-input-container-occurence-selector {
+    label {
+      margin-left: 1em;
+    }
+  }
+}

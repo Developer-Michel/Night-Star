@@ -9,7 +9,8 @@ const DateNavigator = ({
   onPreviousDayPressed,
   setView,
   view,
-  setSelectedDay
+  setSelectedDay,
+  allowFutur = false
 }: {
   currentDate: Date;
   onNextDayPressed: () => void;
@@ -17,6 +18,7 @@ const DateNavigator = ({
   setView: React.Dispatch<React.SetStateAction<calendarViewType>>;
   view: calendarViewType;
   setSelectedDay: React.Dispatch<React.SetStateAction<Date>>;
+  allowFutur?: boolean;
 }) => {
   return (
     <div className={`date-navigator`}>
@@ -25,7 +27,7 @@ const DateNavigator = ({
         <FontAwesomeIcon icon={faCaretLeft} />
       </button>
       {/* Next Date Button (disabled if the current date is today) */}
-      <button onClick={onNextDayPressed} disabled={isToday(currentDate)}>
+      <button onClick={onNextDayPressed} disabled={allowFutur && isToday(currentDate)}>
         <FontAwesomeIcon icon={faCaretRight} />
       </button>
 

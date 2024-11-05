@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 
 import { subDays, addDays, format } from "date-fns";
 import { TaskDto } from "types/Types";
@@ -7,6 +7,10 @@ import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinn
 
 import { useCalendar } from "./context/useCalendar";
 import DateNavigator from "../home/assets/date-navigator/DateNavigator";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { EditPostIt } from "./assets/EditPostIt";
+import { taskStatusType } from "./types";
 export const DailyView = () => {
   const [shadow, setShadow] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null); // Use ref to store the timeout ID
@@ -99,19 +103,19 @@ const DayContent = ({
   onNextDayPressed: () => void;
   onPreviousDayPressed: () => void;
 }) => {
-  const refData = useRef<TaskDto[] | null>(null);
-  const { data, setSelectedDay, setView, view } = useCalendar();
-  useEffect(() => {
-    refData.current = data.filter((x) => x.Date === format(date, "yyyy-MM-dd"));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  const { data, setSelectedDay, setView, view, addToDoTask, deleteToDoTask, completeToDoTask, updateToDoTask } =
+    useCalendar();
+  const [addClick, setAddClick] = useState(false);
+  const refData = data.filter((x) => x.Date === format(date, "yyyy-MM-dd"));
+  const isInThePastRef = useRef(isPastDate(date, new Date()));
+  const isTodayRef = useRef(isToday(date));
   useEffect(() => {
     setTimeout(() => {
       finishLoading();
     }, 200);
   }, []);
 
-  if (refData.current == null) return <></>;
+  if (refData == null) return <></>;
   return (
     <Container fluid className={"day-content " + className}>
       <Row>
@@ -126,6 +130,75 @@ const DayContent = ({
           />
         </Col>
       </Row>
+      {refData
+        .filter((x) => x.Status !== taskStatusType.completed)
+        .map((x) => (
+          <EditPostIt
+            key={x.Id + x.Date.toString()}
+            date={date}
+            existingData={x}
+            onCancelClick={deleteToDoTask}
+            onSaveClick={updateToDoTask}
+            onSuccessClick={isTodayRef ? completeToDoTask : undefined}
+          />
+        ))}
+      {!isInThePastRef.current ? (
+        addClick ? (
+          <EditPostIt
+            date={date}
+            onCancelClick={() => setAddClick(false)}
+            onSaveClick={(data: TaskDto) => {
+              addToDoTask(data);
+              setAddClick(false);
+              triggerChange();
+            }}
+          />
+        ) : (
+          <Row>
+            <Col>
+              <Button
+                disabled={addClick}
+                onClick={() => {
+                  setAddClick(true);
+                }}
+                className="postit-input-add-button">
+                ADD
+                <FontAwesomeIcon icon={faPlus} />
+              </Button>
+            </Col>
+          </Row>
+        )
+      ) : (
+        <></>
+      )}
+      <hr></hr>
+      {refData
+        .filter((x) => x.Status === taskStatusType.completed)
+        .map((x) => (
+          <EditPostIt
+            key={x.Id + x.Date.toString()}
+            date={date}
+            existingData={x}
+            onCancelClick={deleteToDoTask}
+            onSaveClick={updateToDoTask}
+            onSuccessClick={completeToDoTask}
+          />
+        ))}
     </Container>
   );
 };
+function isToday(date: Date) {
+  const today = new Date();
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
+}
+function isPastDate(d1: Date, d2: Date) {
+  return (
+    d1.getFullYear() < d2.getFullYear() ||
+    (d1.getFullYear() === d2.getFullYear() && d1.getMonth() < d2.getMonth()) ||
+    (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() < d2.getDate())
+  );
+}

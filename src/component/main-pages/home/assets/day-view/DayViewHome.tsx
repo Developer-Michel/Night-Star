@@ -229,10 +229,10 @@ const DayContent = ({
       />
       <ZenSlider
         max={16}
-        uom=" glass of water"
+        uom="Glass(es)"
         tooltip="Adequate water intake supports energy, digestion, and skin health. Aim for 8 glasses (about 2 liters) daily, adjusting for activity level, climate, and individual needs. Drink water consistently throughout the day, and prioritize hydration before, during, and after exercise for optimal benefits."
         multiple={1}
-        placeholder="💧Water intake"
+        placeholder="🫗Water intake"
         defaultValue={data.WaterIntake / 250}
         submit={(value) => {
           updateData({ ...data, WaterIntake: value * 250 });

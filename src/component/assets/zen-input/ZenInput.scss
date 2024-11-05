@@ -5,12 +5,12 @@
   justify-content: center;
   padding: 1em;
   opacity: 0; /* Initially hidden */
-  transform: translateX(100px); /* Slide up animation */
+  transform: translateY(1em); /* Slide up animation */
   transition: opacity 0.9s ease, transform 0.9s ease-out;
 }
 .zen-input-container.visible {
   opacity: 1;
-  transform: translateX(0); /* Transition into view */
+  transform: translateY(0); /* Transition into view */
 }
 /* Zen-styled input box */
 .ANGELINA .zen-input {

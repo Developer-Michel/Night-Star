@@ -19,16 +19,35 @@ export const CalendarContextProvider = ({ children }: { children: ReactNode }) =
       }
     });
   };
+  const deleteToDoTask = (toDoTask: TaskDto) => {
+    api.toDoTask.delete({
+      dto: toDoTask,
+      Success: () => {
+        refresh();
+      }
+    });
+  };
+  const completeToDoTask = (toDoTask: TaskDto) => {
+    api.toDoTask.CompleteTask({
+      dto: toDoTask,
+      Success: () => {
+        refresh();
+      }
+    });
+  };
   const addToDoTask = (toDoTask: TaskDto) => {
     api.toDoTask.add({
       dto: toDoTask,
       Success: (dto: TaskDto) => {
-        setData([...data, dto]);
+        refresh();
       }
     });
   };
-  useEffect(() => {
+  const refresh = () => {
     api.toDoTask.getAll({ dto: { userId: selectedUser.Id }, Success: setData });
+  };
+  useEffect(() => {
+    refresh();
   }, []);
   return (
     <CalendarContext.Provider
@@ -36,6 +55,8 @@ export const CalendarContextProvider = ({ children }: { children: ReactNode }) =
         data,
         updateToDoTask,
         addToDoTask,
+        deleteToDoTask,
+        completeToDoTask,
         selectedDay,
         setSelectedDay,
         view,

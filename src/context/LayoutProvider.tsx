@@ -12,29 +12,6 @@ export const LayoutContextProvider = ({ children }: { children: ReactNode }) => 
   const backgroundRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (containerRef.current) {
-        const scrollTop = containerRef.current.scrollTop;
-        const offset = scrollTop * 0.02; // adjust multiplier for subtle movement
-
-        if (backgroundRef.current) {
-          backgroundRef.current.style.transform = `translate(-50%, calc(-50% + ${offset}px ))`;
-        }
-      }
-    };
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
   return (
     <LayoutContext.Provider
       value={{

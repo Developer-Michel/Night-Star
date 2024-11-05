@@ -18,7 +18,7 @@ import { useState, useEffect } from "react";
 import { useCalendar } from "./context/useCalendar";
 import { calendarViewType } from "./types";
 import DateNavigator from "../home/assets/date-navigator/DateNavigator";
-export const MonthViewHome = () => {
+export const MonthView = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const { setView, setSelectedDay, data, view } = useCalendar();
   const monthStart = startOfMonth(currentMonth);
@@ -63,23 +63,24 @@ export const MonthViewHome = () => {
         formattedDate = format(day, "d");
         const savedday = new Date(day.getTime());
         const delay = counter * 0.05 + "s";
-        const found = data.find((x) => x.Date == format(day, "yyyy-MM-dd"));
+        const found = data.filter((x) => x.Date == format(day, "yyyy-MM-dd"));
         days.push(
           <div
             onClick={() => {
               setSelectedDay(savedday);
               setView(calendarViewType.day);
             }}
-            className={`calendar-cell ${!isSameMonth(day, monthStart) ? "disabled" : ""} ${!found && "empty"}
+            className={`calendar-cell ${!isSameMonth(day, monthStart) ? "disabled" : ""}
                 ${isSameDay(day, new Date()) ? "today" : ""}`}
             key={day.toString()}
             style={{ transitionDelay: delay }}>
-            <span>{formattedDate}</span>
+            <div className="calendar-cell-header ">{formattedDate}</div>
 
-            <span className="calendar-cell-indicator">
-              {/* {(found?.HappySentence.length ?? 0) > 0 && <FontAwesomeIcon icon={faFaceSmile} size="xs" />}
-              {(found?.RealisationSentence?.length ?? 0) > 0 && <FontAwesomeIcon icon={faMessage} size="xs" />} */}
-            </span>
+            <div className="calendar-cell-body">
+              {found.map((x) => (
+                <div className="square" style={{ backgroundColor: x.Color }}></div>
+              ))}
+            </div>
           </div>
         );
         day = addDays(day, 1);
@@ -107,7 +108,7 @@ export const MonthViewHome = () => {
       {renderDays()}
       {renderCells()}
       <hr></hr>
-      <GradientLegend />
+      {/* <GradientLegend /> */}
     </div>
   );
 };

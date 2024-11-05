@@ -42,16 +42,42 @@
 .calendar-cell {
   transition: transform 1s ease-in-out, opacity 1s ease-in-out;
   height: 4em;
-  padding-left: 0.3em;
+
   opacity: 0;
   transform: translateY(1em);
 
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  padding-right: 0.3em;
-  padding-top: 0.1em;
+
   cursor: pointer;
   border: 1px solid #e0e0e0;
+  .calendar-cell-header {
+    padding-right: 0.3em;
+    padding-top: 0em;
+    padding-left: 0.3em;
+    height: 1.2em; /* Set your desired header height */
+    width: 100%;
+  }
+
+  .calendar-cell-body {
+    flex-grow: 1; /* Makes it take up the remaining space */
+    overflow: hidden;
+    width: 100%;
+    gap: 1px; /* Consistent space between squares */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10px, 1fr));
+    font-size: 0;
+    .square {
+      aspect-ratio: 1 / 1; /* Ensures each item is a square */
+      font-size: 0;
+      white-space: none;
+      width: 100%; /* Full width within each grid cell */
+
+      border-radius: 4px; /* Optional rounded corners */
+      margin: 0; /* Ensure no additional margins */
+      padding: 0; /* Ensure no additional padding */
+    }
+  }
   &.empty {
     background: repeating-linear-gradient(
       45deg,

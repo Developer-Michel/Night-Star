@@ -1,3 +1,5 @@
+import { taskOccurenceType, taskStatusType } from "@component/main-pages/calendar/types";
+
 export interface TrackingData {
   UserId: number;
   Date: string; //format YYYY-MM-DD
@@ -91,8 +93,9 @@ export interface TaskDto {
   Description: string;
   Priority: number;
   Color: string;
-  OccurrenceType: string;
-  OccurrenceJson: string;
+  OccurenceType: taskOccurenceType;
+  OccurenceXday: number;
+  OccurenceWeekDaysJson: string[];
   Date: string;
-  Status: string;
+  Status: taskStatusType;
 }
