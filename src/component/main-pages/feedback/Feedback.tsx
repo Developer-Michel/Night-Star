@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { EditableRow } from "@component/assets/editable-row/EditableRow";
 import { useUserData } from "@hooks/useUserData";
 import CustomTooltip from "@component/assets/custom-tooltip/CustomToolTip";
+import { getCurrentEasternTimeDate } from "@component/service/format";
 
 export const Feedback = () => {
   const [addClick, setAddClick] = useState(false);
@@ -59,7 +60,7 @@ export const Feedback = () => {
               Name: newValue,
               Succeeded: false,
               Id: 0,
-              Date: format(new Date(), "yyyy-MM-dd")
+              Date: format(getCurrentEasternTimeDate(), "yyyy-MM-dd")
             };
             api.feedback.addFeedback({
               dto: dto,

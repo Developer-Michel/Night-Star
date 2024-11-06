@@ -132,7 +132,8 @@ export const CommProvider = (props: { children: React.ReactNode }) => {
       httpObj.request.Complete();
     };
     const url = import.meta.env.VITE_API_URL + httpObj.request.HttpHeaderObj.Url;
-    SendRequest(url, httpObj, beforeSend, success, error, complete);
+    const contentType = httpObj.request.ContentType;
+    SendRequest(url, httpObj, beforeSend, success, error, complete, contentType);
   }
 
   return (

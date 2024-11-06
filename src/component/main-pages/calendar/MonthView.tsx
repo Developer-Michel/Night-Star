@@ -1,6 +1,3 @@
-import { faFaceSmile, faMessage } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import {
   startOfMonth,
   endOfMonth,
@@ -18,8 +15,9 @@ import { useState, useEffect } from "react";
 import { useCalendar } from "./context/useCalendar";
 import { calendarViewType } from "./types";
 import DateNavigator from "../home/assets/date-navigator/DateNavigator";
+import { getCurrentEasternTimeDate } from "@component/service/format";
 export const MonthView = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(getCurrentEasternTimeDate());
   const { setView, setSelectedDay, data, view } = useCalendar();
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(monthStart);
@@ -45,7 +43,7 @@ export const MonthView = () => {
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className="day-name" key={i}>
-          {format(addDays(startOfWeek(new Date()), i), dateFormat)}
+          {format(addDays(startOfWeek(getCurrentEasternTimeDate()), i), dateFormat)}
         </div>
       );
     }
@@ -71,7 +69,7 @@ export const MonthView = () => {
               setView(calendarViewType.day);
             }}
             className={`calendar-cell ${!isSameMonth(day, monthStart) ? "disabled" : ""}
-                ${isSameDay(day, new Date()) ? "today" : ""}`}
+                ${isSameDay(day, getCurrentEasternTimeDate()) ? "today" : ""}`}
             key={day.toString()}
             style={{ transitionDelay: delay }}>
             <div className="calendar-cell-header ">{formattedDate}</div>
@@ -109,28 +107,6 @@ export const MonthView = () => {
       {renderCells()}
       <hr></hr>
       {/* <GradientLegend /> */}
-    </div>
-  );
-};
-const GradientLegend = () => {
-  return (
-    <div className="legend" style={{ padding: "0.5em" }}>
-      <h3>Legend</h3>
-      <div>Happy level</div>
-      <div className="gradient-legend">
-        <span className="legend-label">Low </span>
-        <div className="legend-gradient-bar"></div>
-        <span className="legend-label">High </span>
-      </div>
-      <div>
-        <FontAwesomeIcon icon={faFaceSmile} size="xs" /> : Has Happy sentence
-        <br></br>
-        <FontAwesomeIcon icon={faMessage} size="xs" /> : Has realization Sentence
-      </div>
-
-      <div>
-        <div className="empty-legend"></div> <div style={{ display: "inline-block" }}>: Has no data entered </div>
-      </div>
     </div>
   );
 };

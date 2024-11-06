@@ -4,11 +4,12 @@ import { useComm } from "@hooks/useComm";
 import { TaskDto } from "types/Types";
 import { useUserData } from "@hooks/useUserData";
 import { CalendarContext } from "./CalendarContext";
+import { getCurrentEasternTimeDate } from "@component/service/format";
 
 export const CalendarContextProvider = ({ children }: { children: ReactNode }) => {
   const [data, setData] = useState<TaskDto[]>([]);
   const [view, setView] = useState<calendarViewType>(calendarViewType.day);
-  const [selectedDay, setSelectedDay] = useState<Date>(new Date());
+  const [selectedDay, setSelectedDay] = useState<Date>(getCurrentEasternTimeDate());
   const { selectedUser } = useUserData();
   const { api } = useComm();
   const updateToDoTask = (toDoTask: TaskDto) => {

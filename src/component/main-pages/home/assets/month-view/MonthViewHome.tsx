@@ -1,4 +1,4 @@
-import { faFaceSmile, faMessage } from "@fortawesome/free-solid-svg-icons";
+import { faFaceSmile, faMessage, faPhotoFilm } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useComm } from "@hooks/useComm";
 import { useUserData } from "@hooks/useUserData";
@@ -88,6 +88,7 @@ export const MonthViewHome = () => {
             <span className="calendar-cell-indicator">
               {(found?.HappySentence.length ?? 0) > 0 && <FontAwesomeIcon icon={faFaceSmile} size="xs" />}
               {(found?.RealisationSentence?.length ?? 0) > 0 && <FontAwesomeIcon icon={faMessage} size="xs" />}
+              {found?.ImageUrl && <FontAwesomeIcon icon={faPhotoFilm} size="xs" />}
             </span>
           </div>
         );
@@ -146,6 +147,8 @@ const GradientLegend = () => {
         <FontAwesomeIcon icon={faFaceSmile} size="xs" /> : Has Happy sentence
         <br></br>
         <FontAwesomeIcon icon={faMessage} size="xs" /> : Has realization Sentence
+        <br></br>
+        <FontAwesomeIcon icon={faPhotoFilm} size="xs" /> : Has picture in it
       </div>
 
       <div>

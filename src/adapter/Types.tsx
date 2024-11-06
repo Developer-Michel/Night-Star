@@ -91,6 +91,7 @@ export class RequestObj {
   Error: (message: string) => void;
   BeforeSend: () => void;
   Complete: () => void;
+
   /**
    * this will determine if we put a toast in the ui that will stay there and update following the request status until it is done
    * @defaultValue false
@@ -111,10 +112,12 @@ export class RequestObj {
    * was used in the past will be removed soon!
    */
   Timeout: NodeJS.Timeout | null;
+  ContentType: string;
   /**
    * Constructor that will fill all the undefined value to their default value
    *
    */
+
   constructor({
     LoadingType = 1 as LoadingType,
     HttpHeaderObj,
@@ -125,7 +128,8 @@ export class RequestObj {
     Notify = false,
     NotifyError = true,
     Async = true,
-    Timeout = null
+    Timeout = null,
+    ContentType = "application/json"
   }: RequestObjInterface) {
     this.LoadingType = LoadingType;
     this.HttpHeaderObj = HttpHeaderObj;
@@ -137,6 +141,7 @@ export class RequestObj {
     this.Async = Async;
     this.Timeout = Timeout;
     this.NotifyError = NotifyError;
+    this.ContentType = ContentType;
   }
 }
 /**
@@ -158,6 +163,7 @@ export interface RequestObjInterface {
   Async?: boolean;
   /**@deprecated */
   Timeout?: NodeJS.Timeout | null;
+  ContentType?: string;
 }
 /**
  * @description interface that represent the option of the request when we build the request

@@ -4,12 +4,12 @@ import {
   faCalendarCheck,
   faChartLine,
   faCommentDots,
-  faHome,
   faTrophy,
   faUser,
   faYinYang,
   IconDefinition
 } from "@fortawesome/free-solid-svg-icons";
+import { faWindowMaximize } from "@fortawesome/free-solid-svg-icons/faWindowMaximize";
 
 export interface SideBarIconInfo {
   onClick: () => void;
@@ -25,6 +25,7 @@ export interface SideBarNavElement {
 }
 export enum PageType {
   home = "HOME",
+  post = "POST",
   calendar = "CALENDAR",
   goal = "GOAL",
   book = "BOOK",
@@ -34,6 +35,7 @@ export enum PageType {
 
   notification = "NOTIFICATION"
 }
+
 export const PageIconMap: { [key in PageType]: IconDefinition } = {
   [PageType.home]: faYinYang,
   [PageType.feedback]: faCommentDots,
@@ -42,5 +44,6 @@ export const PageIconMap: { [key in PageType]: IconDefinition } = {
   [PageType.book]: faBook,
   [PageType.stats]: faChartLine,
   [PageType.profile]: faUser,
-  [PageType.notification]: faBell
+  [PageType.notification]: faBell,
+  [PageType.post]: faWindowMaximize
 };

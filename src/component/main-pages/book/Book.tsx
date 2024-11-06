@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import { useData } from "@hooks/useData";
 import { useUserData } from "@hooks/useUserData";
 import CustomTooltip from "@component/assets/custom-tooltip/CustomToolTip";
+import { getCurrentEasternTimeDate } from "@component/service/format";
 
 const fetchBookCover = async (title: string, author: string) => {
   const response = await fetch(`https://openlibrary.org/search.json?title=${title}&author=${author}`);
@@ -107,7 +108,7 @@ const BookContainer = ({ refresh, data }: { refresh: () => void; data: BookDto }
   const startLecture = () => {
     if (selectedUser)
       api.book.updateBook({
-        dto: { ...book, Started: format(new Date(), "yyyy-MM-dd") },
+        dto: { ...book, Started: format(getCurrentEasternTimeDate(), "yyyy-MM-dd") },
         Complete: refresh
       });
   };
@@ -199,7 +200,7 @@ function getCurrentWeek(createDate: string): number {
 
   // Parse dates and ensure they are numbers by using .getTime()
   const startDate = new Date(createDate).getTime();
-  const currentDate = new Date().getTime();
+  const currentDate = getCurrentEasternTimeDate().getTime();
 
   // Calculate the difference in weeks
   const elapsedWeeks = Math.floor((currentDate - startDate) / msInAWeek);
@@ -215,7 +216,7 @@ const AddBookContainer = ({ refresh }: { refresh: () => void }) => {
   const [data, setData] = useState<BookType>({
     Author: "",
     Name: "",
-    Created: format(new Date(), "yyyy-MM-dd"),
+    Created: format(getCurrentEasternTimeDate(), "yyyy-MM-dd"),
     PageQuantity: 0,
     NumberOfWeekObjective: 0,
     Started: null,
@@ -296,7 +297,7 @@ const AddBookContainer = ({ refresh }: { refresh: () => void }) => {
           <input
             type="checkbox"
             onChange={(x) => {
-              const val = x.target.checked ? format(new Date(), "yyyy-MM-dd") : null;
+              const val = x.target.checked ? format(getCurrentEasternTimeDate(), "yyyy-MM-dd") : null;
               setData({ ...data, Started: val });
             }}
             placeholder="Week objective"

@@ -163,7 +163,6 @@ export const EditPostIt = ({
       )}
       {state.Status === taskStatusType.completed ? (
         <div className="postit-input-container-indicator">
-          {" "}
           <FontAwesomeIcon size="xs" icon={faCheckCircle} />{" "}
         </div>
       ) : (
@@ -190,7 +189,8 @@ const postitColors = [
   "#FFCDD2", // Light Pink
   "#C8E6C9", // Light Green
   "#BBDEFB", // Light Blue
-  "#E1BEE7" // Light Purple
+  "#E1BEE7", // Light Purple
+  "#FFFFFF"
 ];
 const PostItColorPicker = ({
   selectedColor,
@@ -230,7 +230,7 @@ const OccurrenceTypeSelector = ({
     <div className="postit-input-container-occurence-selector">
       <h4>OCCURENCE</h4>
 
-      <label>
+      <label className="zen-radio-label">
         <input
           type="radio"
           name="occurrenceType"
@@ -238,10 +238,10 @@ const OccurrenceTypeSelector = ({
           checked={state.OccurenceType === taskOccurenceType.onetime}
           onChange={() => setState({ ...state, OccurenceType: taskOccurenceType.onetime })}
         />
-        One-time
+        &nbsp;One-time
       </label>
 
-      <label>
+      <label className="zen-radio-label">
         <input
           type="radio"
           name="occurrenceType"
@@ -249,10 +249,10 @@ const OccurrenceTypeSelector = ({
           checked={state.OccurenceType === taskOccurenceType.daily}
           onChange={() => setState({ ...state, OccurenceType: taskOccurenceType.daily })}
         />
-        Daily
+        &nbsp;Daily
       </label>
 
-      <label>
+      <label className="zen-radio-label">
         <input
           type="radio"
           name="occurrenceType"
@@ -260,10 +260,10 @@ const OccurrenceTypeSelector = ({
           checked={state.OccurenceType === taskOccurenceType.everyXDay}
           onChange={() => setState({ ...state, OccurenceType: taskOccurenceType.everyXDay })}
         />
-        Every X Days
+        &nbsp;Every X Days
       </label>
 
-      <label>
+      <label className="zen-radio-label">
         <input
           type="radio"
           name="occurrenceType"
@@ -271,7 +271,7 @@ const OccurrenceTypeSelector = ({
           checked={state.OccurenceType === taskOccurenceType.daysOfWeek}
           onChange={() => setState({ ...state, OccurenceType: taskOccurenceType.daysOfWeek })}
         />
-        Days of the Week
+        &nbsp; Days of the Week
       </label>
 
       {/* Conditional rendering for additional fields */}
@@ -285,7 +285,7 @@ const OccurrenceTypeSelector = ({
               value={state.OccurenceXday}
               onChange={(e) => setState({ ...state, OccurenceXday: parseInt(e.target.value) })}
             />
-            day(s)
+            &nbsp;day(s)
           </label>
         </div>
       )}
@@ -295,7 +295,7 @@ const OccurrenceTypeSelector = ({
           <label>Select Days of the Week:</label>
           <br />
           {daysOfWeek.map((day) => (
-            <label key={day}>
+            <label className="zen-radio-label" key={day}>
               <input
                 type="checkbox"
                 checked={state.OccurenceWeekDaysJson.includes(day)}

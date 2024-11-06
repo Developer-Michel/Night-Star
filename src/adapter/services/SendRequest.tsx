@@ -8,7 +8,8 @@ export const SendRequest = (
   beforeSend: () => void,
   success: (response: AxiosResponse) => void,
   error: (error: AxiosError) => void,
-  complete: () => void
+  complete: () => void,
+  contentType: string
 ) => {
   const extraInformation = {
     MachineName: localStorage.getItem("MachineName"),
@@ -18,13 +19,16 @@ export const SendRequest = (
   const config: AxiosRequestConfig = {
     headers: {
       ...extraInformation,
-      "Content-Type": "application/json",
+      ...(contentType !== "multipart/form-data" && { "Content-Type": contentType }),
       Accept: "application/json"
     },
     withCredentials: true
   };
   beforeSend();
-
+  const body =
+    contentType !== "multipart/form-data"
+      ? JSON.stringify(httpObj.request.HttpHeaderObj.Body)
+      : httpObj.request.HttpHeaderObj.Body;
   switch (httpObj.request.HttpHeaderObj.Type) {
     case RequestType.GET:
       axios
@@ -46,7 +50,7 @@ export const SendRequest = (
       break;
     case RequestType.POST:
       axios
-        .post(url, JSON.stringify(httpObj.request.HttpHeaderObj.Body), config)
+        .post(url, body, config)
         .then((response) => {
           success(response);
         })

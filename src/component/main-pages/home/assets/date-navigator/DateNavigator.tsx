@@ -3,6 +3,7 @@ import "./DateNavigator.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { calendarViewType } from "@component/main-pages/calendar/types";
+import { getCurrentEasternTimeDate } from "@component/service/format";
 const DateNavigator = ({
   currentDate,
   onNextDayPressed,
@@ -41,7 +42,7 @@ const DateNavigator = ({
       {view === calendarViewType.month && (
         <button
           onClick={() => {
-            setSelectedDay(new Date());
+            setSelectedDay(getCurrentEasternTimeDate());
             setView(calendarViewType.day);
           }}>
           TODAY

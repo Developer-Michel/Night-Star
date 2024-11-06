@@ -1,7 +1,6 @@
-import { Footer } from "@component/footer/Footer";
 import { Header } from "@component/header/Header";
 import { PageType } from "@component/side-bar/Types";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import { LayoutContext } from "./LayoutContext";
 import { useRecoilValue } from "recoil";
 import { selectedUserAtom } from "@recoil/atom";
@@ -27,7 +26,7 @@ export const LayoutContextProvider = ({ children }: { children: ReactNode }) => 
           <div ref={containerRef} className="main-container">
             {children}
           </div>
-          <Footer></Footer>
+          {/* <Footer></Footer> */}
         </SideBarControllerProvider>
       </div>
     </LayoutContext.Provider>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 
-import { subDays, addDays, format } from "date-fns";
+import { subDays, addDays, format, isToday } from "date-fns";
 import { TrackingData } from "types/Types";
 import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinner";
 import { useComm } from "@hooks/useComm";
@@ -12,6 +12,8 @@ import DateNavigator from "../date-navigator/DateNavigator";
 import RandomQuote from "../quote/Quote";
 import { ZenSlider } from "../zen-slider/ZenSlider";
 import { useHomeContext } from "../../context/UseHomeContext";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const DailyView = () => {
   const [shadow, setShadow] = useState(false);
@@ -112,6 +114,7 @@ const DayContent = ({
   const { selectedUser } = useUserData();
   const { setSelectedDay, setView, view } = useHomeContext();
   const [isAfterNoon, setIsAfterNoon] = useState(new Date().getHours() > 12);
+  const isTodayDate = isToday(date);
   useEffect(() => {
     if (selectedUser)
       api.tracker.get({
@@ -162,6 +165,17 @@ const DayContent = ({
           />
         </Col>
       </Row>
+      <Row>
+        <Col></Col>
+      </Row>
+      {!isTodayDate && (
+        <Polaroid
+          state={data.ImageUrl}
+          onChange={(value) => {
+            updateData({ ...data, ImageUrl: value });
+          }}
+        />
+      )}
 
       <ZenSlider
         max={720}
@@ -349,6 +363,15 @@ const DayContent = ({
           updateData({ ...data, RealisationSentence: value });
         }}
       />
+      {isTodayDate && (
+        <Polaroid
+          state={data.ImageUrl}
+          onChange={(value) => {
+            updateData({ ...data, ImageUrl: value });
+          }}
+        />
+      )}
+
       <Row>
         <Col>
           <RandomQuote />
@@ -361,3 +384,48 @@ const DayContent = ({
 function isObjectValid(obj: Record<string, any>): boolean {
   return Object.values(obj).every((value) => value !== null && value !== undefined && value !== "" && value !== 0);
 }
+const Polaroid = ({ state, onChange }: { state: string; onChange: (url: string) => void }) => {
+  const [image, setImage] = useState<string | null>(state);
+  const { api } = useComm();
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      const formData = new FormData();
+      formData.append("file", file);
+      api.upload.upload({
+        dto: formData,
+        Success: (url: string) => {
+          onChange(url.replace(/['"]+/g, ""));
+        }
+      });
+    }
+  };
+  return (
+    <Row className="polaroid-container">
+      <Col>
+        <div className="polaroid">
+          <div
+            className="polaroid-upload-area"
+            style={{ backgroundImage: "none" }}
+            onClick={() => document.getElementById("imageUpload")?.click()}>
+            {!image ? (
+              <>
+                <FontAwesomeIcon size="xl" icon={faPlus} className="camera-icon" />
+              </>
+            ) : (
+              <img src={image} />
+            )}
+            <input
+              id="imageUpload"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+          </div>
+        </div>
+      </Col>
+    </Row>
+  );
+};

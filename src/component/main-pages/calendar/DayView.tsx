@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
-import { subDays, addDays, format } from "date-fns";
+import { subDays, addDays, format, isToday } from "date-fns";
 import { TaskDto } from "types/Types";
 import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinner";
 
@@ -11,6 +11,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { EditPostIt } from "./assets/EditPostIt";
 import { taskStatusType } from "./types";
+import { getCurrentEasternTimeDate } from "@component/service/format";
 export const DailyView = () => {
   const [shadow, setShadow] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null); // Use ref to store the timeout ID
@@ -107,7 +108,7 @@ const DayContent = ({
     useCalendar();
   const [addClick, setAddClick] = useState(false);
   const refData = data.filter((x) => x.Date === format(date, "yyyy-MM-dd"));
-  const isInThePastRef = useRef(isPastDate(date, new Date()));
+  const isInThePastRef = useRef(isPastDate(date, getCurrentEasternTimeDate()));
   const isTodayRef = useRef(isToday(date));
   useEffect(() => {
     setTimeout(() => {
@@ -147,6 +148,7 @@ const DayContent = ({
         addClick ? (
           <EditPostIt
             date={date}
+            key={"new-postit"}
             onCancelClick={() => setAddClick(false)}
             onSaveClick={(data: TaskDto) => {
               addToDoTask(data);
@@ -155,7 +157,7 @@ const DayContent = ({
             }}
           />
         ) : (
-          <Row>
+          <Row className="postit-input-add-button-container" key={"new-postit"}>
             <Col>
               <Button
                 disabled={addClick}
@@ -188,14 +190,7 @@ const DayContent = ({
     </Container>
   );
 };
-function isToday(date: Date) {
-  const today = new Date();
-  return (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
-  );
-}
+
 function isPastDate(d1: Date, d2: Date) {
   return (
     d1.getFullYear() < d2.getFullYear() ||

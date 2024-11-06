@@ -1,0 +1,128 @@
+.post {
+  padding-top: 4em;
+}
+.post {
+  textarea {
+    width: 100%;
+    border: none;
+    padding: 0.5em 0 0 0.5em;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+  .post-header {
+    padding: 0em 0.5em 0 0.5em;
+    display: flex;
+
+    img {
+      height: 2em;
+      border-radius: 50%;
+      margin-right: 0.5em;
+    }
+    .new-post-button {
+      flex-grow: 1;
+      height: 2em;
+      border-radius: 1em;
+      display: flex;
+      align-items: center;
+      padding-left: 1em;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      background-color: rgba(255, 255, 255, 0.5);
+      &.done {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+        background-color: rgba(51, 45, 45, 0.2);
+      }
+    }
+  }
+}
+.post-container {
+  background-color: rgba(100, 100, 111, 0.2);
+  position: relative;
+  opacity: 0;
+  transform: translateY(4em);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  will-change: opacity, transform;
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .post-image {
+    width: 100%;
+    max-width: 40em;
+  }
+  .post-container-trash {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+  }
+  .post-container-header {
+    padding: 0em 0 0 0.4em;
+    display: flex;
+    height: 2.5em;
+    p {
+      font-size: 10px;
+    }
+    img {
+      height: 2.5em;
+      border-radius: 50%;
+      margin-right: 0.5em;
+    }
+  }
+  .like-indicator {
+    display: flex;
+    border-radius: 1em;
+    padding: 0.2em;
+    gap: 4px;
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    right: 0.5em;
+    bottom: -0.7em;
+
+    img {
+      height: 1em;
+      border-radius: 50%;
+    }
+  }
+  .post-button-container-display {
+    display: flex;
+    padding: 0.5em;
+    font-size: 1.5em;
+    gap: 10px;
+  }
+  .image-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .upload-area {
+    width: 100%;
+    min-height: 10em;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    position: relative;
+  }
+
+  .upload-area:hover {
+    border-color: #888;
+  }
+
+  .camera-icon {
+    font-size: 32px;
+    color: #888;
+  }
+  .post-button-container {
+    padding: 1em;
+    width: 100%;
+    button {
+      margin-top: 1em;
+      width: 100%;
+    }
+  }
+}

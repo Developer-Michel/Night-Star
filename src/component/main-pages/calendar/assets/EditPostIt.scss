@@ -1,15 +1,20 @@
 .visible .postit-input-container {
   transform: translateY(0) rotate(-3deg);
   opacity: 1;
+  &.in-edit {
+    transform: translateY(0) rotate(-0deg);
+  }
 }
 .visible .postit-input-add-button {
   transform: translateY(0) rotate(-3deg);
   opacity: 1;
 }
+
 .postit-input-add-button {
   border-radius: 4px;
   margin: 10px;
   width: calc(100% - 20px);
+
   transition: transform 1s ease-in-out, opacity 1s ease-in-out;
   opacity: 0;
   background-color: whitesmoke;
@@ -37,6 +42,7 @@
   .postit-input-container-header-name {
     flex-grow: 1;
     display: grid;
+    font-weight: 900;
     align-items: end; /* Aligns items to the bottom */
   }
   .postit-input-container-header {
@@ -82,6 +88,7 @@
       }
     }
   }
+
   .postit-input-container-buttons {
     display: flex;
 
@@ -97,5 +104,39 @@
     label {
       margin-left: 1em;
     }
+  }
+  .zen-radio-label {
+    display: inline-block;
+    text-align: end;
+    font-size: 1em;
+    color: #4a4a4a;
+    width: 44%;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    input {
+      float: left;
+      appearance: none;
+      background-color: white;
+      margin-right: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #b3b3b3;
+      transition: background-color 1s ease;
+      cursor: pointer;
+    }
+
+    input:checked {
+      background-color: #4a4a4a;
+      border-color: #4a4a4a;
+    }
+  }
+
+  .zen-radio-label:hover {
+    background-color: #f4f4f4;
   }
 }

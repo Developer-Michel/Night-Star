@@ -19,6 +19,7 @@ export interface TrackingData {
   RealisationSentence?: string;
   WaterIntake: number;
   MusicTime: number;
+  ImageUrl: string;
 }
 export interface UserDto {
   Id: number;
@@ -88,6 +89,13 @@ export interface ToDoTask {
   Succeeded: boolean;
   Color: string;
 }
+export interface PostType {
+  Id: number;
+  Description: string;
+  PictureUrl: string;
+  Date: string;
+  UserId: number;
+}
 export interface TaskDto {
   Id: number;
   OriginalDate: string;
@@ -101,4 +109,9 @@ export interface TaskDto {
   OccurenceWeekDaysJson: string[];
   Date: string;
   Status: taskStatusType;
+}
+export interface PostReactionType {
+  UserId: number;
+  PostId: number;
+  ReactionEmoji: string;
 }

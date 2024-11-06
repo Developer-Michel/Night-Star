@@ -8,7 +8,9 @@ import {
   UserDto,
   NotificationDTO,
   NotificationUser,
-  TaskDto
+  TaskDto,
+  PostType,
+  PostReactionType
 } from "types/Types";
 import {
   RequestObj,
@@ -347,6 +349,82 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
           new RequestObj({
             ...requestData,
             HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `ToDoTask/CompleteTask`, "Update...", requestData.dto)
+          })
+        );
+      }
+    },
+    post: {
+      getAll(requestData: AddRequestInterfaceWithoutSender<PostType[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.GET, `Post/GetAll`, `Loading information for you`)
+          })
+        );
+      },
+
+      add(requestData: AddRequestInterfaceWithoutReciever<PostType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Post/Add`, "Update...", requestData.dto)
+          })
+        );
+      },
+      delete(requestData: AddRequestInterfaceWithoutReciever<PostType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.DELETE, `Post/Delete`, "Update...", requestData.dto)
+          })
+        );
+      },
+      getAllPostReactions(requestData: AddRequestInterfaceWithoutSender<PostReactionType[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.GET, `Post/GetAllPostReactions`, `Loading information for you`)
+          })
+        );
+      },
+
+      addPostReaction(requestData: AddRequestInterfaceWithoutReciever<PostReactionType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Post/AddPostReaction`, "Update...", requestData.dto)
+          })
+        );
+      },
+      removePostReaction(requestData: AddRequestInterfaceWithoutReciever<PostReactionType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(
+              RequestType.DELETE,
+              `Post/RemovePostReaction`,
+              "Update...",
+              requestData.dto
+            )
+          })
+        );
+      },
+      update(requestData: AddRequestInterfaceWithoutReciever<PostType>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Post/Update`, "Update...", requestData.dto)
+          })
+        );
+      }
+    },
+    upload: {
+      upload(requestData: AddRequestInterface<FormData, string>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            ContentType: "multipart/form-data",
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Upload/Upload`, "Update...", requestData.dto)
           })
         );
       }

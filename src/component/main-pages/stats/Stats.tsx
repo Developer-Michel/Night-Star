@@ -18,7 +18,8 @@ import {
   Area,
   ComposedChart,
   AreaChart,
-  Bar
+  Bar,
+  BarChart
 } from "recharts";
 import { format, parse } from "date-fns";
 import { useUserData } from "@hooks/useUserData";
@@ -26,9 +27,9 @@ export const Stats = () => {
   const [datas, setDatas] = useState<TrackingData[]>([]);
   const { api } = useComm();
   const { selectedUser } = useUserData();
-  const [dateRange, setDateRange] = useState<{ startDate: string; endDate: string }>({
-    startDate: "",
-    endDate: ""
+  const [dateRange, setDateRange] = useState<{ startDate: Date; endDate: Date }>({
+    startDate: new Date(),
+    endDate: new Date()
   });
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -37,7 +38,7 @@ export const Stats = () => {
     }, 300);
   }, []);
   useEffect(() => {
-    if (selectedUser && dateRange.startDate)
+    if (selectedUser && dateRange.startDate && dateRange.endDate)
       api.tracker.getDatas({
         dto: { userId: selectedUser.Id, startDate: dateRange.startDate, endDate: dateRange.endDate },
         Success: setDatas
@@ -48,6 +49,11 @@ export const Stats = () => {
       <Row>
         <Col>
           <DateRangeButtons setDateRange={setDateRange} />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <ComparisonChart data={datas} />
         </Col>
       </Row>
       <Row>
@@ -113,10 +119,35 @@ const SleepGraph = ({ data }: { data: TrackingData[] }) => {
           <CartesianGrid stroke="#f5f5f5" />
           <Area type="monotone" dataKey="SleepTime" fill="#8884d8" stroke="#8884d8" />
           <Bar barSize={10} type="monotone" dataKey="SleepQuality" fill="#4CAF50" stroke="#4CAF50" />
-
+          <Line type="monotone" dataKey="AnxietyLevel" fill="#5D6D7E" />
           <Line type="monotone" dataKey="AnxietyLevel" fill="#5D6D7E" />
           <Line type="monotone" dataKey="StressLevel" stroke="#C0392B" />
         </ComposedChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+const ComparisonChart = ({ data }: { data: TrackingData[] }) => {
+  return (
+    <div style={{ width: "100%", height: "20em" }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="id" />
+          <YAxis domain={[0, 10]} />
+          <Tooltip />
+          <Legend />
+
+          {/* Bars for Daytime */}
+          <Bar dataKey="HapinessLevel" fill="#4CAF50" name="Happiness (Day)" />
+          <Bar dataKey="StressLevel" fill="#FF9800" name="Stress (Day)" />
+          <Bar dataKey="AnxietyLevel" fill="#2196F3" name="Anxiety (Day)" />
+
+          {/* Bars for Nighttime */}
+          <Bar dataKey="HapinessLevelNight" fill="#81C784" name="Happiness (Night)" />
+          <Bar dataKey="StressLevelNight" fill="#FFB74D" name="Stress (Night)" />
+          <Bar dataKey="AnxietyLevelNight" fill="#64B5F6" name="Anxiety (Night)" />
+        </BarChart>
       </ResponsiveContainer>
     </div>
   );
