@@ -4,7 +4,6 @@ import { Feedback } from "@component/main-pages/feedback/Feedback";
 import { Goal } from "@component/main-pages/goal/Goal";
 import { Home } from "@component/main-pages/home/Home";
 import { NotificationPage } from "@component/main-pages/notification/notification";
-import { Post } from "@component/main-pages/post/Post";
 import { Profile } from "@component/main-pages/profile/Profile";
 import { Stats } from "@component/main-pages/stats/Stats";
 import { useLayout } from "@hooks/useLayout";
@@ -29,8 +28,8 @@ export const Router = () => {
         return <NotificationPage />;
       case "CALENDAR":
         return <Calendar />;
-      case "POST":
-        return <Post />;
+      // case "POST":
+      //   return <Post />;
       default:
         return <h1>Page Not Found</h1>;
     }

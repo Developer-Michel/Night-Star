@@ -9,7 +9,6 @@ import {
   faYinYang,
   IconDefinition
 } from "@fortawesome/free-solid-svg-icons";
-import { faWindowMaximize } from "@fortawesome/free-solid-svg-icons/faWindowMaximize";
 
 export interface SideBarIconInfo {
   onClick: () => void;
@@ -25,7 +24,7 @@ export interface SideBarNavElement {
 }
 export enum PageType {
   home = "HOME",
-  post = "POST",
+  // post = "POST",
   calendar = "CALENDAR",
   goal = "GOAL",
   book = "BOOK",
@@ -44,6 +43,6 @@ export const PageIconMap: { [key in PageType]: IconDefinition } = {
   [PageType.book]: faBook,
   [PageType.stats]: faChartLine,
   [PageType.profile]: faUser,
-  [PageType.notification]: faBell,
-  [PageType.post]: faWindowMaximize
+  [PageType.notification]: faBell
+  // [PageType.post]: faWindowMaximize
 };

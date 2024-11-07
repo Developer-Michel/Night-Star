@@ -39,7 +39,7 @@ export const EditableRow = ({
   }, []);
   useEffect(() => {
     adjustTextareaHeight(); // Adjust height when component mounts or inputValue changes
-  }, [state]);
+  }, [state, inEdit]);
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setState(event.target.value);
   };
@@ -79,7 +79,9 @@ export const EditableRow = ({
           </>
         ) : (
           <>
-            <div className="input-container-row-input ">{state}</div>
+            <div style={{ whiteSpace: "pre-line" }} className="input-container-row-input ">
+              {state}
+            </div>
             {succeeded ? (
               <div className="input-container-row-success-indicator">
                 <FontAwesomeIcon icon={faCheck} />
