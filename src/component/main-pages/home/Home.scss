@@ -21,15 +21,8 @@
     }
   }
 }
-.visible .polaroid-container {
-  opacity: 1;
-  transform: rotate(-5deg) translateY(0);
-}
+
 .polaroid-container {
-  opacity: 0;
-  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-  transform: rotate(0) translateY(-50px);
-  will-change: opacity, transform;
   .col {
     display: flex;
     margin-top: 1em;
@@ -37,10 +30,15 @@
     justify-content: center;
   }
 }
+.visible .polaroid {
+  opacity: 1;
+  transform: rotate(-5deg) translateY(0);
+}
 .polaroid {
   width: 90%;
   max-width: 600px;
-  padding: 10%;
+  opacity: 0;
+
   padding: 20px;
   padding-bottom: 60px;
   background-color: rgba($color: #ffffff, $alpha: 0.8);
@@ -48,9 +46,10 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   font-family: Arial, sans-serif;
-
-  will-change: transform opacity;
-  transition: transform 0.2s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  transform: rotate(0) translateY(-50px);
+  will-change: opacity, transform;
+  overflow: hidden;
   .polaroid-upload-area {
     display: flex;
     align-items: center;
@@ -58,7 +57,6 @@
     aspect-ratio: 1/1;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: hidden;
-
     img {
       width: 100%;
       height: 100%;

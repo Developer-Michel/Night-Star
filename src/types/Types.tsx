@@ -34,6 +34,7 @@ export interface GoalType {
   UserId: number;
   Name: string;
   Succeeded: boolean;
+  VisOrder: number;
 }
 export interface FeedbackType {
   Id: number;

@@ -155,6 +155,14 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
             HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Goal/UpdateGoal`, "Update...", requestData.dto)
           })
         );
+      },
+      reorderGoals(requestData: AddRequestInterfaceWithoutReciever<GoalType[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Goal/ReorderGoals`, "Update...", requestData.dto)
+          })
+        );
       }
     },
     feedback: {
