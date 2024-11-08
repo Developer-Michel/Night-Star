@@ -221,7 +221,7 @@ const DayContent = ({
         }}
       />
       <ZenSlider
-        max={180}
+        max={480}
         uom="min"
         tooltip="Exercise boosts energy, strengthens muscles, and improves mood. Aim for 30 minutes of moderate activity most days to support heart health, mental clarity, and overall well-being. Try cardio for endurance, strength training for muscle health, or flexibility exercises to reduce tension."
         multiple={5}

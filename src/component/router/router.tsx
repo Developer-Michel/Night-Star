@@ -1,5 +1,6 @@
 import { Book } from "@component/main-pages/book/Book";
 import { Calendar } from "@component/main-pages/calendar/calendar";
+import { Diary } from "@component/main-pages/diary/Diary";
 import { Feedback } from "@component/main-pages/feedback/Feedback";
 import { Goal } from "@component/main-pages/goal/Goal";
 import { Home } from "@component/main-pages/home/Home";
@@ -26,6 +27,8 @@ export const Router = () => {
         return <Profile />;
       case "NOTIFICATION":
         return <NotificationPage />;
+      case "DIARY":
+        return <Diary />;
       case "CALENDAR":
         return <Calendar />;
       // case "POST":

@@ -20,6 +20,7 @@ export interface TrackingData {
   WaterIntake: number;
   MusicTime: number;
   ImageUrl: string;
+  DiaryText: string;
 }
 export interface UserDto {
   Id: number;

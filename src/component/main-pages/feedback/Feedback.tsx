@@ -29,7 +29,7 @@ export const Feedback = () => {
     if (selectedUser)
       api.feedback.getAllFeedbacks({
         Success: (data) => {
-          setDatas(data.sort((a, b) => Number(a.Succeeded) - Number(b.Succeeded)));
+          setDatas(data);
           setAddClick(false);
         }
       });
