@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { addDays, format, isToday, subDays } from "date-fns";
-import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft, faCaretRight, faFeatherPointed } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useComm } from "@hooks/useComm";
 import { useUserData } from "@hooks/useUserData";
@@ -20,20 +20,28 @@ export const Diary = () => {
       Success: (val) => {
         setData(val);
         setValue(val.DiaryText);
-        setVisible(true);
+        setTimeout(() => {
+          setVisible(true);
+        }, 1000);
       }
     });
   }, [currentDate]);
 
   const onNextDayPressed = () => {
-    setValue("");
-    setData(undefined);
-    setCurrentDate(addDays(currentDate, 1));
+    setVisible(false);
+    setTimeout(() => {
+      setValue("");
+      setData(undefined);
+      setCurrentDate(addDays(currentDate, 1));
+    }, 3000);
   };
   const onPreviousDayPressed = () => {
-    setValue("");
-    setData(undefined);
-    setCurrentDate(subDays(currentDate, 1));
+    setVisible(false);
+    setTimeout(() => {
+      setValue("");
+      setData(undefined);
+      setCurrentDate(addDays(currentDate, 1));
+    }, 3000);
   };
   const submit = () => {
     if (data) api.tracker.put({ dto: { ...data, DiaryText: value } });
@@ -42,7 +50,14 @@ export const Diary = () => {
   return (
     <div className={`diary ${visible && "visible"}`}>
       {!data && <LoadingSpinner />}
+      <div className="page-cover">
+        <div className="page-cover-title">
+          {selectedUser.UserName} DIARY
+          <FontAwesomeIcon icon={faFeatherPointed} />
+        </div>
+      </div>
       <textarea
+        className="book-textarea "
         placeholder={"What's on your mind today " + selectedUser.UserName + "..."}
         value={value}
         onChange={(e) => setValue(e.target.value)}
