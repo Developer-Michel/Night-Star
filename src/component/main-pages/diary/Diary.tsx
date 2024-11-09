@@ -40,7 +40,7 @@ export const Diary = () => {
     setTimeout(() => {
       setValue("");
       setData(undefined);
-      setCurrentDate(addDays(currentDate, 1));
+      setCurrentDate(subDays(currentDate, 1));
     }, 3000);
   };
   const submit = () => {
