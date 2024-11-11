@@ -7,6 +7,7 @@ import { useUserData } from "@hooks/useUserData";
 import { TrackingData } from "types/Types";
 import "./Diary.scss";
 import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinner";
+import bookCover from "public/assets/BookCover.png";
 export const Diary = () => {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [data, setData] = useState<TrackingData>();
@@ -50,7 +51,7 @@ export const Diary = () => {
   return (
     <div className={`diary ${visible && "visible"}`}>
       {!data && <LoadingSpinner />}
-      <div className="page-cover">
+      <div className="page-cover" style={{ backgroundImage: `url(${bookCover})` }}>
         <div className="page-cover-title">
           {selectedUser.UserName} DIARY
           <FontAwesomeIcon icon={faFeatherPointed} />

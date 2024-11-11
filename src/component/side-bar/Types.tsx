@@ -7,6 +7,8 @@ import {
   faCommentDots,
   faTrophy,
   faUser,
+  faUtensils,
+  faWindowMaximize,
   faYinYang,
   IconDefinition
 } from "@fortawesome/free-solid-svg-icons";
@@ -25,9 +27,10 @@ export interface SideBarNavElement {
 }
 export enum PageType {
   home = "HOME",
-  // post = "POST",
+  post = "POST",
   diary = "DIARY",
   calendar = "CALENDAR",
+  recipe = "RECIPE",
   goal = "GOAL",
   book = "BOOK",
   feedback = "FEEDBACK",
@@ -46,6 +49,7 @@ export const PageIconMap: { [key in PageType]: IconDefinition } = {
   [PageType.stats]: faChartLine,
   [PageType.profile]: faUser,
   [PageType.diary]: faBookOpen,
-  [PageType.notification]: faBell
-  // [PageType.post]: faWindowMaximize
+  [PageType.notification]: faBell,
+  [PageType.recipe]: faUtensils,
+  [PageType.post]: faWindowMaximize
 };

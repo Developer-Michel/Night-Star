@@ -117,3 +117,47 @@ export interface PostReactionType {
   PostId: number;
   ReactionEmoji: string;
 }
+export interface RecipeIngredient {
+  Id: number;
+  Quantity: number;
+  UomName: string;
+  Name: string;
+  RecipeId: number;
+}
+export interface RecipeInstruction {
+  Id: number;
+  Description: string;
+  VisOrder: number;
+}
+export interface RecipeDto extends Recipe {
+  Ingredients: RecipeIngredient[];
+  Instructions: RecipeInstruction[];
+}
+export interface Recipe {
+  Id: number;
+  Name: string;
+  Description: string;
+  PictureUrl: string;
+  SectionId: number;
+  TimeMinCooking: number;
+  TimeMinPreparation: number;
+  LastUpdate: Date;
+}
+
+export interface Section {
+  Id: number;
+  Name: string;
+  ParentId?: number;
+}
+
+export interface SectionDto extends Section {
+  Recipes: Recipe[];
+  Sections: SectionDto[];
+}
+export interface BookNote {
+  Id: number;
+  BookName: string;
+  UserId: number;
+  PageNumber: number;
+  Description: string;
+}

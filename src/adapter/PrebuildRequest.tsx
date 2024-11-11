@@ -10,7 +10,11 @@ import {
   NotificationUser,
   TaskDto,
   PostType,
-  PostReactionType
+  PostReactionType,
+  SectionDto,
+  Section,
+  RecipeDto,
+  BookNote
 } from "types/Types";
 import {
   RequestObj,
@@ -221,6 +225,22 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
           })
         );
       },
+      getAllBookNotes(requestData: AddRequestInterfaceWithoutSender<BookNote[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.GET, `Book/GetAllBookNotes`, `Loading information for you`)
+          })
+        );
+      },
+      addBookNote(requestData: AddRequestInterfaceWithoutReciever<BookNote>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Book/AddBookNote`, "Update...", requestData.dto)
+          })
+        );
+      },
       updateBook(requestData: AddRequestInterfaceWithoutReciever<BookType>) {
         addRequest(
           new RequestObj({
@@ -417,11 +437,55 @@ export const buildPrebuildRequest = (addRequest: (obj: RequestObj) => void) => {
           })
         );
       },
+
       update(requestData: AddRequestInterfaceWithoutReciever<PostType>) {
         addRequest(
           new RequestObj({
             ...requestData,
             HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Post/Update`, "Update...", requestData.dto)
+          })
+        );
+      }
+    },
+    Recipe: {
+      getSections(requestData: AddRequestInterfaceWithoutSender<SectionDto[]>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.GET, `Recipe/GetSections`, `Loading information for you`)
+          })
+        );
+      },
+
+      addSection(requestData: AddRequestInterfaceWithoutReciever<Section>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Recipe/AddSection`, "Update...", requestData.dto)
+          })
+        );
+      },
+      deleteSection(requestData: AddRequestInterfaceWithoutReciever<Section>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.DELETE, `Recipe/DeleteSection`, "Update...", requestData.dto)
+          })
+        );
+      },
+      addRecipe(requestData: AddRequestInterfaceWithoutReciever<RecipeDto>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.POST, `Recipe/AddRecipe`, `Loading information for you`)
+          })
+        );
+      },
+      updateRecipe(requestData: AddRequestInterfaceWithoutReciever<RecipeDto>) {
+        addRequest(
+          new RequestObj({
+            ...requestData,
+            HttpHeaderObj: new HttpHeaderObj(RequestType.PUT, `Recipe/UpdateRecipe`, "Update...", requestData.dto)
           })
         );
       }

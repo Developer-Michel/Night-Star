@@ -1,9 +1,16 @@
-import { faInfoCircle, faPaperPlane, faPlusCircle, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretLeft,
+  faInfoCircle,
+  faPaperPlane,
+  faPlusCircle,
+  faTimes,
+  faTrophy
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Container, Row, Col, Button, ProgressBar } from "react-bootstrap";
 import "./Book.scss";
-import { BookType, BookDto } from "types/Types";
+import { BookType, BookDto, BookNote } from "types/Types";
 import { LoadingSpinner } from "@component/assets/loading-indicator/LoadingSpinner";
 import { useComm } from "@hooks/useComm";
 import { format } from "date-fns";
@@ -24,13 +31,21 @@ export const Book = () => {
   const [data, setData] = useState<BookDto[]>([]);
   const { api } = useComm();
   const [visible, setVisible] = useState(false);
-
+  const [selectedBook, setSelectedBook] = useState<BookDto | null>(null);
+  const [notes, setNotes] = useState<BookNote[]>([]);
   useEffect(() => {
     refresh();
     setTimeout(() => {
       setVisible(true);
     }, 300);
   }, []);
+  const refreshNote = () => {
+    api.book.getAllBookNotes({
+      Success: (data) => {
+        setNotes(data);
+      }
+    });
+  };
   const refresh = () => {
     api.book.getAllBooks({
       Success: (data) => {
@@ -40,6 +55,17 @@ export const Book = () => {
     });
   };
   if (data == null) return <LoadingSpinner />;
+  if (selectedBook)
+    return (
+      <div className="book">
+        <BookNoteContainer
+          refreshNote={refreshNote}
+          bookNotes={notes.filter((x) => x.BookName === selectedBook.Book.Name)}
+          selectedBook={selectedBook}
+          setSelectedBook={setSelectedBook}
+        />
+      </div>
+    );
   return (
     <Container fluid className={`book transition-enter ${visible && "visible"}`}>
       <Row>
@@ -72,7 +98,7 @@ export const Book = () => {
       {data.map((x) => (
         <Row key={x.Book.Name}>
           <Col>
-            <BookContainer data={x} refresh={refresh} />
+            <BookContainer data={x} refresh={refresh} setSelectedBook={setSelectedBook} />
           </Col>
         </Row>
       ))}
@@ -86,7 +112,106 @@ export const Book = () => {
     </Container>
   );
 };
-const BookContainer = ({ refresh, data }: { refresh: () => void; data: BookDto }) => {
+
+const BookNoteContainer = ({
+  refreshNote,
+  bookNotes,
+  setSelectedBook,
+  selectedBook
+}: {
+  refreshNote: () => void;
+  bookNotes: BookNote[];
+  selectedBook: BookDto;
+  setSelectedBook: React.Dispatch<React.SetStateAction<BookDto | null>>;
+}) => {
+  const { api } = useComm();
+  const [addClick, setAddClick] = useState(false);
+  const { selectedUser } = useUserData();
+  const { userList } = useData();
+  const [newNote, setNewNote] = useState<BookNote>({
+    Id: -1,
+    PageNumber: 0,
+    UserId: selectedUser.Id,
+    BookName: selectedBook.Book.Name,
+    Description: ""
+  });
+  const submit = () => {
+    api.book.addBookNote({
+      dto: newNote,
+      Success: () => {
+        setAddClick(false);
+        refreshNote();
+        setNewNote({
+          Id: -1,
+          PageNumber: 0,
+          UserId: selectedUser.Id,
+          BookName: selectedBook.Book.Name,
+          Description: ""
+        });
+      }
+    });
+  };
+  return (
+    <Container>
+      <FontAwesomeIcon icon={faCaretLeft} onClick={() => setSelectedBook(null)} />
+      <h4>Book notes for {selectedBook.Book.Name}</h4>
+      {addClick ? (
+        <Row>
+          <Col>
+            <label>Page number: </label>
+            <input
+              type="number"
+              value={newNote.PageNumber}
+              onChange={(e) => setNewNote({ ...newNote, PageNumber: parseInt(e.target.value) })}
+              placeholder="page number..."
+            />
+
+            <textarea
+              style={{ width: "100%", height: "20em" }}
+              value={newNote.Description}
+              onChange={(e) => setNewNote({ ...newNote, Description: e.target.value })}
+            />
+            <br></br>
+            <button onClick={() => setAddClick(false)}>
+              <FontAwesomeIcon icon={faTimes} />
+              Cancel
+            </button>
+            <button onClick={submit}>
+              <FontAwesomeIcon icon={faPaperPlane} />
+              Submit
+            </button>
+          </Col>
+        </Row>
+      ) : (
+        <Button
+          disabled={addClick}
+          onClick={() => {
+            setAddClick(true);
+          }}
+          className="input-add-button">
+          <FontAwesomeIcon icon={faPlusCircle} />
+        </Button>
+      )}
+      {bookNotes.map((x) => (
+        <div className="booknote-row">
+          <div className="creator-buble">
+            <img src={`/assets/${userList.find((y) => x.Id == y.Id)?.UserName}.jpg`} />
+          </div>
+          {x.Description}&nbsp;P.{x.PageNumber}
+        </div>
+      ))}
+    </Container>
+  );
+};
+const BookContainer = ({
+  refresh,
+  data,
+  setSelectedBook
+}: {
+  refresh: () => void;
+  data: BookDto;
+  setSelectedBook: React.Dispatch<React.SetStateAction<BookDto | null>>;
+}) => {
   const book = data.Book;
   const users = data.Users;
 
@@ -183,6 +308,13 @@ const BookContainer = ({ refresh, data }: { refresh: () => void; data: BookDto }
               onBlur={updateUserPage}
               onChange={(e) => setPageCount(parseInt(e.target.value))}
             />
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <button
+              onClick={() => {
+                setSelectedBook(data);
+              }}>
+              Book notes
+            </button>
           </div>
         ) : (
           <Button onClick={joinLecture}>JOIN LECTURE</Button>
